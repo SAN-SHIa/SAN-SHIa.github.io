@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="SANSHI">
+
+
+
+
+
+<title>【数据结构】单链表 | SANSHI</title>
+
+
+
+    <link rel="icon" href="/sanshi1.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">SANSHI&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tag</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">SANSHI&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tag</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">【数据结构】单链表</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">SANSHI</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">September 21, 2023&nbsp;&nbsp;14:22:23</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h3 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h3><p><code>SeqList.c</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &quot;list.h&quot;</span><br><span class="line"></span><br><span class="line">LTNode* BuyListNode(LTDataType x)</span><br><span class="line">&#123;</span><br><span class="line">	LTNode* node = (LTNode*)malloc(sizeof(LTNode));</span><br><span class="line">	if (node == NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		perror(&quot;newnode:&gt;&quot;);</span><br><span class="line">		exit(-1);</span><br><span class="line">	&#125;</span><br><span class="line">	node-&gt;data = x;</span><br><span class="line">	node-&gt;next = NULL;</span><br><span class="line">	node-&gt;prev = NULL;</span><br><span class="line">	return node;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">LTNode* LTInit(LTNode* phead)</span><br><span class="line">&#123;</span><br><span class="line">	//哨兵位头节点，不存储数据，需要单独创建，在打印时也不需要考虑，打印除它之外的所有</span><br><span class="line">	phead = BuyListNode(-1);</span><br><span class="line">	phead-&gt;next = phead;</span><br><span class="line">	phead-&gt;prev = phead;</span><br><span class="line">	return phead;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void LTDestroy(LTNode*phead)</span><br><span class="line">&#123;</span><br><span class="line">	if (phead == NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	LTNode* cur = phead-&gt;next;</span><br><span class="line">	while (cur != phead);</span><br><span class="line">	&#123;</span><br><span class="line">		LTNode* next = cur-&gt;next;</span><br><span class="line">		free(cur);</span><br><span class="line">		cur = next;</span><br><span class="line">	&#125;</span><br><span class="line">	free(phead);</span><br><span class="line">	phead = NULL;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void LTPrint(LTNode* phead)</span><br><span class="line">&#123;</span><br><span class="line">	if (phead == NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	LTNode* cur = phead-&gt;next;</span><br><span class="line">	while (cur != phead)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;%d&lt;=&gt;&quot;, cur-&gt;data);</span><br><span class="line">		cur = cur-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;\n&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//不用像单链表一样探空。只改结构体中的变量，不需要二级指针。</span><br><span class="line">void LTPushBack(LTNode* phead, LTDataType x)</span><br><span class="line">&#123;</span><br><span class="line">	//有可能是空有可能不是空则需要断言；</span><br><span class="line">	//不可能为空则需要assert断言</span><br><span class="line">	//此处Init处理为非空</span><br><span class="line">	assert(phead);</span><br><span class="line">	LTNode* newnode = BuyListNode(x);</span><br><span class="line">	LTNode* tail = phead-&gt;prev;</span><br><span class="line">	tail-&gt;next = newnode;</span><br><span class="line">	newnode-&gt;prev = tail;</span><br><span class="line">	newnode-&gt;next = phead;</span><br><span class="line">	phead-&gt;prev = newnode;</span><br><span class="line">&#125;</span><br><span class="line">void LTPopBack(LTNode* phead)</span><br><span class="line">&#123;</span><br><span class="line">	if ((phead == NULL) || (phead-&gt;next == phead))    //排除为空的情况</span><br><span class="line">	&#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	LTNode* tmp = phead-&gt;prev;</span><br><span class="line">	LTNode* tmpprev = tmp-&gt;prev;</span><br><span class="line">	tmpprev-&gt;next = phead;</span><br><span class="line">	phead-&gt;prev = tmpprev;</span><br><span class="line">	free(tmp);</span><br><span class="line">	tmp = NULL;</span><br><span class="line">&#125;</span><br><span class="line">void LTPushFront(LTNode* phead, LTDataType x)</span><br><span class="line">&#123;</span><br><span class="line">	assert(phead);</span><br><span class="line">	if (phead == NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	LTNode* newnode = BuyListNode(x);</span><br><span class="line">	LTNode* next= phead-&gt;next;</span><br><span class="line">	newnode-&gt;next = next;</span><br><span class="line">	next-&gt;prev = newnode;</span><br><span class="line">	phead-&gt;next = newnode;</span><br><span class="line">	newnode-&gt;prev = phead;</span><br><span class="line">&#125;</span><br><span class="line">void LTPopFront(LTNode* phead)</span><br><span class="line">&#123;</span><br><span class="line">	if ((phead == NULL) || (phead-&gt;next == phead))    //排除为空的情况</span><br><span class="line">	&#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	LTNode* tmp = phead-&gt;prev;</span><br><span class="line">	LTNode* tmpprev = tmp-&gt;prev;</span><br><span class="line"></span><br><span class="line">	tmpprev-&gt;next = phead;</span><br><span class="line">	phead-&gt;prev = tmpprev;</span><br><span class="line">	free(tmp);</span><br><span class="line">	tmp = NULL;</span><br><span class="line">&#125;</span><br><span class="line">LTNode* LTFind(LTNode* phead, LTDataType x)</span><br><span class="line">&#123;</span><br><span class="line">	if (phead == NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	LTNode* cur = phead-&gt;next;</span><br><span class="line">	while (cur != phead)</span><br><span class="line">	&#123;</span><br><span class="line">		if (cur-&gt;data == x)</span><br><span class="line">		&#123;</span><br><span class="line">			return cur;</span><br><span class="line">		&#125;</span><br><span class="line">		else</span><br><span class="line">		&#123;</span><br><span class="line">			cur = cur-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return NULL;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void LTInsert(LTNode* pos, LTDataType x)</span><br><span class="line">&#123;</span><br><span class="line">	if (pos == NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	LTNode* newnode = BuyListNode(x);</span><br><span class="line">	LTNode* prev = pos-&gt;prev;</span><br><span class="line">	prev-&gt;next = newnode;</span><br><span class="line">	newnode-&gt;prev = prev;</span><br><span class="line">	newnode-&gt;next = pos;</span><br><span class="line">	pos-&gt;prev = newnode;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//双向循环链表给定节点后插：</span><br><span class="line">void LTInsertBack(LTNode* pos, LTDataType x)</span><br><span class="line">&#123;</span><br><span class="line">	if (pos == NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	LTNode* posPrev = pos-&gt;next;</span><br><span class="line">	LTNode* newnode = BuyListNode(x);</span><br><span class="line">	posPrev-&gt;prev = newnode;</span><br><span class="line">	newnode-&gt;next = posPrev;</span><br><span class="line">	newnode-&gt;prev = pos;</span><br><span class="line">	pos-&gt;next = newnode;</span><br><span class="line">&#125;</span><br><span class="line">//删除指定结点</span><br><span class="line">void LTErase(LTNode* pos)</span><br><span class="line">&#123;</span><br><span class="line">	if (pos == NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	LTNode* prev = pos-&gt;prev;</span><br><span class="line">	LTNode* next = pos-&gt;next;</span><br><span class="line">	prev-&gt;next = next;</span><br><span class="line">	next-&gt;prev = prev;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>SeqList.h</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#pragma once</span><br><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;assert.h&gt;</span><br><span class="line">#include&lt;stdlib.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">typedef int LTDataType;</span><br><span class="line"></span><br><span class="line">typedef struct SListNode//创建结点结构</span><br><span class="line">&#123;</span><br><span class="line">	struct ListNode* next;</span><br><span class="line">	struct ListNode* prev;</span><br><span class="line">	LTDataType data;</span><br><span class="line">&#125;LTNode;</span><br><span class="line"></span><br><span class="line">LTNode* LTInit();</span><br><span class="line">void LTDestroy(LTNode* phead);</span><br><span class="line">void LTPrint(LTNode* phead);</span><br><span class="line">LTNode* BuyListNode(LTDataType x);</span><br><span class="line">void LTPushBack(LTNode*phead,LTDataType x);</span><br><span class="line">void LTPopBack(LTNode* phead);</span><br><span class="line">void LTPushFront(LTNode* phead, LTDataType x);</span><br><span class="line">void LTPopFront(LTNode* phead);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//查找</span><br><span class="line">LTNode* LTFind(LTNode* phead, LTDataType x);</span><br><span class="line">//在指定位置之前插入</span><br><span class="line">void LTInsert(LTNode* pos, LTDataType x);</span><br><span class="line">//指定结点之后</span><br><span class="line">void LTInsertBack(LTNode* pos, LTDataType x);</span><br><span class="line">//删除指定结点</span><br><span class="line">void LTErase(LTNode* pos);</span><br></pre></td></tr></table></figure>
+
+<p><code>SeqTest.c</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#define _CRT_SECURE_NO_WARNINGS</span><br><span class="line">#include &quot;list.h&quot;</span><br><span class="line">test()</span><br><span class="line">&#123;</span><br><span class="line">	LTNode* plist = LTInit();</span><br><span class="line">	LTPushBack(plist,1);</span><br><span class="line">	LTPushBack(plist, 2);</span><br><span class="line">	LTPushBack(plist, 3);</span><br><span class="line">	LTPrint(plist);</span><br><span class="line">	LTPopBack(plist);</span><br><span class="line">	LTPrint(plist);</span><br><span class="line">	LTPushFront(plist, 3);</span><br><span class="line">	LTPrint(plist);</span><br><span class="line">	LTPopFront(plist);</span><br><span class="line">	LTPrint(plist);</span><br><span class="line">	printf(&quot;%p\n&quot;,LTFind(plist, 1));</span><br><span class="line">	LTInsert(plist-&gt;next, 30);</span><br><span class="line">	LTPrint(plist);</span><br><span class="line">	LTInsertBack(plist-&gt;next, 31);</span><br><span class="line">	LTPrint(plist);</span><br><span class="line">	LTErase(plist-&gt;next);</span><br><span class="line">	LTPrint(plist);</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	test();</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="单链表-1"><a href="#单链表-1" class="headerlink" title="单链表"></a>单链表</h4><h4 id="单链表存在的问题"><a href="#单链表存在的问题" class="headerlink" title="单链表存在的问题"></a>单链表存在的问题</h4><p>​		当空间不足时，顺序表需要进行增容，但由于顺序表本质为数组，数据在物理上连续存放，因此在进行扩容时要付出较大的空间代价。为避免频繁扩容，基本每次都扩容 2 倍，当扩容次数增多时，就很有可能会造成一定程度的空间浪费。由于顺序表内数据连续存储，我们在向顺序表中位置插入或删除数据时，就需要挪动大量的数据，效率不高。</p>
+<h4 id="单链表的优势"><a href="#单链表的优势" class="headerlink" title="单链表的优势"></a>单链表的优势</h4><p>​		<strong>链表克服这些缺陷的方法</strong>是，将每一个节点划分为<strong>数据与指针</strong>两部分，<strong>数据部分用于存储数据而指针部分用于指向下一节点</strong></p>
+<p><strong>单链表无头结点非循环</strong></p>
+<p>tips</p>
+<p>SLNode**pphead指的是数据类型</p>
+<p>*pphead是解引用，往上回一级指针对应SLNode * newnode</p>
+<p>SLNode*cur</p>
+<p>遍历整个单链表，用于打印，查找，销毁。结合while使用</p>
+<p>SLNode*tail</p>
+<p>用于寻找到链表的最末尾结点，结合while使用</p>
+<p>SLNode*prev</p>
+<p>在目标结点的前一个，用于删除，尾删</p>
+<p>SLNode*pos</p>
+<p>确定所需操作的位置</p>
+<p>SLErase(&amp;plist, (plist-&gt;next)-&gt;next);</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/C/"># C</a>
+                    
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"># 数据结构</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2023/09/21/%E5%93%88%E5%93%88%E5%93%88/">哈哈哈</a>
+            
+            
+            <a class="next" rel="next" href="/2023/09/14/%E4%BF%A1%E6%81%AF%E5%AD%A6%E9%99%A2%E7%AC%AC%E5%8D%81%E5%B1%8A%E6%99%BA%E8%83%BD%E5%B0%8F%E8%BD%A6%E5%A4%A7%E8%B5%9B/">信息学院第十届智能小车大赛</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<!-- 脚本部分 -->
+<script>
+  var now = new Date(); 
+  function createtime() { 
+      var grt= new Date("08/29/2023 20:00:00");//在此处修改你的建站时间
+      now.setTime(now.getTime()+250); 
+      days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+      if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+      mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+      snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+      document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+      document.getElementById("times").innerHTML = hnum + " 时 " + mnum + " 分 " + snum + " 秒"; 
+  } 
+  setInterval("createtime()",250);
+</script>
+<div class="copyright">
+    <span>Creator | SANSHI</span>
+</div>
+
+
+
+
+    <!-- 显示部分 -->
+
+</footer>
+
+    </div>
+    <script>
+        !
+        function() {
+            function n(n, e, t) {
+                return n.getAttribute(e) || t
+            }
+            function e(n) {
+                return document.getElementsByTagName(n)
+            }
+            function t() {
+                var t = e("script"),
+                o = t.length,
+                i = t[o - 1];
+                return {
+                    l: o,
+                    z: n(i, "zIndex", -1),     //置于主页面背后
+                    o: n(i, "opacity", .5),     //线条透明度
+                    c: n(i, "color", "0,0,0"),  //线条颜色
+                    n: n(i, "count", 100)    //线条数量
+                }
+            }
+            function o() {
+                a = m.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+                c = m.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+            }
+            function i() {
+                r.clearRect(0, 0, a, c);
+                var n, e, t, o, m, l;
+                s.forEach(function(i, x) {
+                    for (i.x += i.xa, i.y += i.ya, i.xa *= i.x > a || i.x < 0 ? -1 : 1, i.ya *= i.y > c || i.y < 0 ? -1 : 1, r.fillRect(i.x - .5, i.y - .5, 1, 1), e = x + 1; e < u.length; e++) n = u[e],
+                    null !== n.x && null !== n.y && (o = i.x - n.x, m = i.y - n.y, l = o * o + m * m, l < n.max && (n === y && l >= n.max / 2 && (i.x -= .03 * o, i.y -= .03 * m), t = (n.max - l) / n.max, r.beginPath(), r.lineWidth = t / 2, r.strokeStyle = "rgba(" + d.c + "," + (t + .2) + ")", r.moveTo(i.x, i.y), r.lineTo(n.x, n.y), r.stroke()))
+                }),
+                x(i)
+            }
+            var a, c, u, m = document.createElement("canvas"),
+            d = t(),
+            l = "c_n" + d.l,
+            r = m.getContext("2d"),
+            x = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+            function(n) {
+                window.setTimeout(n, 1e3 / 45)
+            },
+            w = Math.random,
+            y = {
+                x: null,
+                y: null,
+                max: 2e4
+            };
+            m.id = l,
+            m.style.cssText = "position:fixed;top:0;left:0;z-index:" + d.z + ";opacity:" + d.o,
+            e("body")[0].appendChild(m),
+            o(),
+            window.onresize = o,
+            window.onmousemove = function(n) {
+                n = n || window.event,
+                y.x = n.clientX,
+                y.y = n.clientY
+            },
+            window.onmouseout = function() {
+                y.x = null,
+                y.y = null
+            };
+            for (var s = [], f = 0; d.n > f; f++) {
+                var h = w() * a,
+                g = w() * c,
+                v = 2 * w() - 1,
+                p = 2 * w() - 1;
+                s.push({
+                    x: h,
+                    y: g,
+                    xa: v,
+                    ya: p,
+                    max: 6e3
+                })
+            }
+            u = s.concat([y]),
+            setTimeout(function() {
+                i()
+            },
+            100)
+        } ();
+        </script>
+        <!-- 引入jQuery -->
+            <script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+        <!-- 雪花特效2 -->
+            <script type="text/javascript" src="/js/snow2.js"></script>
+        
+</body>
+
+</html>
