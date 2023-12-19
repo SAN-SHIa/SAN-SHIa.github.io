@@ -41,7 +41,7 @@ hr {
  * 2. Correct the odd `em` font sizing in all browsers.
  */
 pre {
-  font-family: monospace, monospace /* 1 */;
+  font-family: '思源宋体 CN', 'Lantinghei SC', '宋体', 'PingFang SC', 'Microsoft Jhenghei', 'Microsoft Yahei','lanting', 'Seguo UI', 'Arial'; /* 1 */;
   font-size: 1em /* 2 */;
 }
 /* Text-level semantics

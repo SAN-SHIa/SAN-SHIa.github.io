@@ -1,7 +1,7 @@
 @font-face {
   font-family: '思源宋体 CN';
-  src: url("../fonts/lanting/SourceHanSerifCN-Medium-6.otf"); /* IE9 */
+  src: url("../fonts/lanting/systzt.ttf"); /* IE9 */
   font-style: normal;
-  font-weight: 300;
+  font-weight: 100;
   font-display: swap;
 }
