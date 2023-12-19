@@ -1,11 +1,10 @@
 @font-face {
-  font-family: '思源宋体 CN';
-  src: url('../fonts/lanting/SourceHanSerifCN-Medium-6.otf'); /* IE9 */
+  font-family: 'SourceHanSerifCN';
+  src: url("../fonts/lanting/SourceHanSerifCN-Medium-6.otf"); /* IE9 */
   font-style: normal;
   font-weight: 300;
   font-display: swap;
 }
-
 body {
-  font-family: '思源宋体 CN', 'Lantinghei SC', '宋体', 'PingFang SC', 'Microsoft Jhenghei', 'Microsoft Yahei','lanting', 'Seguo UI', 'Arial';
+  font-family: '思源宋体 CN', 'Lantinghei SC', '宋体', 'PingFang SC', 'Microsoft Jhenghei', 'Microsoft Yahei', 'lanting', 'Seguo UI', 'Arial';
 }
