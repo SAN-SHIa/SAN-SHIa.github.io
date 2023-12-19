@@ -3,5 +3,5 @@
   src: url("../fonts/lanting/SourceHanSerifCN-Medium-6.otf") format('opentype');
 /* 可选：定义字体的样式和粗细 */
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
 }
