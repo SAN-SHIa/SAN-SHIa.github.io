@@ -13,7 +13,7 @@
 
 
 
-<title>�����ݽṹ���γ����?-MicroMouse�Թ������㷨��ʾ | SANSHI</title>
+<title>【数据结构】课程设计-MicroMouse迷宫遍历算法演示 | SANSHI</title>
 
 
 
@@ -196,7 +196,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">�����ݽṹ���γ����?-MicroMouse�Թ������㷨��ʾ</h1>
+            <h1 class="post-title">【数据结构】课程设计-MicroMouse迷宫遍历算法演示</h1>
             
                 <div class="post-meta">
                     
@@ -205,14 +205,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">December 19, 2023&nbsp;&nbsp;12:25:05</a>
+                        Date: <a href="#">December 19, 2023&nbsp;&nbsp;12:35:09</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/%EF%BF%BD%EF%BF%BD%EF%BF%BD%DD%BDu/">���ݽṹ</a>
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
                             
                         </span>
                     
@@ -222,116 +222,98 @@
 
         <div class="post-content">
             <hr>
-<h1 id="��һ��-�������"><a href="#��һ��-�������" class="headerlink" title="��һ�� �������?"></a>��һ�� �������?</h1><h2 id="1-1-����"><a href="#1-1-����" class="headerlink" title="1.1??? ����"></a>1.1??? ����</h2><p>MicroMouse,����Ϊ�������󡱡���ʹ��Ƕ��ʽ΢���������������ͻ����˶��������ɵ�һ����������װ�ã�΢�ͻ����ˣ�������������ڲ�ͬ���Թ������Զ������ѡ��·����������Ӧ���㷨�����ٵشﵽ���趨��Ŀ�ĵء����ʵ繤�͵��ӹ���ѧ�ᣨIEEE��ÿ�궼Ҫ�ٰ�һ�ι����Եĵ��������Թ��������Ծٰ������μӹ�ӻԾ��Ϊ�������ѧ�������ˡ�������ԭ����������ѡ�޿γ̡�?</p>
-<p><img src="https://flowus.cn/preview/24d52d99-3328-4c2a-b76f-e0652c78f345" alt="4b1177c3411161fecc79a8f023f5687.png"></p>
-<p>ͼ1</p>
-<p>��Micromouse�����У��������������DFS���͹������������BFS��Ҳ�ǳ��õ��㷨֮һ������Ѱ���Թ��е�·����̽��δ֪������</p>
-<p>DFS��BFS���ǳ����Ļ��������㷨��������Micromouse�����п�����Ϊ·���滮�Ļ����㷨���������������߼��㷨���ʹ�ã����ڸ����ӵ�·���滮��̽�����ԡ�������ͨ��������Լ�Micromouse����ƺ��Թ����ص�ѡ����ʵ������㷨������������Ż���ʵ�ָ���Ч��·���滮��̽����?</p>
-<p><img src="https://flowus.cn/preview/27fc1902-dd17-4a67-aa02-83de13b4a68d" alt="e0adc4481c5c52a43cafc420ba9c547.png"></p>
-<p>ͼ2.DFS�㷨����Թ�����?</p>
-<p><img src="https://flowus.cn/preview/9cb361e5-dfac-4540-9fd8-4fd5495d86d1" alt="aa37668dd9ffdaac7fe47a454631d22.png"></p>
-<p>ͼ3.BFS�㷨����Թ�����?</p>
-<h2 id="1-2-�������"><a href="#1-2-�������" class="headerlink" title="1.2??? �������?"></a>1.2??? �������?</h2><p>����Ŀּ��ʵ��һ������DFS��BFS�㷨��MicroMouse�Թ�Ѱ·���ӻ����򡣸ó�����Զ�ȡ��ͬ��ʽ���Թ���ͼ��ʹ��DFS��BFS�㷨��������·������ͨ��ͼ�λ�����չʾ�������̺ͽ������Ŀͨ��C++����ʵ�֣������ͼ�ο���ļ���ȡʵ���Թ��Ŀ��ӻ�չʾ��������Ч������Q��</p>
-<p>�������������DFS����DFS�㷨�ᾡ������������Թ��ķ�֧·����ֱ�������ϰ�����ߵ����Թ��ı߽磬Ȼ����ݵ���һ���ڵ������������·����</p>
-<p>�������������BFS����BFS�㷨�����������Թ����������������������Ľڵ㣬Ȼ������չ�������Զ�Ľڵ�?</p>
-<h2 id="1-3-��������"><a href="#1-3-��������" class="headerlink" title="1.3??? ��������"></a>1.3??? ��������</h2><p><strong>1.3.1�Թ���ͼ����</strong></p>
-<p>�Թ���ͼ���ı��ļ���ʽ�洢��ÿ�����ִ�����ͬ���͵��Թ�Ԫ�أ�</p>
-<p>0����ʾ��ͨ�е�·����</p>
-<p>1����ʾǽ�ڣ�����ͨ�����ϰ��</p>
-<p>2������㵽�յ��������ȷ��·��</p>
-<p>3������㵽�յ��������·��</p>
-<p>�Թ���ͼ�Զ�ά�������ʽ�洢������? int maze[30][30]��</p>
-<p><strong>1.3.2DFS��BFS������������ݽ�?</strong></p>
-<p>�ṹ�壺������Ҫ����ڵ�ṹ�塢�Թ�������ݽṹ������ش洢�Ͳ������ݡ�</p>
-<p>ջ��Stack���Ͷ��У�Queue��������DFS��BFS�㷨�����������д洢�ڵ㡢��¼·���Ȳ�����</p>
-<p><strong>1.3.3���ݵĶ�ȡ�ʹ洢</strong></p>
-<p>�Թ���ͼ�������ı��ļ�����ʽ�洢���ļ����ݰ����Թ���ͼ�����нṹ�������У�ʹ�����ֱ�ʾ��ͬ���Թ�Ԫ�أ�ÿ������֮������ÿո������</p>
-<h2 id="1-4-��������"><a href="#1-4-��������" class="headerlink" title="1.4??? ��������"></a>1.4??? ��������</h2><p>1.�Թ��Ĵ������ļ���ȡ</p>
-<p>2.��ⷽʽ��ʹ��DFS��BFS�㷨�����Թ�Ѱ·����</p>
-<p>3.�ṩ����ʽ���棬�����û�ѡ��ͬ�Թ���ʽ���㷨����������</p>
-<p>4.��ͼ�ν���չʾ�Թ��������̺ͽ�������н���������������е���·������ȷ·����������Ч�ʣ���</p>
-<h2 id="1-5-��������"><a href="#1-5-��������" class="headerlink" title="1.5??? ��������"></a>1.5??? ��������</h2><p>������ԣ�C++</p>
-<p>����������Dev-C++</p>
-<p>ͼ�ο⣺&lt;graphics.h&gt;���������ͼ�ο�?</p>
-<h2 id="1-6-����ƻ�"><a href="#1-6-����ƻ�" class="headerlink" title="1.6??? ����ƻ�?"></a>1.6??? ����ƻ�?</h2><p>?<strong>��һ��</strong></p>
-<p>1.���ñ�̻���DevC++��ͼ�λ���EGE</p>
-<p>2.����ѡ���������?</p>
-<p>3.��Ϥ��غ�����ʹ��?</p>
-<p> <strong>�ڶ���</strong></p>
-<p>1.ȷ��ѡ��</p>
-<p>2.��Ƴ�����ƴ��½ṹ��Ч������������DFS����</p>
-<p>3.ʵ�ֶ�ȡ�ļ����ƹ��첻ͬ�ĵ�ͼ��ʽ</p>
-<p> <strong>������</strong></p>
-<p>1.����BFS�㷨������ͼʵ��</p>
-<p>2.ʵ�������������ҳ�潻��?</p>
-<p>3.�����ظ��ļ��뺯��</p>
-<p> <strong>������</strong></p>
-<p>1.����Ч���������ڱ����Ĺ����м�¼Ѱ·��Ч��</p>
-<p>2.��ƴ���UI</p>
-<p>3.�Ż�ϸ�ڣ�����ע��</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV17Q4y137ms/?t=1&spm_id_from=333.1007.seo_video.first">课设演示视频地址 点击此处</a></p>
+<h1 id="第一章-需求分析"><a href="#第一章-需求分析" class="headerlink" title="第一章 需求分析"></a>第一章 需求分析</h1><h2 id="1-1-引言"><a href="#1-1-引言" class="headerlink" title="1.1  引言"></a>1.1  引言</h2><p>MicroMouse,译名为“电脑鼠”。是使用嵌入式微控制器、传感器和机电运动部件构成的一种智能行走装置（微型机器人），电脑鼠可以在不同“迷宫”中自动记忆和选择路径，采用相应的算法，快速地达到所设定的目的地。国际电工和电子工程学会（IEEE）每年都要举办一次国际性的电脑鼠走迷宫竞赛，自举办以来参加国踊跃，为此许多大学还开设了“电脑鼠原理和制作”选修课程。</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/1.png" alt="img"></p>
+<p>图1</p>
+<p>在Micromouse竞赛中，深度优先搜索（DFS）和广度优先搜索（BFS）也是常用的算法之一，用于寻找迷宫中的路径和探索未知环境。</p>
+<p>DFS和BFS都是常见的基础搜索算法，它们在Micromouse竞赛中可以作为路径规划的基础算法，并可以与其他高级算法结合使用，用于更复杂的路径规划和探索策略。参赛者通常会根据自己Micromouse的设计和迷宫的特点选择合适的搜索算法，并对其进行优化以实现更高效的路径规划和探索。</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/2.png" alt="img"></p>
+<p>图2.DFS算法解决迷宫问题</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/3.png" alt="img"></p>
+<p>图3.BFS算法解决迷宫问题</p>
+<h2 id="1-2-任务概述"><a href="#1-2-任务概述" class="headerlink" title="1.2  任务概述"></a>1.2  任务概述</h2><p>本项目旨在实现一个基于DFS和BFS算法的MicroMouse迷宫寻路可视化程序。该程序可以读取不同样式的迷宫地图，使用DFS和BFS算法搜索最优路径，并通过图形化界面展示搜索过程和结果。项目通过C++语言实现，并结合图形库和文件读取实现迷宫的可视化展示。并引入效率因数Q。</p>
+<p>深度优先搜索（DFS）：DFS算法会尽可能深地搜索迷宫的分支路径，直到遇到障碍物或者到达迷宫的边界，然后回溯到上一个节点继续搜索其他路径。</p>
+<p>广度优先搜索（BFS）：BFS算法会逐层地搜索迷宫，先搜索距离出发点最近的节点，然后逐渐扩展到距离更远的节点。</p>
+<h2 id="1-3-数据描述"><a href="#1-3-数据描述" class="headerlink" title="1.3  数据描述"></a>1.3  数据描述</h2><p><strong>1.3.1迷宫地图数据</strong></p>
+<p>迷宫地图以文本文件形式存储，每个数字代表不同类型的迷宫元素：</p>
+<p>0：表示可通行的路径。</p>
+<p>1：表示墙壁，不可通过的障碍物。</p>
+<p>2：从起点到终点遍历到正确的路径</p>
+<p>3：从起点到终点遍历过的路径</p>
+<p>迷宫地图以二维数组的形式存储，例如 int maze[30][30]。</p>
+<p><strong>1.3.2DFS和BFS搜索所需的数据结构</strong></p>
+<p>结构体：可能需要定义节点结构体、迷宫类等数据结构来方便地存储和操作数据。</p>
+<p>栈（Stack）和队列（Queue）：用于DFS和BFS算法的搜索过程中存储节点、记录路径等操作。</p>
+<p><strong>1.3.3数据的读取和存储</strong></p>
+<p>迷宫地图数据以文本文件的形式存储。文件内容按照迷宫地图的行列结构进行排列，使用数字表示不同的迷宫元素，每个数字之间可以用空格隔开。</p>
+<h2 id="1-4-功能需求"><a href="#1-4-功能需求" class="headerlink" title="1.4  功能需求"></a>1.4  功能需求</h2><p>1.迷宫的创建：文件读取</p>
+<p>2.求解方式：使用DFS和BFS算法进行迷宫寻路搜索</p>
+<p>3.提供交互式界面，允许用户选择不同迷宫样式和算法进行搜索。</p>
+<p>4.以图形界面展示迷宫搜索过程和结果（其中结果包括搜索过程中的总路长，正确路长及其搜索效率）。</p>
+<h2 id="1-5-运行需求"><a href="#1-5-运行需求" class="headerlink" title="1.5  运行需求"></a>1.5  运行需求</h2><p>编程语言：C++</p>
+<p>开发环境：Dev-C++</p>
+<p>图形库：&lt;graphics.h&gt;中所定义的图形库</p>
+<h2 id="1-6-任务计划"><a href="#1-6-任务计划" class="headerlink" title="1.6  任务计划"></a>1.6  任务计划</h2><p> <strong>第一周</strong></p>
+<p>1.配置编程环境DevC++与图形化库EGE</p>
+<p>2.讨论选题与可行性</p>
+<p>3.熟悉相关函数的使用</p>
+<p> <strong>第二周</strong></p>
+<p>1.确认选题</p>
+<p>2.设计程序设计大致结构与效果，初步尝试DFS遍历</p>
+<p>3.实现读取文件绘制构造不同的地图样式</p>
+<p> <strong>第三周</strong></p>
+<p>1.构造BFS算法遍历地图实现</p>
+<p>2.实现鼠标操作的相关页面交互</p>
+<p>3.整合重复文件与函数</p>
+<p> <strong>第四周</strong></p>
+<p>1.引入效率因数，在遍历的过程中记录寻路的效率</p>
+<p>2.设计窗口UI</p>
+<p>3.优化细节，增添注释</p>
 <hr>
-<h1 id="�ڶ���-��Ҫ���"><a href="#�ڶ���-��Ҫ���" class="headerlink" title="�ڶ��� ��Ҫ���?"></a>�ڶ��� ��Ҫ���?</h1><h2 id="2-1-�������"><a href="#2-1-�������" class="headerlink" title="2.1?�������?"></a>2.1?�������?</h2><p><strong>2.1.1 UI��������</strong></p>
-<p>�ý�����DFS��BFS���ӻ���ʽʵ�ֵ��������û���ͨ���ý���ѡ��������Թ�������ʽ��?</p>
-<p>�ý�����Ҫ���е���Ҫ�����У�DFS��BFS��ʽ��ѡ���Թ���ͼ��ѡ��</p>
-<p>���й����Թ���ͼ�����ṩ�����Ų�ͬ�ĵ�ͼ�ɹ���ѡ�����Թ�������Ϊ�Թ����ڡ�</p>
-<p>�ý���ĳ���ͨ��EGEͼ�ο�ʵ�֡�</p>
-<p><strong>2.1.2 �Թ���ͼ�Ļ���</strong></p>
-<p>Լ���ԡ�1�����ǽ�ڣ���?0�����ͨ·����?2����ǿ��нڵ㣬��?3�������·��������֮���ֲ����е�·����������ͼ��ʽ��������Լ������text�ĵ����Ծ�����ʽ���벢����EGE��ʵ�ֿ��ӻ���ǽ�ڡ�ͨ·�����нڵ㡢��·�Բ�ͬ��ɫ�������֣��Ե�ͼ������Ϊ�Թ��յ㣬�������??��ǡ�?</p>
-<p><strong>2.1.3 DFS��BFSѰ·������ӻ�?</strong></p>
-<p>ͨ��ջ�ṹʵ��DFS��BFS�����Թ���ͼ���سɹ��󣬸����û���ѡ��ı�����ʽ����ͼ��ʼ��������DFSΪ�����û���ÿһ���Թ��ڵ�Ѱ�����ͨ·��ÿ���ڵ㶼�����г�Ŀǰ������������������з���������һ��������У��÷�����Ŀǰ��������ͬ�������ظ÷������������ͬʱ����ѱ����ڵ�Ϊ���нڵ㣻���ж������Ϊͨ·�����ҡ��¡����ϵ�˳���������������ͬʱ����ѱ����ڵ�Ϊ���нڵ㣻�������޿���ͨ·�����������ԭ·����ֱ����������δ��������ġ���·�ڡ���ͬʱ��ǻ���·��Ϊ����·����ͬ���أ����û�ѡ��BFS������ʽ������ÿ������·�ڡ����ȱ���ÿ��ÿ�������������ÿ�������·���������ɡ�</p>
-<p>ͨ������Micromouseͼ��չʾ����·����MicromouseСͼ����ƶ���ʾѰ·�Ĺ��̣�Micromouse�ִ��Թ����ڣ�����ͼ���ģ���ֹͣ������һ�α�������ɣ�ͬʱMicromouse�����ߵķ��򼰾���·������������ʽ����ӡ���ն��ϡ�</p>
-<h2 id="2-2-����������"><a href="#2-2-����������" class="headerlink" title="2.2?����������"></a>2.2?����������</h2><p>���ݽṹ���Թ���ͼ�������㷨��������ݽṹ��ջ�����еȣ���?</p>
-<p>����ƣ����ܰ����Թ��ࡢ������ȡ�</p>
-<p>�Թ���ͼѰ·��������̱�̿ɴ�����Ϊ��<br>��1��ѡ�������ʽ��DFS&#x2F;BFS����</p>
-<p>��2��ѡ���Թ���ͼ��</p>
-<p>��3��������ѡ������ʽ�����Թ���ͼ��</p>
-<p>���û�ѡ��DFS������ʽ������̣�?3���ֿ�ϸ��Ϊ���¹��̣�</p>
-<p>���ڵ�ǰ�Թ��ڵ���Ѱ���з���</p>
-<p>����ÿһ���ڵ㴦��������һ�����з������ظ÷��������ǰ������ͬʱ�������·��Ϊ��2�������ж�����з��������ҡ��¡����ϵ�˳����������������������·��Ϊ��?2�������ýڵ㴦�޿���ͨ·������ԭ·����ֱ���ִ���δ��������Ľڵ㴦��ͬʱ��ǻ���·��Ϊ��3����</p>
-<p>�۵ִ��Թ����ڣ�����������</p>
-<p>���û�ѡ��BFS������ʽ������̣�?3����ϸ��Ϊ��</p>
-<p>���ڵ�ǰ�Թ��ڵ���Ѱ���з���</p>
-<p>����ÿһ���ڵ㴦��������һ�����з������ظ÷��������ǰ������ͬʱ�������·��Ϊ��2�������ж�����з��������ҡ��¡����ϵ�˳�򽫸ýڵ��ÿ������������������ѱ����ڵ�Ϊ��?2�������ýڵ㴦�޿���ͨ·������ԭ·����ֱ���ִ���δ��������Ľڵ㴦��ͬʱ��ǻ���·��Ϊ��3����</p>
-<p>�۵ִ��Թ����ڣ�����������</p>
-<h2 id="2-3-���н������"><a href="#2-3-���н������" class="headerlink" title="2.3?���н������?"></a>2.3?���н������?</h2><p>��ҳ���棺�ṩѡ��DFS��BFS�㷨�Լ���ͬ�Թ���ʽ�İ�ť��</p>
-<p><img src="https://flowus.cn/preview/4dd68f67-dc7c-4cb0-b672-e401ad5f35a9" alt="ͼ2.3.1 ��ҳ���桤������ʽ��ѡ��"><br>ͼ2.3.1 ��ҳ���桤������ʽ��ѡ��</p>
-<p>��ͼ2.3.1��ʾ�������г�������ȳ��ָý��棬�û���ѡ��DFS��BFS��Ϊ֮���Թ�Ѱ·�ı����ֶΡ�</p>
-<p>�ý���ͼ�겿��Դ�����磬��������鳤�ֻ��Ƴɣ�ͨ��EGE���֡�</p>
-<p><img src="https://flowus.cn/preview/27e82cd2-7fbc-4c50-8144-80b6bbe6ab97" alt="ͼ2.3.2 ��ҳ���桤�Թ���ͼ��ѡ��"><br>ͼ2.3.2 ��ҳ���桤�Թ���ͼ��ѡ��</p>
-<p>ѡ�������ʽ�����ת����ͼ2.3.2��ʾ�Ľ��棬�û��ɸ�������ϲ��ѡ��������һ��</p>
-<p>�Թ���ͼ�����Ծ�����ʽ���洢��text�ļ��У�����������EGE���֣�������ַ�ʽ�������������֣��˴�����׸����?</p>
-<p>��������չʾ���棺չʾ�������̵�ͼ�λ����档</p>
-<p><img src="https://flowus.cn/preview/a2231f68-5e98-476a-be6d-50dea3c6d80a" alt="ͼ2.3.3 �������̵�ͼ�λ�����"><br>ͼ2.3.3 �������̵�ͼ�λ�����</p>
-<p>ͼ2.3.3��Ϊ�Թ���Ѱ·���̽��棬���ΪѰ·�������Ҳ�հ״���DFS|MAZE 3����ʾ�û���ѡ������ʽΪDFS���Թ���ͼΪMAZE3����������TotalLength��RightLength��Efficiency�ֱ��ʾѰ·���ߵ��ܳ��ȡ���ȷ·�����ܳ��ȼ�����ʱ�䣨����Ϊ��λ��ʱ����?</p>
-<p>�����??����Ϊ�Թ��յ㣬Micmouse�ִ�õ�����Ϊ����������?</p>
-<p>���չʾ���棺չʾ���������ͼ�λ����档</p>
-<p><img src="https://flowus.cn/preview/5b2150b7-6661-4cd0-ab22-4dd8994550f2" alt="ͼ2.3.4 ���������ͼ�λ�����"><br>ͼ2.3.4 ���������ͼ�λ�����?</p>
-<p>Micmouse�ִ��Թ��е㣬��ʱ��ද��ֹͣ���ţ��Ҳ�����������ֵҲ���ٷ����仯���û��ɵ�֪���α���Micmouse���ߵ��ܳ��ȣ�TotalLength������ȷ·�����ܳ��ȣ�RightLength��������������ʱ�䣨Efficiency����ͬʱ���ն��Ͽɿ�����ͼ2.3.5��ʾ��ÿ�����߷�������ĳ��֡�?</p>
-<p><img src="https://flowus.cn/preview/ffebe2d9-5b0f-4913-9660-8739c893b52b" alt="ͼ2.3.5 ���߷����������ն˵Ĵ�ӡ���"><br>ͼ2.3.5 ���߷����������ն˵Ĵ�ӡ���?</p>
+<h1 id="第二章-概要设计"><a href="#第二章-概要设计" class="headerlink" title="第二章 概要设计"></a>第二章 概要设计</h1><h2 id="2-1-总体设计"><a href="#2-1-总体设计" class="headerlink" title="2.1 总体设计"></a>2.1 总体设计</h2><p><strong>2.1.1 UI交互界面</strong></p>
+<p>该界面是DFS、BFS可视化方式实现的引导，用户可通过该界面选择所需的迷宫遍历方式。</p>
+<p>该界面需要具有的主要功能有：DFS、BFS方式的选择，迷宫地图的选择。</p>
+<p>其中关于迷宫地图我们提供了三张不同的地图可供挑选，以迷宫中心作为迷宫出口。</p>
+<p>该界面的呈现通过EGE图形库实现。</p>
+<p><strong>2.1.2 迷宫地图的绘制</strong></p>
+<p>约定以”1“标记墙壁，”0“标记通路，”2“标记可行节点，”3“标记死路（即遍历之后发现不可行的路径），将地图样式根据以上约定存入text文档，以矩阵形式读入并借助EGE库实现可视化。墙壁、通路、可行节点、死路以不同颜色进行区分，以地图中心作为迷宫终点，用五角星⭐标记。</p>
+<p><strong>2.1.3 DFS、BFS寻路及其可视化</strong></p>
+<p>通过栈结构实现DFS、BFS。在迷宫地图加载成功后，根据用户所选择的遍历方式及地图开始遍历。以DFS为例，用户在每一个迷宫节点寻求可行通路，每个节点都可能有除目前遍历方向外的三个可行方向，若仅有一个方向可行（该方向与目前遍历方向不同），则沿该方向继续遍历，同时标记已遍历节点为可行节点；若有多个方向都为通路，则按右、下、左、上的顺序依次深度搜索，同时标记已遍历节点为可行节点；若出现无可行通路的情况，则沿原路返回直至到达仍有未遍历方向的“岔路口”，同时标记回溯路径为“死路”。同样地，若用户选择BFS遍历方式，则在每个“岔路口”优先遍历每个每个方向而非深入每个方向的路径遍历即可。</p>
+<p>通过引入Micromouse图标展示遍历路径，Micromouse小图标的移动表示寻路的过程，Micromouse抵达迷宫出口（即地图中心）则停止，代表一次遍历的完成，同时Micromouse所行走的方向及具体路径将以坐标形式被打印在终端上。</p>
+<h2 id="2-2-面向过程设计"><a href="#2-2-面向过程设计" class="headerlink" title="2.2 面向过程设计"></a>2.2 面向过程设计</h2><p>数据结构：迷宫地图、搜索算法所需的数据结构（栈、队列等）。<br>类设计：可能包括迷宫类、搜索类等。<br>迷宫地图寻路的面向过程编程可粗略拟为：<br>（1）选择遍历方式（DFS&#x2F;BFS）；<br>（2）选择迷宫地图；<br>（3）按照所选遍历方式遍历迷宫地图。</p>
+<p>若用户选择DFS遍历方式，则过程（3）又可细化为如下过程：<br>①在当前迷宫节点搜寻可行方向；<br>②在每一个节点处，若仅有一个可行方向，则沿该方向继续向前遍历，同时标记已走路径为“2”；若有多个可行方向，则以右、下、左、上的顺序依次深度搜索，标记已走路径为“2”；若该节点处无可行通路，则沿原路返回直至抵达有未遍历方向的节点处，同时标记回溯路径为“3”；<br>③抵达迷宫出口，遍历结束。</p>
+<p>若用户选择BFS遍历方式，则过程（3）可细化为：<br>①在当前迷宫节点搜寻可行方向；<br>②在每一个节点处，若仅有一个可行方向，则沿该方向继续向前遍历，同时标记已走路径为“2”；若有多个可行方向，则以右、下、左、上的顺序将该节点的每个方向都作遍历并标记已遍历节点为“2”；若该节点处无可行通路，则沿原路返回直至抵达有未遍历方向的节点处，同时标记回溯路径为“3”；<br>③抵达迷宫出口，遍历结束。</p>
+<h2 id="2-3-运行界面设计"><a href="#2-3-运行界面设计" class="headerlink" title="2.3 运行界面设计"></a>2.3 运行界面设计</h2><p>主页界面：提供选择DFS和BFS算法以及不同迷宫样式的按钮。</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/4.png" alt="img"><br>图2.3.1 主页界面·遍历方式的选择<br>如图2.3.1所示，在运行程序后首先出现该界面，用户可选择DFS或BFS作为之后迷宫寻路的遍历手段。<br>该界面图标部分源自网络，其余皆由组长手绘制成，通过EGE呈现。</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/5.png" alt="img"><br>图2.3.2 主页界面·迷宫地图的选择<br>选择遍历方式后会跳转出如图2.3.2所示的界面，用户可根据自身喜好选择三者其一。<br>迷宫地图首先以矩阵形式被存储在text文件中，被读入程序后经EGE呈现，具体呈现方式见报告其他部分，此处不再赘述。<br>搜索过程展示界面：展示搜索过程的图形化界面。</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/6.png" alt="img"><br>图2.3.3 搜索过程的图形化界面<br>图2.3.3即为迷宫的寻路过程界面，左侧为寻路动画，右侧空白处“DFS|MAZE 3”表示用户所选遍历方式为DFS，迷宫地图为MAZE3，三个参数TotalLength、RightLength、Efficiency分别表示寻路所走的总长度、正确路径的总长度及所用时间（以秒为单位计时）。<br>五角星 处即为迷宫终点，Micmouse抵达该点则认为遍历结束。<br>结果展示界面：展示搜索结果的图形化界面。</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/7.png" alt="img"><br>图2.3.4 搜索结果的图形化界面<br>Micmouse抵达迷宫中点，此时左侧动画停止播放，右侧三个参数的值也不再发生变化，用户可得知本次遍历Micmouse所走的总长度（TotalLength）、正确路径的总长度（RightLength）、及遍历所用时间（Efficiency）。同时在终端上可看到如图2.3.5所示的每次行走方向及坐标的呈现。</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/8.png" alt="img"><br>图2.3.5 行走方向及坐标在终端的打印结果</p>
 <hr>
-<h1 id="������-��ϸ���"><a href="#������-��ϸ���" class="headerlink" title="������ ��ϸ���?"></a>������ ��ϸ���?</h1><h2 id="3-1-ϵͳ�����ʵ��"><a href="#3-1-ϵͳ�����ʵ��" class="headerlink" title="3.1??? ϵͳ�����ʵ��?"></a>3.1??? ϵͳ�����ʵ��?</h2><p>�������ܡ�������ƣ�ģ�黮�ּ��ӿ���Ƶȡ�</p>
-<p>�ļ���ȡģ�飺�����ȡ�Թ���ͼ���ļ���?</p>
-<p>�Թ��ࣺ��װ�Թ���ͼ����ز�����?</p>
-<p>DFS�㷨ģ�飺ʵ��DFS�����㷨��</p>
-<p>BFS�㷨ģ�飺ʵ��BFS�����㷨��</p>
-<p>ͼ�λ�����ģ�飺ʹ��ͼ�ο���Ʋ�չʾ�Թ������Ĺ��̺ͽ����</p>
-<h2 id="3-2-g�����"><a href="#3-2-g�����" class="headerlink" title="3.2??? ģ�����?"></a>3.2??? ģ�����?</h2><p>����ģ��ľ��������ʵ�֡�</p>
-<figure class="highlight objective-c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">**�ļ���ȡģ��**����ȡ�Թ���ͼ���ı��ļ���������ͼ���ݴ洢����Ӧ�����ݽṹ�С�</span><br><span class="line"><span class="comment">/*��txt�ļ��л�ȡ��ͼ��ʽ*/</span></span><br><span class="line"><span class="type">void</span> ReadMaze(<span class="type">int</span> maze[<span class="number">30</span>][<span class="number">30</span>], <span class="keyword">const</span> <span class="type">char</span>* filename)</span><br><span class="line"></span><br><span class="line">**�Թ�ҳ��ģ��**���ṩ���Թ���ͼչʾ����¡�?</span><br><span class="line"><span class="comment">/*���Ƶ�ͼ����*/</span></span><br><span class="line"><span class="type">void</span> DrawPath()</span><br><span class="line"></span><br><span class="line">**BFS����ģ��**��ʵ��BFS�㷨�������߼����������������и����Թ���ͼ״̬��</span><br><span class="line"><span class="comment">/*BFS����*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> Node &#123;</span><br><span class="line"><span class="type">int</span> i;</span><br><span class="line"><span class="type">int</span> j;</span><br><span class="line"><span class="type">int</span> next;</span><br><span class="line">Node *pre;</span><br><span class="line">&#125; Node, *List;</span><br><span class="line"><span class="comment">/*��ʼBFS���?*/</span></span><br><span class="line"><span class="type">void</span> InitNode(List &amp;bfsp, <span class="type">int</span> x, <span class="type">int</span> y) &#123;</span><br><span class="line">bfsp=new Node;</span><br><span class="line">bfsp-&gt;i = x;</span><br><span class="line">bfsp-&gt;j = y;</span><br><span class="line">bfsp-&gt;next = <span class="number">-1</span>;</span><br><span class="line">bfsp-&gt;pre = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*����BFSȫ�ֱ���*/</span></span><br><span class="line">List bfsStart, bfsEnd, bfsp;</span><br><span class="line"><span class="type">int</span> x=<span class="number">0</span>, y=<span class="number">0</span>;</span><br><span class="line"><span class="comment">/*��ӡBFS����·��*/</span></span><br><span class="line"><span class="type">void</span> PrintPath(List&amp; np)</span><br><span class="line"><span class="comment">/*BFS����*/</span></span><br><span class="line"><span class="type">void</span> BFS(<span class="type">int</span> (*maze)[<span class="number">30</span>])</span><br><span class="line"></span><br><span class="line">**DFS����ģ��**��ʵ��DFS�㷨�������߼����������������и����Թ���ͼ״̬��</span><br><span class="line"><span class="comment">/*����DFS·�����?*/</span></span><br><span class="line"><span class="keyword">struct</span> Point&#123;</span><br><span class="line"><span class="type">int</span> i;          <span class="comment">//��ǰ�к�</span></span><br><span class="line"><span class="type">int</span> j;          <span class="comment">//��ǰ�к�</span></span><br><span class="line"><span class="type">int</span> next;       <span class="comment">//��һ�����ߵķ����?</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/*��ʼ��DFS���?*/</span></span><br><span class="line">InitPoint(Point&amp;p,<span class="type">int</span> x,<span class="type">int</span> y)&#123;</span><br><span class="line">p.i=x;</span><br><span class="line">p.j=y;</span><br><span class="line">p.next=<span class="number">-999</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*��ʼ��DFSջ�붨����ز���?*/</span></span><br><span class="line"><span class="keyword">struct</span> Stack&#123;</span><br><span class="line">Point pointstack[<span class="number">500</span>];</span><br><span class="line"><span class="type">int</span> top;</span><br><span class="line">Stack() &#123;</span><br><span class="line">top = <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*DFS����*/</span></span><br><span class="line"><span class="type">int</span> DFS(<span class="type">int</span> (*maze)[<span class="number">30</span>])</span><br><span class="line"></span><br><span class="line">**ͼ�λ����潻��ģ��**��ʹ��ͼ�ο�����Թ���ͼ����ʵʱչʾ�������̺ͽ����</span><br><span class="line"><span class="comment">/*DFS��ͼ*/</span></span><br><span class="line"><span class="type">void</span> DFSDrawMap()</span><br><span class="line"></span><br><span class="line"><span class="comment">/*BFS��ͼ*/</span></span><br><span class="line"><span class="type">void</span> BFSDrawMap()</span><br><span class="line"><span class="comment">/*DFS��ͼѡ��*/</span></span><br><span class="line"><span class="type">void</span> DFSChooseMap()</span><br><span class="line"><span class="comment">/*BFS��ͼѡ��*/</span></span><br><span class="line"><span class="type">void</span> BFSChooseMap()</span><br><span class="line"><span class="comment">/*��ҳ���ڴ���*/</span></span><br><span class="line"><span class="type">void</span> StartPage()</span><br></pre></td></tr></table></figure>
+<h1 id="第三章-详细设计"><a href="#第三章-详细设计" class="headerlink" title="第三章 详细设计"></a>第三章 详细设计</h1><h2 id="3-1-系统设计与实现"><a href="#3-1-系统设计与实现" class="headerlink" title="3.1  系统设计与实现"></a>3.1  系统设计与实现</h2><p>【总体框架、流程设计，模块划分及接口设计等】</p>
+<p>文件读取模块：负责读取迷宫地图的文件。</p>
+<p>迷宫类：封装迷宫地图的相关操作。</p>
+<p>DFS算法模块：实现DFS搜索算法。</p>
+<p>BFS算法模块：实现BFS搜索算法。</p>
+<p>图形化界面模块：使用图形库绘制并展示迷宫搜索的过程和结果。</p>
+<h2 id="3-2-模块设计"><a href="#3-2-模块设计" class="headerlink" title="3.2  模块设计"></a>3.2  模块设计</h2><p>【各模块的具体设计与实现】</p>
+<figure class="highlight objective-c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">**文件读取模块**：读取迷宫地图的文本文件，并将地图数据存储到相应的数据结构中。</span><br><span class="line"><span class="comment">/*从txt文件中获取地图样式*/</span></span><br><span class="line"><span class="type">void</span> ReadMaze(<span class="type">int</span> maze[<span class="number">30</span>][<span class="number">30</span>], <span class="keyword">const</span> <span class="type">char</span>* filename)</span><br><span class="line"></span><br><span class="line">**迷宫页面模块**：提供对迷宫地图展示与更新。</span><br><span class="line"><span class="comment">/*绘制地图界面*/</span></span><br><span class="line"><span class="type">void</span> DrawPath()</span><br><span class="line"></span><br><span class="line">**BFS搜索模块**：实现BFS算法的搜索逻辑，并在搜索过程中更新迷宫地图状态。</span><br><span class="line"><span class="comment">/*BFS定义*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> Node &#123;</span><br><span class="line"><span class="type">int</span> i;</span><br><span class="line"><span class="type">int</span> j;</span><br><span class="line"><span class="type">int</span> next;</span><br><span class="line">Node *pre;</span><br><span class="line">&#125; Node, *List;</span><br><span class="line"><span class="comment">/*初始BFS结点*/</span></span><br><span class="line"><span class="type">void</span> InitNode(List &amp;bfsp, <span class="type">int</span> x, <span class="type">int</span> y) &#123;</span><br><span class="line">bfsp=new Node;</span><br><span class="line">bfsp-&gt;i = x;</span><br><span class="line">bfsp-&gt;j = y;</span><br><span class="line">bfsp-&gt;next = <span class="number">-1</span>;</span><br><span class="line">bfsp-&gt;pre = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*定义BFS全局变量*/</span></span><br><span class="line">List bfsStart, bfsEnd, bfsp;</span><br><span class="line"><span class="type">int</span> x=<span class="number">0</span>, y=<span class="number">0</span>;</span><br><span class="line"><span class="comment">/*打印BFS回溯路径*/</span></span><br><span class="line"><span class="type">void</span> PrintPath(List&amp; np)</span><br><span class="line"><span class="comment">/*BFS搜索*/</span></span><br><span class="line"><span class="type">void</span> BFS(<span class="type">int</span> (*maze)[<span class="number">30</span>])</span><br><span class="line"></span><br><span class="line">**DFS搜索模块**：实现DFS算法的搜索逻辑，并在搜索过程中更新迷宫地图状态。</span><br><span class="line"><span class="comment">/*定义DFS路径结点*/</span></span><br><span class="line"><span class="keyword">struct</span> Point&#123;</span><br><span class="line"><span class="type">int</span> i;          <span class="comment">//当前行号</span></span><br><span class="line"><span class="type">int</span> j;          <span class="comment">//当前列号</span></span><br><span class="line"><span class="type">int</span> next;       <span class="comment">//下一步可走的方向号</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/*初始化DFS结点*/</span></span><br><span class="line">InitPoint(Point&amp;p,<span class="type">int</span> x,<span class="type">int</span> y)&#123;</span><br><span class="line">p.i=x;</span><br><span class="line">p.j=y;</span><br><span class="line">p.next=<span class="number">-999</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*初始化DFS栈与定义相关操作*/</span></span><br><span class="line"><span class="keyword">struct</span> Stack&#123;</span><br><span class="line">Point pointstack[<span class="number">500</span>];</span><br><span class="line"><span class="type">int</span> top;</span><br><span class="line">Stack() &#123;</span><br><span class="line">top = <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*DFS搜索*/</span></span><br><span class="line"><span class="type">int</span> DFS(<span class="type">int</span> (*maze)[<span class="number">30</span>])</span><br><span class="line"></span><br><span class="line">**图形化界面交互模块**：使用图形库绘制迷宫地图，并实时展示搜索过程和结果。</span><br><span class="line"><span class="comment">/*DFS画图*/</span></span><br><span class="line"><span class="type">void</span> DFSDrawMap()</span><br><span class="line"></span><br><span class="line"><span class="comment">/*BFS画图*/</span></span><br><span class="line"><span class="type">void</span> BFSDrawMap()</span><br><span class="line"><span class="comment">/*DFS地图选择*/</span></span><br><span class="line"><span class="type">void</span> DFSChooseMap()</span><br><span class="line"><span class="comment">/*BFS地图选择*/</span></span><br><span class="line"><span class="type">void</span> BFSChooseMap()</span><br><span class="line"><span class="comment">/*主页窗口创建*/</span></span><br><span class="line"><span class="type">void</span> StartPage()</span><br></pre></td></tr></table></figure>
 
 
 <hr>
-<h1 id="������-���Է���"><a href="#������-���Է���" class="headerlink" title="������ ���Է���"></a>������ ���Է���</h1><p>����������չʾ1��</p>
-<p><img src="https://flowus.cn/preview/8116c455-8cf8-4f3b-a275-4179cf6a7ba1" alt="ͼƬ1.png"></p>
-<p>ͼ.DFS MAZE1�����н��?</p>
-<p><img src="https://flowus.cn/preview/69d5d550-7a41-4278-956b-2869375c6411" alt="ͼƬ2.png"></p>
-<p>ͼ.BFS MAZE1�����н��?</p>
-<p>���������н������?1��</p>
-<pre><code>     ��MAZE1�����н�����з����������ʾ��DFS�㷨��MicroMouse�Թ�Ѱ·�е�Ч��Ϊ68%;BFS�㷨��MicroMouse�Թ�Ѱ·�е�Ч��Ϊ48%,������ǿ��Եó�������MAZE1��˵��ʹ��DFS�㷨Ч�ʸ��š�
-</code></pre>
+<h1 id="第四章-测试分析"><a href="#第四章-测试分析" class="headerlink" title="第四章 测试分析"></a>第四章 测试分析</h1><p>【程序运行展示1】<br><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/9.png" alt="img"></p>
+<p>图.DFS MAZE1的运行结果</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/10.png" alt="img"></p>
+<p>图.BFS MAZE1的运行结果</p>
+<p>【程序运行结果分析1】</p>
+<blockquote>
+<p>对MAZE1的运行结果进行分析，结果显示：DFS算法在MicroMouse迷宫寻路中的效率为68%;BFS算法在MicroMouse迷宫寻路中的效率为48%,因此我们可以得出，对于MAZE1来说，使用DFS算法效率更优。</p>
+</blockquote>
 <table>
 <thead>
 <tr>
-<th>?</th>
+<th>Method</th>
 <th>DFS</th>
 <th>BFS</th>
 </tr>
@@ -342,18 +324,18 @@
 <td>48%</td>
 </tr>
 </tbody></table>
-<p>����������չʾ2��</p>
-<p><img src="https://flowus.cn/preview/152725cb-0502-4f67-94cf-8b10794c040b" alt="ͼƬ3.png"></p>
-<p>ͼ.DFS MAZE2�����н��?</p>
-<p><img src="https://flowus.cn/preview/883af4a5-6c77-4b72-987d-f77a1ee604a6" alt="ͼƬ4.png"></p>
-<p>ͼ.BFS MAZE2�����н��?</p>
-<p>���������н������?2��</p>
-<pre><code>     ��MAZE2�����н�����з����������ʾ��DFS�㷨��MicroMouse�Թ�Ѱ·�е�Ч��Ϊ26%;BFS�㷨��MicroMouse�Թ�Ѱ·�е�Ч��Ϊ43%,������ǿ��Եó�������MAZE2��˵��ʹ��BFS�㷨Ч�ʸ��š�
-</code></pre>
+<p>【程序运行展示2】<br><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/11.png" alt="img"></p>
+<p>图.DFS MAZE2的运行结果</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/12.png" alt="img"></p>
+<p>图.BFS MAZE2的运行结果</p>
+<p>【程序运行结果分析2】</p>
+<blockquote>
+<p>对MAZE2的运行结果进行分析，结果显示：DFS算法在MicroMouse迷宫寻路中的效率为26%;BFS算法在MicroMouse迷宫寻路中的效率为43%,因此我们可以得出，对于MAZE2来说，使用BFS算法效率更优。</p>
+</blockquote>
 <table>
 <thead>
 <tr>
-<th>?</th>
+<th>Method</th>
 <th>DFS</th>
 <th>BFS</th>
 </tr>
@@ -364,18 +346,19 @@
 <td>43%</td>
 </tr>
 </tbody></table>
-<p>����������չʾ3��</p>
-<p><img src="https://flowus.cn/preview/790aee1e-91d1-4707-ad92-c05bb8a62974" alt="ͼƬ5.png"></p>
-<p>ͼ.DFS MAZE3�����н��?</p>
-<p><img src="https://flowus.cn/preview/b05e1b58-2feb-4ecf-a040-02d497ff6d06" alt="ͼƬ6.png"></p>
-<p>ͼ.BFS MAZE3�����н��?</p>
-<p>���������н������?3��</p>
-<pre><code>      ��MAZE3�����н�����з����������ʾ��DFS�㷨��MicroMouse�Թ�Ѱ·�е�Ч��Ϊ92%;BFS�㷨��MicroMouse�Թ�Ѱ·�е�Ч��Ϊ82%,������ǿ��Եó�������MAZE3��˵��ʹ��DFS�㷨Ч�ʸ��š�
-</code></pre>
+<p>【程序运行展示3】</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/13.png" alt="img"></p>
+<p>图.DFS MAZE3的运行结果</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/14.png" alt="img"></p>
+<p>图.BFS MAZE3的运行结果</p>
+<p>【程序运行结果分析3】</p>
+<blockquote>
+<p>对MAZE3的运行结果进行分析，结果显示：DFS算法在MicroMouse迷宫寻路中的效率为92%;BFS算法在MicroMouse迷宫寻路中的效率为82%,因此我们可以得出，对于MAZE3来说，使用DFS算法效率更优。</p>
+</blockquote>
 <table>
 <thead>
 <tr>
-<th>?</th>
+<th>Method</th>
 <th>DFS</th>
 <th>BFS</th>
 </tr>
@@ -386,40 +369,41 @@
 <td>82%</td>
 </tr>
 </tbody></table>
-<p>�����ۡ�</p>
-<pre><code>    ���������������ֲ�ͬ�Թ��ĳ������н�����������ڲ�ͬ�ĵ�ͼ��DFS��BFS�㷨��Ч�ʶ��ǲ�ͬ�ģ����һЩ�Թ�·����˵��ʹ��DFS�㷨�������Թ�·�ߵ�̽���������ţ������һЩ�Թ�·����˵��ʹ��BFS�㷨�������Թ�·�ߵ�̽���������š����ͬʱ����Ҳ�Ǳ���Ŀ��һ��Ŀ�ģ����ڲ�ͬ���Թ�·�ߣ�DFS��BFS�㷨�����㷨��Ч�ʸ��ߣ�ѡ�������㷨����̽�����š�
-</code></pre>
+<p>【结论】</p>
+<blockquote>
+<p>基于上述对于三种不同迷宫的程序运行结果来看，对于不同的地图，DFS和BFS算法的效率都是不同的：针对一些迷宫路线来说，使用DFS算法来进行迷宫路线的探索或许更优，针对另一些迷宫路线来说，使用BFS算法来进行迷宫路线的探索或许更优。与此同时，这也是本项目的一个目的：对于不同的迷宫路线，DFS和BFS算法哪种算法的效率更高，选择哪种算法进行探索更优。</p>
+</blockquote>
 <hr>
-<h1 id="������-�u��ֲᣨ��ѡ��"><a href="#������-�u��ֲᣨ��ѡ��" class="headerlink" title="������ �û��ֲᣨ��ѡ��"></a>������ �û��ֲᣨ��ѡ��</h1><p>5.1 ʹ��˵��</p>
-<p>Step1.�������룬��ʼҳ������ͼ��ʾ��ѡ������Ҫʹ�õı�����ʽ��DFS��BFS</p>
-<p><img src="https://flowus.cn/preview/101440e8-41a5-4856-ba5b-815636a94c7f" alt="b2d670f2870847f967dde874bf78ea0.jpg"></p>
-<p>ͼ4.��ʼҳ��</p>
-<p>Step2.�����ֲ�ͬ�ı�����ʽ�£����Ƕ��ṩ��������ͬ���Թ����û�ѡ��ѡ��һ���������С�</p>
-<p><img src="https://flowus.cn/preview/76fb43f6-2e64-4321-99c9-13d95bb10aa0" alt="02aaab5240f046991a560c31cfb9a55.jpg"></p>
-<p>ͼ5.DFS������ʽ�µ��Թ���ѡһҳ��</p>
-<p><img src="https://flowus.cn/preview/e823dfd5-601f-48a6-86f7-42e8b63dd07d" alt="7ccc0d06659dfddc9c0bf23bb0d50a5.jpg"></p>
-<p>ͼ6.BFS������ʽ�µ��Թ���ѡһҳ��</p>
-<p>Step3.��DFS��MAZE1Ϊ�������Ϊ�û�չʾ��С������й켣���Ҳ�Ϊ�û�չʾ����С�����㵽�յ����ߵ���·������ȷ·����Ч�ʡ�</p>
-<p><img src="https://flowus.cn/preview/7870e415-72b2-4a81-b7ab-91e977343d36" alt="��Ļ��ͼ 2023-12-14 185724.png"></p>
-<p>ͼ7.DFS��MAZE1�����н��?</p>
-<p>Step4. ���н����󣬰��س�������ҳ������һ�ֵ��Թ�̽����</p>
+<h1 id="第五章-用户手册（可选）"><a href="#第五章-用户手册（可选）" class="headerlink" title="第五章 用户手册（可选）"></a>第五章 用户手册（可选）</h1><p>5.1 使用说明</p>
+<p>Step1.启动编译，起始页面如下图所示，选择你想要使用的遍历方式：DFS或BFS</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/15.jpg" alt="img"></p>
+<p>图4.起始页面</p>
+<p>Step2.在两种不同的遍历方式下，我们都提供了三个不同的迷宫供用户选择，选择一个进行运行。</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/16.jpg" alt="img"></p>
+<p>图5.DFS遍历方式下的迷宫三选一页面</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/17.jpg" alt="img"></p>
+<p>图6.BFS遍历方式下的迷宫三选一页面</p>
+<p>Step3.以DFS的MAZE1为例，左侧为用户展示出小鼠的运行轨迹，右侧为用户展示出了小鼠从起点到终点所走的总路长，正确路长及效率。</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/18.png" alt="img"></p>
+<p>图7.DFS的MAZE1的运行结果</p>
+<p>Step4. 运行结束后，按回车返回主页进行下一轮的迷宫探索。</p>
 <hr>
-<h1 id="������-�γ�����ܽ�"><a href="#������-�γ�����ܽ�" class="headerlink" title="������ �γ�����ܽ�?"></a>������ �γ�����ܽ�?</h1><p>����Ƴ��ԡ�ʵ�����������������Ѽ�����������γ��ջ�ȡ�?</p>
-<p>�˴ογ���Ƶ��뷨Դ�������Ͻ���MicroMouse�Թ��������õ����㷨��ص�һ����Ƶ��������Ե��������㿪ʼ̽��һ�����ӵ��Թ����������ܵ�ȥѰ�ҵ��Թ����ڵ�����·����</p>
-<p>��̽��·���У�DFS��BFS�㷨��̽���Թ�Ѱ��·�������ַǳ���Ҫ���㷨����������С������DFS��BFS�㷨ȥʵ����һ����ȥ����ص�ѧϰ�볢�ԡ�?</p>
-<p>���������һ��Ч������ȥ�����Ƚ������㷨�����ͬ��һ���Թ�ȥ������Ч�ʡ����ж�����TotalLength���������о��������еĽ�㳤����ValidLength����㵽�յ���Ч���ֵĳ��ȡ����ֵ��ΪЧ������Efficiency��Ч������Խ�ߣ���ʾ���ֱ���Ѱ·�Ĺ��������غ϶ȸ��ߣ����㷨���š�</p>
-<p>ͬʱΪ����߳�������ɶȣ�������������ֲ�ͬ�ĵ�ͼ��ʽ�����Ը����Լ����뷨ȥ��txt�ļ������ȫ�µĵ�ͼ��ʽ��С���������յ㶼�ǿ���ͨ���޸�pStart��pEnd�����Ϣȥ���á�?</p>
-<p>С���������Ŀ�����������ǱȽ�˳���ģ�ÿ�ܶ�������µĹ�˼���뷨����ƵĴ���Ҳ�ڲ��ϵظ��¡�������?</p>
-<p>��ʵ�����������������������ǵ����⣬��������������������������ջ��뷴˼��?<br><strong>1.����������Ϣ��������������õ���������?</strong></p>
-<p>EGEͼ�λ����ǵ�һ����ʹ�ã���������ڶຯ����ÿ�ε��ö���Ҫ���ϵ�ȥ������ѧϰ�����������������ڹٷ��ĵ�<a target="_blank" rel="noopener" href="https://xege.org/manual/tutorial/index.htm">https://xege.org/manual/tutorial/index.htm</a>�еõ�����������ڳ����в���һ��������͸��ɫ��PNGͼƬ��putimage�������������pngͼƬ���ںڵ� <code>putimage����</code> �����㲻�����ã����뺬͸��ɫ��pngͼ��<code>putimage_withalpha()</code>���ڴ˴�ѧϰ�����У�����������Ϣ��������������õ���������?</p>
-<p>**2.�Խṹ��ָ������ⲻ������?**�����BFS�㷨�����Ĺ����У����õ�����������ջ������һϵ�����ݽṹ�����ɱ�������õ�������ָ�봫�Σ���?:</p>
-<figure class="highlight objective-c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*BFS����*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> Node &#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="type">int</span> j;</span><br><span class="line">    <span class="type">int</span> next;</span><br><span class="line">    Node *pre;</span><br><span class="line">&#125; Node, *List;</span><br></pre></td></tr></table></figure>
+<h1 id="第六章-课程设计总结"><a href="#第六章-课程设计总结" class="headerlink" title="第六章 课程设计总结"></a>第六章 课程设计总结</h1><p>【设计初衷、实践过程中遇到的困难及解决方案、课程收获等】</p>
+<p>此次课程设计的想法源于网络上讲解MicroMouse迷宫竞赛运用到的算法相关的一个视频，里面针对电脑鼠从起点开始探索一个复杂的迷宫，并尽可能地去寻找到迷宫出口的最优路径。</p>
+<p>在探索路径中，DFS与BFS算法是探索迷宫寻找路径的两种非常重要的算法，于是我们小组就针对DFS与BFS算法去实现这一功能去做相关的学习与尝试。</p>
+<p>我们设计了一个效率因数去衡量比较两种算法针对相同的一个迷宫去遍历的效率。其中定义了TotalLength遍历过程中经过的所有的结点长度与ValidLength从起点到终点有效部分的长度。其比值即为效率因数Efficiency。效率因数越高，表示该种遍历寻路的过程与结果重合度更高，即算法更优。</p>
+<p>同时为了提高程序的自由度，我们设计了三种不同的地图样式，可以根据自己的想法去在txt文件中设计全新的地图样式，小鼠的起点与终点都是可以通过修改pStart与pEnd结点信息去设置。</p>
+<p>小组合作与项目进度总体上是比较顺利的，每周都会产生新的构思与想法，设计的代码也在不断地更新、迭代。</p>
+<p>在实践过程中遇到不少困惑我们的问题，针对遇到的问题我们做出如下收获与反思：<br><strong>1.检索代码信息与解决问题的能力得到了提升。</strong></p>
+<p>EGE图形化库是第一次是使用，里面包含众多函数，每次调用都需要不断地去搜索，学习。大多数情况都可以在官方文档<a target="_blank" rel="noopener" href="https://xege.org/manual/tutorial/index.htm">https://xege.org/manual/tutorial/index.htm</a>中得到解决，例如在程序中插入一个背景是透明色的PNG图片。putimage（）函数导入的png图片存在黑底 <code>putimage（）</code> 函数便不再适用，插入含透明色的png图像<code>putimage_withalpha()</code>。在此次学习过程中，检索代码信息与解决问题的能力得到了提升。</p>
+<p><strong>2.对结构体指针的理解不够深入。</strong>在设计BFS算法遍历的过程中，运用到单向链表、栈、队列一系列数据结构，不可避免地运用到大量的指针传参，如:</p>
+<figure class="highlight objective-c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*BFS定义*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> Node &#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="type">int</span> j;</span><br><span class="line">    <span class="type">int</span> next;</span><br><span class="line">    Node *pre;</span><br><span class="line">&#125; Node, *List;</span><br></pre></td></tr></table></figure>
 
 
-<p>������Ƶ�Node��List�����任�������еĹ����в�����������󡣺����ŶӼ�ʱ���ۣ������侲������������⡣</p>
-<p><strong>3.������Ƶ�ȫ�ֹ۲�����?</strong></p>
-<p>��һ��ȥ���һ��?600���е�һ������Ŀ����ʵ�������ϴ���������⡣������ư���DFS��BFS�������֣������Ƿ�Ϊ�����ļ�������Ƶģ���������Ž������ļ��е���ЧƬ��ƴ����һ���������ļ��У�������Ƶ����ݽṹ��Щ�����븴�ӣ��ṹ��ԱȽϷ�ɢ���ڱ������Ĺ����У����ֱ������ı�����ʾ���ñ���δ���壬�����������д��������й�˼�����Ż�����Ҫ���ⶨ����������ȫ�ֱ���ȥ�ﵽ��Ҫ��Ч����</p>
-<p>�ܵ���˵�����ǵĿγ���ƺ���һ������ȣ�ѡ���������㷨�������Ŷ���˵��������ս�Եġ���ʵ��������������Ҳ�Ǻܳ����ġ�ͨ��Ŭ�������Щ���⣬���ǲ��������˴������������Ҷ��㷨�����ݽṹ���˸���������⡣</p>
+<p>其中设计到Node与List的灵活变换，在运行的过程中产生了许多错误。好在团队及时讨论，沉着冷静分析解决了问题。</p>
+<p><strong>3.代码设计的全局观不够。</strong></p>
+<p>第一次去完成一个600余行的一整个项目，在实现流程上存在相关问题。整个设计包括DFS和BFS两个部分，我们是分为两个文件单独设计的，在设计完后才将两份文件中的有效片段拼凑在一个可运行文件中，导致设计的数据结构有些杂乱与复杂，结构相对比较分散。在编译代码的过程中，出现报错最多的便是提示：该变量未定义，问题大多出现在写代码过程中构思不够优化，需要额外定义许多额外的全局变量去达到想要的效果。</p>
+<p>总的来说，我们的课程设计很有一定的深度，选择的问题和算法对整个团队来说是蛮巨挑战性的。在实践中遇到的问题也是很常见的。通过努力解决这些问题，我们不仅提升了代码能力，而且对算法和数据结构有了更深入的理解。</p>
 
         </div>
 
@@ -440,7 +424,7 @@
                     
                         <a href="/tags/C/"># C</a>
                     
-                        <a href="/tags/%EF%BF%BD%EF%BF%BD%EF%BF%BD%DD%BDu/"># ���ݽṹ</a>
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"># 数据结构</a>
                     
                         
                 </span>
