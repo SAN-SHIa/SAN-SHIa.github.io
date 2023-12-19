@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="SANSHI">
+
+
+
+
+
+<title>�����ݽṹ���γ����-MicroMouse�Թ������㷨��ʾ | SANSHI</title>
+
+
+
+    <link rel="icon" href="/sanshi1.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">SANSHI&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tag</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">SANSHI&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tag</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">�����ݽṹ���γ����-MicroMouse�Թ������㷨��ʾ</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">SANSHI</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 19, 2023&nbsp;&nbsp;12:25:05</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/%EF%BF%BD%EF%BF%BD%EF%BF%BD%DD%BDu/">���ݽṹ</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <hr>
+<h1 id="��һ��-�������"><a href="#��һ��-�������" class="headerlink" title="��һ�� �������"></a>��һ�� �������</h1><h2 id="1-1-����"><a href="#1-1-����" class="headerlink" title="1.1??? ����"></a>1.1??? ����</h2><p>MicroMouse,����Ϊ�������󡱡���ʹ��Ƕ��ʽ΢���������������ͻ����˶��������ɵ�һ����������װ�ã�΢�ͻ����ˣ�������������ڲ�ͬ���Թ������Զ������ѡ��·����������Ӧ���㷨�����ٵشﵽ���趨��Ŀ�ĵء����ʵ繤�͵��ӹ���ѧ�ᣨIEEE��ÿ�궼Ҫ�ٰ�һ�ι����Եĵ��������Թ��������Ծٰ������μӹ�ӻԾ��Ϊ�������ѧ�������ˡ�������ԭ����������ѡ�޿γ̡�</p>
+<p><img src="https://flowus.cn/preview/24d52d99-3328-4c2a-b76f-e0652c78f345" alt="4b1177c3411161fecc79a8f023f5687.png"></p>
+<p>ͼ1</p>
+<p>��Micromouse�����У��������������DFS���͹������������BFS��Ҳ�ǳ��õ��㷨֮һ������Ѱ���Թ��е�·����̽��δ֪������</p>
+<p>DFS��BFS���ǳ����Ļ��������㷨��������Micromouse�����п�����Ϊ·���滮�Ļ����㷨���������������߼��㷨���ʹ�ã����ڸ����ӵ�·���滮��̽�����ԡ�������ͨ��������Լ�Micromouse����ƺ��Թ����ص�ѡ����ʵ������㷨������������Ż���ʵ�ָ���Ч��·���滮��̽����</p>
+<p><img src="https://flowus.cn/preview/27fc1902-dd17-4a67-aa02-83de13b4a68d" alt="e0adc4481c5c52a43cafc420ba9c547.png"></p>
+<p>ͼ2.DFS�㷨����Թ�����</p>
+<p><img src="https://flowus.cn/preview/9cb361e5-dfac-4540-9fd8-4fd5495d86d1" alt="aa37668dd9ffdaac7fe47a454631d22.png"></p>
+<p>ͼ3.BFS�㷨����Թ�����</p>
+<h2 id="1-2-�������"><a href="#1-2-�������" class="headerlink" title="1.2??? �������"></a>1.2??? �������</h2><p>����Ŀּ��ʵ��һ������DFS��BFS�㷨��MicroMouse�Թ�Ѱ·���ӻ����򡣸ó�����Զ�ȡ��ͬ��ʽ���Թ���ͼ��ʹ��DFS��BFS�㷨��������·������ͨ��ͼ�λ�����չʾ�������̺ͽ������Ŀͨ��C++����ʵ�֣������ͼ�ο���ļ���ȡʵ���Թ��Ŀ��ӻ�չʾ��������Ч������Q��</p>
+<p>�������������DFS����DFS�㷨�ᾡ������������Թ��ķ�֧·����ֱ�������ϰ�����ߵ����Թ��ı߽磬Ȼ����ݵ���һ���ڵ������������·����</p>
+<p>�������������BFS����BFS�㷨�����������Թ����������������������Ľڵ㣬Ȼ������չ�������Զ�Ľڵ㡣</p>
+<h2 id="1-3-��������"><a href="#1-3-��������" class="headerlink" title="1.3??? ��������"></a>1.3??? ��������</h2><p><strong>1.3.1�Թ���ͼ����</strong></p>
+<p>�Թ���ͼ���ı��ļ���ʽ�洢��ÿ�����ִ�����ͬ���͵��Թ�Ԫ�أ�</p>
+<p>0����ʾ��ͨ�е�·����</p>
+<p>1����ʾǽ�ڣ�����ͨ�����ϰ��</p>
+<p>2������㵽�յ��������ȷ��·��</p>
+<p>3������㵽�յ��������·��</p>
+<p>�Թ���ͼ�Զ�ά�������ʽ�洢������ int maze[30][30]��</p>
+<p><strong>1.3.2DFS��BFS������������ݽṹ</strong></p>
+<p>�ṹ�壺������Ҫ����ڵ�ṹ�塢�Թ�������ݽṹ������ش洢�Ͳ������ݡ�</p>
+<p>ջ��Stack���Ͷ��У�Queue��������DFS��BFS�㷨�����������д洢�ڵ㡢��¼·���Ȳ�����</p>
+<p><strong>1.3.3���ݵĶ�ȡ�ʹ洢</strong></p>
+<p>�Թ���ͼ�������ı��ļ�����ʽ�洢���ļ����ݰ����Թ���ͼ�����нṹ�������У�ʹ�����ֱ�ʾ��ͬ���Թ�Ԫ�أ�ÿ������֮������ÿո������</p>
+<h2 id="1-4-��������"><a href="#1-4-��������" class="headerlink" title="1.4??? ��������"></a>1.4??? ��������</h2><p>1.�Թ��Ĵ������ļ���ȡ</p>
+<p>2.��ⷽʽ��ʹ��DFS��BFS�㷨�����Թ�Ѱ·����</p>
+<p>3.�ṩ����ʽ���棬�����û�ѡ��ͬ�Թ���ʽ���㷨����������</p>
+<p>4.��ͼ�ν���չʾ�Թ��������̺ͽ�������н���������������е���·������ȷ·����������Ч�ʣ���</p>
+<h2 id="1-5-��������"><a href="#1-5-��������" class="headerlink" title="1.5??? ��������"></a>1.5??? ��������</h2><p>������ԣ�C++</p>
+<p>����������Dev-C++</p>
+<p>ͼ�ο⣺&lt;graphics.h&gt;���������ͼ�ο�</p>
+<h2 id="1-6-����ƻ�"><a href="#1-6-����ƻ�" class="headerlink" title="1.6??? ����ƻ�"></a>1.6??? ����ƻ�</h2><p>?<strong>��һ��</strong></p>
+<p>1.���ñ�̻���DevC++��ͼ�λ���EGE</p>
+<p>2.����ѡ���������</p>
+<p>3.��Ϥ��غ�����ʹ��</p>
+<p> <strong>�ڶ���</strong></p>
+<p>1.ȷ��ѡ��</p>
+<p>2.��Ƴ�����ƴ��½ṹ��Ч������������DFS����</p>
+<p>3.ʵ�ֶ�ȡ�ļ����ƹ��첻ͬ�ĵ�ͼ��ʽ</p>
+<p> <strong>������</strong></p>
+<p>1.����BFS�㷨������ͼʵ��</p>
+<p>2.ʵ�������������ҳ�潻��</p>
+<p>3.�����ظ��ļ��뺯��</p>
+<p> <strong>������</strong></p>
+<p>1.����Ч���������ڱ����Ĺ����м�¼Ѱ·��Ч��</p>
+<p>2.��ƴ���UI</p>
+<p>3.�Ż�ϸ�ڣ�����ע��</p>
+<hr>
+<h1 id="�ڶ���-��Ҫ���"><a href="#�ڶ���-��Ҫ���" class="headerlink" title="�ڶ��� ��Ҫ���"></a>�ڶ��� ��Ҫ���</h1><h2 id="2-1-�������"><a href="#2-1-�������" class="headerlink" title="2.1?�������"></a>2.1?�������</h2><p><strong>2.1.1 UI��������</strong></p>
+<p>�ý�����DFS��BFS���ӻ���ʽʵ�ֵ��������û���ͨ���ý���ѡ��������Թ�������ʽ��</p>
+<p>�ý�����Ҫ���е���Ҫ�����У�DFS��BFS��ʽ��ѡ���Թ���ͼ��ѡ��</p>
+<p>���й����Թ���ͼ�����ṩ�����Ų�ͬ�ĵ�ͼ�ɹ���ѡ�����Թ�������Ϊ�Թ����ڡ�</p>
+<p>�ý���ĳ���ͨ��EGEͼ�ο�ʵ�֡�</p>
+<p><strong>2.1.2 �Թ���ͼ�Ļ���</strong></p>
+<p>Լ���ԡ�1�����ǽ�ڣ���0�����ͨ·����2����ǿ��нڵ㣬��3�������·��������֮���ֲ����е�·����������ͼ��ʽ��������Լ������text�ĵ����Ծ�����ʽ���벢����EGE��ʵ�ֿ��ӻ���ǽ�ڡ�ͨ·�����нڵ㡢��·�Բ�ͬ��ɫ�������֣��Ե�ͼ������Ϊ�Թ��յ㣬�������?��ǡ�</p>
+<p><strong>2.1.3 DFS��BFSѰ·������ӻ�</strong></p>
+<p>ͨ��ջ�ṹʵ��DFS��BFS�����Թ���ͼ���سɹ��󣬸����û���ѡ��ı�����ʽ����ͼ��ʼ��������DFSΪ�����û���ÿһ���Թ��ڵ�Ѱ�����ͨ·��ÿ���ڵ㶼�����г�Ŀǰ������������������з���������һ��������У��÷�����Ŀǰ��������ͬ�������ظ÷������������ͬʱ����ѱ����ڵ�Ϊ���нڵ㣻���ж������Ϊͨ·�����ҡ��¡����ϵ�˳���������������ͬʱ����ѱ����ڵ�Ϊ���нڵ㣻�������޿���ͨ·�����������ԭ·����ֱ����������δ��������ġ���·�ڡ���ͬʱ��ǻ���·��Ϊ����·����ͬ���أ����û�ѡ��BFS������ʽ������ÿ������·�ڡ����ȱ���ÿ��ÿ�������������ÿ�������·���������ɡ�</p>
+<p>ͨ������Micromouseͼ��չʾ����·����MicromouseСͼ����ƶ���ʾѰ·�Ĺ��̣�Micromouse�ִ��Թ����ڣ�����ͼ���ģ���ֹͣ������һ�α�������ɣ�ͬʱMicromouse�����ߵķ��򼰾���·������������ʽ����ӡ���ն��ϡ�</p>
+<h2 id="2-2-����������"><a href="#2-2-����������" class="headerlink" title="2.2?����������"></a>2.2?����������</h2><p>���ݽṹ���Թ���ͼ�������㷨��������ݽṹ��ջ�����еȣ���</p>
+<p>����ƣ����ܰ����Թ��ࡢ������ȡ�</p>
+<p>�Թ���ͼѰ·��������̱�̿ɴ�����Ϊ��<br>��1��ѡ�������ʽ��DFS&#x2F;BFS����</p>
+<p>��2��ѡ���Թ���ͼ��</p>
+<p>��3��������ѡ������ʽ�����Թ���ͼ��</p>
+<p>���û�ѡ��DFS������ʽ������̣�3���ֿ�ϸ��Ϊ���¹��̣�</p>
+<p>���ڵ�ǰ�Թ��ڵ���Ѱ���з���</p>
+<p>����ÿһ���ڵ㴦��������һ�����з������ظ÷��������ǰ������ͬʱ�������·��Ϊ��2�������ж�����з��������ҡ��¡����ϵ�˳����������������������·��Ϊ��2�������ýڵ㴦�޿���ͨ·������ԭ·����ֱ���ִ���δ��������Ľڵ㴦��ͬʱ��ǻ���·��Ϊ��3����</p>
+<p>�۵ִ��Թ����ڣ�����������</p>
+<p>���û�ѡ��BFS������ʽ������̣�3����ϸ��Ϊ��</p>
+<p>���ڵ�ǰ�Թ��ڵ���Ѱ���з���</p>
+<p>����ÿһ���ڵ㴦��������һ�����з������ظ÷��������ǰ������ͬʱ�������·��Ϊ��2�������ж�����з��������ҡ��¡����ϵ�˳�򽫸ýڵ��ÿ������������������ѱ����ڵ�Ϊ��2�������ýڵ㴦�޿���ͨ·������ԭ·����ֱ���ִ���δ��������Ľڵ㴦��ͬʱ��ǻ���·��Ϊ��3����</p>
+<p>�۵ִ��Թ����ڣ�����������</p>
+<h2 id="2-3-���н������"><a href="#2-3-���н������" class="headerlink" title="2.3?���н������"></a>2.3?���н������</h2><p>��ҳ���棺�ṩѡ��DFS��BFS�㷨�Լ���ͬ�Թ���ʽ�İ�ť��</p>
+<p><img src="https://flowus.cn/preview/4dd68f67-dc7c-4cb0-b672-e401ad5f35a9" alt="ͼ2.3.1 ��ҳ���桤������ʽ��ѡ��"><br>ͼ2.3.1 ��ҳ���桤������ʽ��ѡ��</p>
+<p>��ͼ2.3.1��ʾ�������г�������ȳ��ָý��棬�û���ѡ��DFS��BFS��Ϊ֮���Թ�Ѱ·�ı����ֶΡ�</p>
+<p>�ý���ͼ�겿��Դ�����磬��������鳤�ֻ��Ƴɣ�ͨ��EGE���֡�</p>
+<p><img src="https://flowus.cn/preview/27e82cd2-7fbc-4c50-8144-80b6bbe6ab97" alt="ͼ2.3.2 ��ҳ���桤�Թ���ͼ��ѡ��"><br>ͼ2.3.2 ��ҳ���桤�Թ���ͼ��ѡ��</p>
+<p>ѡ�������ʽ�����ת����ͼ2.3.2��ʾ�Ľ��棬�û��ɸ�������ϲ��ѡ��������һ��</p>
+<p>�Թ���ͼ�����Ծ�����ʽ���洢��text�ļ��У�����������EGE���֣�������ַ�ʽ�������������֣��˴�����׸����</p>
+<p>��������չʾ���棺չʾ�������̵�ͼ�λ����档</p>
+<p><img src="https://flowus.cn/preview/a2231f68-5e98-476a-be6d-50dea3c6d80a" alt="ͼ2.3.3 �������̵�ͼ�λ�����"><br>ͼ2.3.3 �������̵�ͼ�λ�����</p>
+<p>ͼ2.3.3��Ϊ�Թ���Ѱ·���̽��棬���ΪѰ·�������Ҳ�հ״���DFS|MAZE 3����ʾ�û���ѡ������ʽΪDFS���Թ���ͼΪMAZE3����������TotalLength��RightLength��Efficiency�ֱ��ʾѰ·���ߵ��ܳ��ȡ���ȷ·�����ܳ��ȼ�����ʱ�䣨����Ϊ��λ��ʱ����</p>
+<p>�����?����Ϊ�Թ��յ㣬Micmouse�ִ�õ�����Ϊ����������</p>
+<p>���չʾ���棺չʾ���������ͼ�λ����档</p>
+<p><img src="https://flowus.cn/preview/5b2150b7-6661-4cd0-ab22-4dd8994550f2" alt="ͼ2.3.4 ���������ͼ�λ�����"><br>ͼ2.3.4 ���������ͼ�λ�����</p>
+<p>Micmouse�ִ��Թ��е㣬��ʱ��ද��ֹͣ���ţ��Ҳ�����������ֵҲ���ٷ����仯���û��ɵ�֪���α���Micmouse���ߵ��ܳ��ȣ�TotalLength������ȷ·�����ܳ��ȣ�RightLength��������������ʱ�䣨Efficiency����ͬʱ���ն��Ͽɿ�����ͼ2.3.5��ʾ��ÿ�����߷�������ĳ��֡�</p>
+<p><img src="https://flowus.cn/preview/ffebe2d9-5b0f-4913-9660-8739c893b52b" alt="ͼ2.3.5 ���߷����������ն˵Ĵ�ӡ���"><br>ͼ2.3.5 ���߷����������ն˵Ĵ�ӡ���</p>
+<hr>
+<h1 id="������-��ϸ���"><a href="#������-��ϸ���" class="headerlink" title="������ ��ϸ���"></a>������ ��ϸ���</h1><h2 id="3-1-ϵͳ�����ʵ��"><a href="#3-1-ϵͳ�����ʵ��" class="headerlink" title="3.1??? ϵͳ�����ʵ��"></a>3.1??? ϵͳ�����ʵ��</h2><p>�������ܡ�������ƣ�ģ�黮�ּ��ӿ���Ƶȡ�</p>
+<p>�ļ���ȡģ�飺�����ȡ�Թ���ͼ���ļ���</p>
+<p>�Թ��ࣺ��װ�Թ���ͼ����ز�����</p>
+<p>DFS�㷨ģ�飺ʵ��DFS�����㷨��</p>
+<p>BFS�㷨ģ�飺ʵ��BFS�����㷨��</p>
+<p>ͼ�λ�����ģ�飺ʹ��ͼ�ο���Ʋ�չʾ�Թ������Ĺ��̺ͽ����</p>
+<h2 id="3-2-g�����"><a href="#3-2-g�����" class="headerlink" title="3.2??? ģ�����"></a>3.2??? ģ�����</h2><p>����ģ��ľ��������ʵ�֡�</p>
+<figure class="highlight objective-c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">**�ļ���ȡģ��**����ȡ�Թ���ͼ���ı��ļ���������ͼ���ݴ洢����Ӧ�����ݽṹ�С�</span><br><span class="line"><span class="comment">/*��txt�ļ��л�ȡ��ͼ��ʽ*/</span></span><br><span class="line"><span class="type">void</span> ReadMaze(<span class="type">int</span> maze[<span class="number">30</span>][<span class="number">30</span>], <span class="keyword">const</span> <span class="type">char</span>* filename)</span><br><span class="line"></span><br><span class="line">**�Թ�ҳ��ģ��**���ṩ���Թ���ͼչʾ����¡�</span><br><span class="line"><span class="comment">/*���Ƶ�ͼ����*/</span></span><br><span class="line"><span class="type">void</span> DrawPath()</span><br><span class="line"></span><br><span class="line">**BFS����ģ��**��ʵ��BFS�㷨�������߼����������������и����Թ���ͼ״̬��</span><br><span class="line"><span class="comment">/*BFS����*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> Node &#123;</span><br><span class="line"><span class="type">int</span> i;</span><br><span class="line"><span class="type">int</span> j;</span><br><span class="line"><span class="type">int</span> next;</span><br><span class="line">Node *pre;</span><br><span class="line">&#125; Node, *List;</span><br><span class="line"><span class="comment">/*��ʼBFS���*/</span></span><br><span class="line"><span class="type">void</span> InitNode(List &amp;bfsp, <span class="type">int</span> x, <span class="type">int</span> y) &#123;</span><br><span class="line">bfsp=new Node;</span><br><span class="line">bfsp-&gt;i = x;</span><br><span class="line">bfsp-&gt;j = y;</span><br><span class="line">bfsp-&gt;next = <span class="number">-1</span>;</span><br><span class="line">bfsp-&gt;pre = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*����BFSȫ�ֱ���*/</span></span><br><span class="line">List bfsStart, bfsEnd, bfsp;</span><br><span class="line"><span class="type">int</span> x=<span class="number">0</span>, y=<span class="number">0</span>;</span><br><span class="line"><span class="comment">/*��ӡBFS����·��*/</span></span><br><span class="line"><span class="type">void</span> PrintPath(List&amp; np)</span><br><span class="line"><span class="comment">/*BFS����*/</span></span><br><span class="line"><span class="type">void</span> BFS(<span class="type">int</span> (*maze)[<span class="number">30</span>])</span><br><span class="line"></span><br><span class="line">**DFS����ģ��**��ʵ��DFS�㷨�������߼����������������и����Թ���ͼ״̬��</span><br><span class="line"><span class="comment">/*����DFS·�����*/</span></span><br><span class="line"><span class="keyword">struct</span> Point&#123;</span><br><span class="line"><span class="type">int</span> i;          <span class="comment">//��ǰ�к�</span></span><br><span class="line"><span class="type">int</span> j;          <span class="comment">//��ǰ�к�</span></span><br><span class="line"><span class="type">int</span> next;       <span class="comment">//��һ�����ߵķ����</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/*��ʼ��DFS���*/</span></span><br><span class="line">InitPoint(Point&amp;p,<span class="type">int</span> x,<span class="type">int</span> y)&#123;</span><br><span class="line">p.i=x;</span><br><span class="line">p.j=y;</span><br><span class="line">p.next=<span class="number">-999</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*��ʼ��DFSջ�붨����ز���*/</span></span><br><span class="line"><span class="keyword">struct</span> Stack&#123;</span><br><span class="line">Point pointstack[<span class="number">500</span>];</span><br><span class="line"><span class="type">int</span> top;</span><br><span class="line">Stack() &#123;</span><br><span class="line">top = <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*DFS����*/</span></span><br><span class="line"><span class="type">int</span> DFS(<span class="type">int</span> (*maze)[<span class="number">30</span>])</span><br><span class="line"></span><br><span class="line">**ͼ�λ����潻��ģ��**��ʹ��ͼ�ο�����Թ���ͼ����ʵʱչʾ�������̺ͽ����</span><br><span class="line"><span class="comment">/*DFS��ͼ*/</span></span><br><span class="line"><span class="type">void</span> DFSDrawMap()</span><br><span class="line"></span><br><span class="line"><span class="comment">/*BFS��ͼ*/</span></span><br><span class="line"><span class="type">void</span> BFSDrawMap()</span><br><span class="line"><span class="comment">/*DFS��ͼѡ��*/</span></span><br><span class="line"><span class="type">void</span> DFSChooseMap()</span><br><span class="line"><span class="comment">/*BFS��ͼѡ��*/</span></span><br><span class="line"><span class="type">void</span> BFSChooseMap()</span><br><span class="line"><span class="comment">/*��ҳ���ڴ���*/</span></span><br><span class="line"><span class="type">void</span> StartPage()</span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<h1 id="������-���Է���"><a href="#������-���Է���" class="headerlink" title="������ ���Է���"></a>������ ���Է���</h1><p>����������չʾ1��</p>
+<p><img src="https://flowus.cn/preview/8116c455-8cf8-4f3b-a275-4179cf6a7ba1" alt="ͼƬ1.png"></p>
+<p>ͼ.DFS MAZE1�����н��</p>
+<p><img src="https://flowus.cn/preview/69d5d550-7a41-4278-956b-2869375c6411" alt="ͼƬ2.png"></p>
+<p>ͼ.BFS MAZE1�����н��</p>
+<p>���������н������1��</p>
+<pre><code>     ��MAZE1�����н�����з����������ʾ��DFS�㷨��MicroMouse�Թ�Ѱ·�е�Ч��Ϊ68%;BFS�㷨��MicroMouse�Թ�Ѱ·�е�Ч��Ϊ48%,������ǿ��Եó�������MAZE1��˵��ʹ��DFS�㷨Ч�ʸ��š�
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>?</th>
+<th>DFS</th>
+<th>BFS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Efficiency</td>
+<td>68%</td>
+<td>48%</td>
+</tr>
+</tbody></table>
+<p>����������չʾ2��</p>
+<p><img src="https://flowus.cn/preview/152725cb-0502-4f67-94cf-8b10794c040b" alt="ͼƬ3.png"></p>
+<p>ͼ.DFS MAZE2�����н��</p>
+<p><img src="https://flowus.cn/preview/883af4a5-6c77-4b72-987d-f77a1ee604a6" alt="ͼƬ4.png"></p>
+<p>ͼ.BFS MAZE2�����н��</p>
+<p>���������н������2��</p>
+<pre><code>     ��MAZE2�����н�����з����������ʾ��DFS�㷨��MicroMouse�Թ�Ѱ·�е�Ч��Ϊ26%;BFS�㷨��MicroMouse�Թ�Ѱ·�е�Ч��Ϊ43%,������ǿ��Եó�������MAZE2��˵��ʹ��BFS�㷨Ч�ʸ��š�
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>?</th>
+<th>DFS</th>
+<th>BFS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Efficiency</td>
+<td>26%</td>
+<td>43%</td>
+</tr>
+</tbody></table>
+<p>����������չʾ3��</p>
+<p><img src="https://flowus.cn/preview/790aee1e-91d1-4707-ad92-c05bb8a62974" alt="ͼƬ5.png"></p>
+<p>ͼ.DFS MAZE3�����н��</p>
+<p><img src="https://flowus.cn/preview/b05e1b58-2feb-4ecf-a040-02d497ff6d06" alt="ͼƬ6.png"></p>
+<p>ͼ.BFS MAZE3�����н��</p>
+<p>���������н������3��</p>
+<pre><code>      ��MAZE3�����н�����з����������ʾ��DFS�㷨��MicroMouse�Թ�Ѱ·�е�Ч��Ϊ92%;BFS�㷨��MicroMouse�Թ�Ѱ·�е�Ч��Ϊ82%,������ǿ��Եó�������MAZE3��˵��ʹ��DFS�㷨Ч�ʸ��š�
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>?</th>
+<th>DFS</th>
+<th>BFS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Efficiency</td>
+<td>92%</td>
+<td>82%</td>
+</tr>
+</tbody></table>
+<p>�����ۡ�</p>
+<pre><code>    ���������������ֲ�ͬ�Թ��ĳ������н�����������ڲ�ͬ�ĵ�ͼ��DFS��BFS�㷨��Ч�ʶ��ǲ�ͬ�ģ����һЩ�Թ�·����˵��ʹ��DFS�㷨�������Թ�·�ߵ�̽���������ţ������һЩ�Թ�·����˵��ʹ��BFS�㷨�������Թ�·�ߵ�̽���������š����ͬʱ����Ҳ�Ǳ���Ŀ��һ��Ŀ�ģ����ڲ�ͬ���Թ�·�ߣ�DFS��BFS�㷨�����㷨��Ч�ʸ��ߣ�ѡ�������㷨����̽�����š�
+</code></pre>
+<hr>
+<h1 id="������-�u��ֲᣨ��ѡ��"><a href="#������-�u��ֲᣨ��ѡ��" class="headerlink" title="������ �û��ֲᣨ��ѡ��"></a>������ �û��ֲᣨ��ѡ��</h1><p>5.1 ʹ��˵��</p>
+<p>Step1.�������룬��ʼҳ������ͼ��ʾ��ѡ������Ҫʹ�õı�����ʽ��DFS��BFS</p>
+<p><img src="https://flowus.cn/preview/101440e8-41a5-4856-ba5b-815636a94c7f" alt="b2d670f2870847f967dde874bf78ea0.jpg"></p>
+<p>ͼ4.��ʼҳ��</p>
+<p>Step2.�����ֲ�ͬ�ı�����ʽ�£����Ƕ��ṩ��������ͬ���Թ����û�ѡ��ѡ��һ���������С�</p>
+<p><img src="https://flowus.cn/preview/76fb43f6-2e64-4321-99c9-13d95bb10aa0" alt="02aaab5240f046991a560c31cfb9a55.jpg"></p>
+<p>ͼ5.DFS������ʽ�µ��Թ���ѡһҳ��</p>
+<p><img src="https://flowus.cn/preview/e823dfd5-601f-48a6-86f7-42e8b63dd07d" alt="7ccc0d06659dfddc9c0bf23bb0d50a5.jpg"></p>
+<p>ͼ6.BFS������ʽ�µ��Թ���ѡһҳ��</p>
+<p>Step3.��DFS��MAZE1Ϊ�������Ϊ�û�չʾ��С������й켣���Ҳ�Ϊ�û�չʾ����С�����㵽�յ����ߵ���·������ȷ·����Ч�ʡ�</p>
+<p><img src="https://flowus.cn/preview/7870e415-72b2-4a81-b7ab-91e977343d36" alt="��Ļ��ͼ 2023-12-14 185724.png"></p>
+<p>ͼ7.DFS��MAZE1�����н��</p>
+<p>Step4. ���н����󣬰��س�������ҳ������һ�ֵ��Թ�̽����</p>
+<hr>
+<h1 id="������-�γ�����ܽ�"><a href="#������-�γ�����ܽ�" class="headerlink" title="������ �γ�����ܽ�"></a>������ �γ�����ܽ�</h1><p>����Ƴ��ԡ�ʵ�����������������Ѽ�����������γ��ջ�ȡ�</p>
+<p>�˴ογ���Ƶ��뷨Դ�������Ͻ���MicroMouse�Թ��������õ����㷨��ص�һ����Ƶ��������Ե��������㿪ʼ̽��һ�����ӵ��Թ����������ܵ�ȥѰ�ҵ��Թ����ڵ�����·����</p>
+<p>��̽��·���У�DFS��BFS�㷨��̽���Թ�Ѱ��·�������ַǳ���Ҫ���㷨����������С������DFS��BFS�㷨ȥʵ����һ����ȥ����ص�ѧϰ�볢�ԡ�</p>
+<p>���������һ��Ч������ȥ�����Ƚ������㷨�����ͬ��һ���Թ�ȥ������Ч�ʡ����ж�����TotalLength���������о��������еĽ�㳤����ValidLength����㵽�յ���Ч���ֵĳ��ȡ����ֵ��ΪЧ������Efficiency��Ч������Խ�ߣ���ʾ���ֱ���Ѱ·�Ĺ��������غ϶ȸ��ߣ����㷨���š�</p>
+<p>ͬʱΪ����߳�������ɶȣ�������������ֲ�ͬ�ĵ�ͼ��ʽ�����Ը����Լ����뷨ȥ��txt�ļ������ȫ�µĵ�ͼ��ʽ��С���������յ㶼�ǿ���ͨ���޸�pStart��pEnd�����Ϣȥ���á�</p>
+<p>С���������Ŀ�����������ǱȽ�˳���ģ�ÿ�ܶ�������µĹ�˼���뷨����ƵĴ���Ҳ�ڲ��ϵظ��¡�������</p>
+<p>��ʵ�����������������������ǵ����⣬��������������������������ջ��뷴˼��<br><strong>1.����������Ϣ��������������õ���������</strong></p>
+<p>EGEͼ�λ����ǵ�һ����ʹ�ã���������ڶຯ����ÿ�ε��ö���Ҫ���ϵ�ȥ������ѧϰ�����������������ڹٷ��ĵ�<a target="_blank" rel="noopener" href="https://xege.org/manual/tutorial/index.htm">https://xege.org/manual/tutorial/index.htm</a>�еõ�����������ڳ����в���һ��������͸��ɫ��PNGͼƬ��putimage�������������pngͼƬ���ںڵ� <code>putimage����</code> �����㲻�����ã����뺬͸��ɫ��pngͼ��<code>putimage_withalpha()</code>���ڴ˴�ѧϰ�����У�����������Ϣ��������������õ���������</p>
+<p><strong>2.�Խṹ��ָ������ⲻ�����롣</strong>�����BFS�㷨�����Ĺ����У����õ�����������ջ������һϵ�����ݽṹ�����ɱ�������õ�������ָ�봫�Σ���:</p>
+<figure class="highlight objective-c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*BFS����*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> Node &#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="type">int</span> j;</span><br><span class="line">    <span class="type">int</span> next;</span><br><span class="line">    Node *pre;</span><br><span class="line">&#125; Node, *List;</span><br></pre></td></tr></table></figure>
+
+
+<p>������Ƶ�Node��List�����任�������еĹ����в�����������󡣺����ŶӼ�ʱ���ۣ������侲������������⡣</p>
+<p><strong>3.������Ƶ�ȫ�ֹ۲�����</strong></p>
+<p>��һ��ȥ���һ��600���е�һ������Ŀ����ʵ�������ϴ���������⡣������ư���DFS��BFS�������֣������Ƿ�Ϊ�����ļ�������Ƶģ���������Ž������ļ��е���ЧƬ��ƴ����һ���������ļ��У�������Ƶ����ݽṹ��Щ�����븴�ӣ��ṹ��ԱȽϷ�ɢ���ڱ������Ĺ����У����ֱ������ı�����ʾ���ñ���δ���壬�����������д��������й�˼�����Ż�����Ҫ���ⶨ����������ȫ�ֱ���ȥ�ﵽ��Ҫ��Ч����</p>
+<p>�ܵ���˵�����ǵĿγ���ƺ���һ������ȣ�ѡ���������㷨�������Ŷ���˵��������ս�Եġ���ʵ��������������Ҳ�Ǻܳ����ġ�ͨ��Ŭ�������Щ���⣬���ǲ��������˴������������Ҷ��㷨�����ݽṹ���˸���������⡣</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/C/"># C</a>
+                    
+                        <a href="/tags/%EF%BF%BD%EF%BF%BD%EF%BF%BD%DD%BDu/"># ���ݽṹ</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2023/10/14/%E3%80%90%E8%80%8D%E3%80%91%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8D%E7%A1%AE%E5%AE%9A%E5%BA%A6%E4%B8%8E%E7%99%BE%E5%88%86%E5%B7%AE%EF%BC%89%E5%8D%95%E9%93%BE%E8%A1%A8/">【单链表】数据处理（不确定度与百分差）</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<!-- 脚本部分 -->
+<script>
+  var now = new Date(); 
+  function createtime() { 
+      var grt= new Date("08/29/2023 20:00:00");//在此处修改你的建站时间
+      now.setTime(now.getTime()+250); 
+      days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+      if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+      mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+      snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+      document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+      document.getElementById("times").innerHTML = hnum + " 时 " + mnum + " 分 " + snum + " 秒"; 
+  } 
+  setInterval("createtime()",250);
+</script>
+<div class="copyright">
+    <span>Creator | SANSHI</span>
+</div>
+
+
+
+
+    <!-- 显示部分 -->
+
+</footer>
+
+    </div>
+    <script>
+        !
+        function() {
+            function n(n, e, t) {
+                return n.getAttribute(e) || t
+            }
+            function e(n) {
+                return document.getElementsByTagName(n)
+            }
+            function t() {
+                var t = e("script"),
+                o = t.length,
+                i = t[o - 1];
+                return {
+                    l: o,
+                    z: n(i, "zIndex", -1),     //置于主页面背后
+                    o: n(i, "opacity", .5),     //线条透明度
+                    c: n(i, "color", "0,0,0"),  //线条颜色
+                    n: n(i, "count", 100)    //线条数量
+                }
+            }
+            function o() {
+                a = m.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+                c = m.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+            }
+            function i() {
+                r.clearRect(0, 0, a, c);
+                var n, e, t, o, m, l;
+                s.forEach(function(i, x) {
+                    for (i.x += i.xa, i.y += i.ya, i.xa *= i.x > a || i.x < 0 ? -1 : 1, i.ya *= i.y > c || i.y < 0 ? -1 : 1, r.fillRect(i.x - .5, i.y - .5, 1, 1), e = x + 1; e < u.length; e++) n = u[e],
+                    null !== n.x && null !== n.y && (o = i.x - n.x, m = i.y - n.y, l = o * o + m * m, l < n.max && (n === y && l >= n.max / 2 && (i.x -= .03 * o, i.y -= .03 * m), t = (n.max - l) / n.max, r.beginPath(), r.lineWidth = t / 2, r.strokeStyle = "rgba(" + d.c + "," + (t + .2) + ")", r.moveTo(i.x, i.y), r.lineTo(n.x, n.y), r.stroke()))
+                }),
+                x(i)
+            }
+            var a, c, u, m = document.createElement("canvas"),
+            d = t(),
+            l = "c_n" + d.l,
+            r = m.getContext("2d"),
+            x = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+            function(n) {
+                window.setTimeout(n, 1e3 / 45)
+            },
+            w = Math.random,
+            y = {
+                x: null,
+                y: null,
+                max: 2e4
+            };
+            m.id = l,
+            m.style.cssText = "position:fixed;top:0;left:0;z-index:" + d.z + ";opacity:" + d.o,
+            e("body")[0].appendChild(m),
+            o(),
+            window.onresize = o,
+            window.onmousemove = function(n) {
+                n = n || window.event,
+                y.x = n.clientX,
+                y.y = n.clientY
+            },
+            window.onmouseout = function() {
+                y.x = null,
+                y.y = null
+            };
+            for (var s = [], f = 0; d.n > f; f++) {
+                var h = w() * a,
+                g = w() * c,
+                v = 2 * w() - 1,
+                p = 2 * w() - 1;
+                s.push({
+                    x: h,
+                    y: g,
+                    xa: v,
+                    ya: p,
+                    max: 6e3
+                })
+            }
+            u = s.concat([y]),
+            setTimeout(function() {
+                i()
+            },
+            100)
+        } ();
+        </script>
+        <!-- 引入jQuery -->
+            <script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+        <!-- 雪花特效2 -->
+            <script type="text/javascript" src="/js/snow2.js"></script>
+        
+</body>
+
+</html>
