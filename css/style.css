@@ -144,7 +144,9 @@ template {
 }
 @font-face {
   font-family: '思源宋体 CN';
-  src: url("../fonts/lanting/SourceHanSerifCN-Medium-6.otf"); /* IE9 */
+  /*src: url("../fonts/lanting/SourceHanSerifCN-Medium-6.otf"); /* IE9 */
+  src: url("../fonts/lanting/systzt.ttf")format('truetype'); /* IE9 */
+
   font-weight: 300;
   font-display: swap;
 }

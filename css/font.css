@@ -1,6 +1,6 @@
 @font-face {
   font-family: '思源宋体 CN';
-  src: url("../fonts/lanting/SourceHanSerifCN-Medium-6.otf"); /* IE9 */
+  src: url("../fonts/lanting/SourceHanSerifCN-Medium-6.otf") format('truetype'); /* IE9 */
   font-style: normal;
   font-weight: 600;
   font-display: swap;
