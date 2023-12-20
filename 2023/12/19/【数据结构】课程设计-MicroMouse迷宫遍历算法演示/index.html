@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="SANSHI">
+
+
+
+
+
+<title>【数据结构】课程设计-MicroMouse迷宫遍历算法演示 | SANSHI</title>
+
+
+
+    <link rel="icon" href="/sanshi1.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">SANSHI&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tag</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">SANSHI&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tag</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">【数据结构】课程设计-MicroMouse迷宫遍历算法演示</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">SANSHI</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 19, 2023&nbsp;&nbsp;12:35:09</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <hr>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV17Q4y137ms/?t=1&spm_id_from=333.1007.seo_video.first">课设演示视频地址 点击此处</a></p>
+<h1 id="第一章-需求分析"><a href="#第一章-需求分析" class="headerlink" title="第一章 需求分析"></a>第一章 需求分析</h1><h2 id="1-1-引言"><a href="#1-1-引言" class="headerlink" title="1.1  引言"></a>1.1  引言</h2><p>MicroMouse,译名为“电脑鼠”。是使用嵌入式微控制器、传感器和机电运动部件构成的一种智能行走装置（微型机器人），电脑鼠可以在不同“迷宫”中自动记忆和选择路径，采用相应的算法，快速地达到所设定的目的地。国际电工和电子工程学会（IEEE）每年都要举办一次国际性的电脑鼠走迷宫竞赛，自举办以来参加国踊跃，为此许多大学还开设了“电脑鼠原理和制作”选修课程。</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/1.png" alt="img"></p>
+<p>图1</p>
+<p>在Micromouse竞赛中，深度优先搜索（DFS）和广度优先搜索（BFS）也是常用的算法之一，用于寻找迷宫中的路径和探索未知环境。</p>
+<p>DFS和BFS都是常见的基础搜索算法，它们在Micromouse竞赛中可以作为路径规划的基础算法，并可以与其他高级算法结合使用，用于更复杂的路径规划和探索策略。参赛者通常会根据自己Micromouse的设计和迷宫的特点选择合适的搜索算法，并对其进行优化以实现更高效的路径规划和探索。</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/2.png" alt="img"></p>
+<p>图2.DFS算法解决迷宫问题</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/3.png" alt="img"></p>
+<p>图3.BFS算法解决迷宫问题</p>
+<h2 id="1-2-任务概述"><a href="#1-2-任务概述" class="headerlink" title="1.2  任务概述"></a>1.2  任务概述</h2><p>本项目旨在实现一个基于DFS和BFS算法的MicroMouse迷宫寻路可视化程序。该程序可以读取不同样式的迷宫地图，使用DFS和BFS算法搜索最优路径，并通过图形化界面展示搜索过程和结果。项目通过C++语言实现，并结合图形库和文件读取实现迷宫的可视化展示。并引入效率因数Q。</p>
+<p>深度优先搜索（DFS）：DFS算法会尽可能深地搜索迷宫的分支路径，直到遇到障碍物或者到达迷宫的边界，然后回溯到上一个节点继续搜索其他路径。</p>
+<p>广度优先搜索（BFS）：BFS算法会逐层地搜索迷宫，先搜索距离出发点最近的节点，然后逐渐扩展到距离更远的节点。</p>
+<h2 id="1-3-数据描述"><a href="#1-3-数据描述" class="headerlink" title="1.3  数据描述"></a>1.3  数据描述</h2><p><strong>1.3.1迷宫地图数据</strong></p>
+<p>迷宫地图以文本文件形式存储，每个数字代表不同类型的迷宫元素：</p>
+<p>0：表示可通行的路径。</p>
+<p>1：表示墙壁，不可通过的障碍物。</p>
+<p>2：从起点到终点遍历到正确的路径</p>
+<p>3：从起点到终点遍历过的路径</p>
+<p>迷宫地图以二维数组的形式存储，例如 int maze[30][30]。</p>
+<p><strong>1.3.2DFS和BFS搜索所需的数据结构</strong></p>
+<p>结构体：可能需要定义节点结构体、迷宫类等数据结构来方便地存储和操作数据。</p>
+<p>栈（Stack）和队列（Queue）：用于DFS和BFS算法的搜索过程中存储节点、记录路径等操作。</p>
+<p><strong>1.3.3数据的读取和存储</strong></p>
+<p>迷宫地图数据以文本文件的形式存储。文件内容按照迷宫地图的行列结构进行排列，使用数字表示不同的迷宫元素，每个数字之间可以用空格隔开。</p>
+<h2 id="1-4-功能需求"><a href="#1-4-功能需求" class="headerlink" title="1.4  功能需求"></a>1.4  功能需求</h2><p>1.迷宫的创建：文件读取</p>
+<p>2.求解方式：使用DFS和BFS算法进行迷宫寻路搜索</p>
+<p>3.提供交互式界面，允许用户选择不同迷宫样式和算法进行搜索。</p>
+<p>4.以图形界面展示迷宫搜索过程和结果（其中结果包括搜索过程中的总路长，正确路长及其搜索效率）。</p>
+<h2 id="1-5-运行需求"><a href="#1-5-运行需求" class="headerlink" title="1.5  运行需求"></a>1.5  运行需求</h2><p>编程语言：C++</p>
+<p>开发环境：Dev-C++</p>
+<p>图形库：&lt;graphics.h&gt;中所定义的图形库</p>
+<h2 id="1-6-任务计划"><a href="#1-6-任务计划" class="headerlink" title="1.6  任务计划"></a>1.6  任务计划</h2><p> <strong>第一周</strong></p>
+<p>1.配置编程环境DevC++与图形化库EGE</p>
+<p>2.讨论选题与可行性</p>
+<p>3.熟悉相关函数的使用</p>
+<p> <strong>第二周</strong></p>
+<p>1.确认选题</p>
+<p>2.设计程序设计大致结构与效果，初步尝试DFS遍历</p>
+<p>3.实现读取文件绘制构造不同的地图样式</p>
+<p> <strong>第三周</strong></p>
+<p>1.构造BFS算法遍历地图实现</p>
+<p>2.实现鼠标操作的相关页面交互</p>
+<p>3.整合重复文件与函数</p>
+<p> <strong>第四周</strong></p>
+<p>1.引入效率因数，在遍历的过程中记录寻路的效率</p>
+<p>2.设计窗口UI</p>
+<p>3.优化细节，增添注释</p>
+<hr>
+<h1 id="第二章-概要设计"><a href="#第二章-概要设计" class="headerlink" title="第二章 概要设计"></a>第二章 概要设计</h1><h2 id="2-1-总体设计"><a href="#2-1-总体设计" class="headerlink" title="2.1 总体设计"></a>2.1 总体设计</h2><p><strong>2.1.1 UI交互界面</strong></p>
+<p>该界面是DFS、BFS可视化方式实现的引导，用户可通过该界面选择所需的迷宫遍历方式。</p>
+<p>该界面需要具有的主要功能有：DFS、BFS方式的选择，迷宫地图的选择。</p>
+<p>其中关于迷宫地图我们提供了三张不同的地图可供挑选，以迷宫中心作为迷宫出口。</p>
+<p>该界面的呈现通过EGE图形库实现。</p>
+<p><strong>2.1.2 迷宫地图的绘制</strong></p>
+<p>约定以”1“标记墙壁，”0“标记通路，”2“标记可行节点，”3“标记死路（即遍历之后发现不可行的路径），将地图样式根据以上约定存入text文档，以矩阵形式读入并借助EGE库实现可视化。墙壁、通路、可行节点、死路以不同颜色进行区分，以地图中心作为迷宫终点，用五角星⭐标记。</p>
+<p><strong>2.1.3 DFS、BFS寻路及其可视化</strong></p>
+<p>通过栈结构实现DFS、BFS。在迷宫地图加载成功后，根据用户所选择的遍历方式及地图开始遍历。以DFS为例，用户在每一个迷宫节点寻求可行通路，每个节点都可能有除目前遍历方向外的三个可行方向，若仅有一个方向可行（该方向与目前遍历方向不同），则沿该方向继续遍历，同时标记已遍历节点为可行节点；若有多个方向都为通路，则按右、下、左、上的顺序依次深度搜索，同时标记已遍历节点为可行节点；若出现无可行通路的情况，则沿原路返回直至到达仍有未遍历方向的“岔路口”，同时标记回溯路径为“死路”。同样地，若用户选择BFS遍历方式，则在每个“岔路口”优先遍历每个每个方向而非深入每个方向的路径遍历即可。</p>
+<p>通过引入Micromouse图标展示遍历路径，Micromouse小图标的移动表示寻路的过程，Micromouse抵达迷宫出口（即地图中心）则停止，代表一次遍历的完成，同时Micromouse所行走的方向及具体路径将以坐标形式被打印在终端上。</p>
+<h2 id="2-2-面向过程设计"><a href="#2-2-面向过程设计" class="headerlink" title="2.2 面向过程设计"></a>2.2 面向过程设计</h2><p>数据结构：迷宫地图、搜索算法所需的数据结构（栈、队列等）。<br>类设计：可能包括迷宫类、搜索类等。<br>迷宫地图寻路的面向过程编程可粗略拟为：<br>（1）选择遍历方式（DFS&#x2F;BFS）；<br>（2）选择迷宫地图；<br>（3）按照所选遍历方式遍历迷宫地图。</p>
+<p>若用户选择DFS遍历方式，则过程（3）又可细化为如下过程：<br>①在当前迷宫节点搜寻可行方向；<br>②在每一个节点处，若仅有一个可行方向，则沿该方向继续向前遍历，同时标记已走路径为“2”；若有多个可行方向，则以右、下、左、上的顺序依次深度搜索，标记已走路径为“2”；若该节点处无可行通路，则沿原路返回直至抵达有未遍历方向的节点处，同时标记回溯路径为“3”；<br>③抵达迷宫出口，遍历结束。</p>
+<p>若用户选择BFS遍历方式，则过程（3）可细化为：<br>①在当前迷宫节点搜寻可行方向；<br>②在每一个节点处，若仅有一个可行方向，则沿该方向继续向前遍历，同时标记已走路径为“2”；若有多个可行方向，则以右、下、左、上的顺序将该节点的每个方向都作遍历并标记已遍历节点为“2”；若该节点处无可行通路，则沿原路返回直至抵达有未遍历方向的节点处，同时标记回溯路径为“3”；<br>③抵达迷宫出口，遍历结束。</p>
+<h2 id="2-3-运行界面设计"><a href="#2-3-运行界面设计" class="headerlink" title="2.3 运行界面设计"></a>2.3 运行界面设计</h2><p>主页界面：提供选择DFS和BFS算法以及不同迷宫样式的按钮。</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/4.png" alt="img"><br>图2.3.1 主页界面·遍历方式的选择<br>如图2.3.1所示，在运行程序后首先出现该界面，用户可选择DFS或BFS作为之后迷宫寻路的遍历手段。<br>该界面图标部分源自网络，其余皆由组长手绘制成，通过EGE呈现。</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/5.png" alt="img"><br>图2.3.2 主页界面·迷宫地图的选择<br>选择遍历方式后会跳转出如图2.3.2所示的界面，用户可根据自身喜好选择三者其一。<br>迷宫地图首先以矩阵形式被存储在text文件中，被读入程序后经EGE呈现，具体呈现方式见报告其他部分，此处不再赘述。<br>搜索过程展示界面：展示搜索过程的图形化界面。</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/6.png" alt="img"><br>图2.3.3 搜索过程的图形化界面<br>图2.3.3即为迷宫的寻路过程界面，左侧为寻路动画，右侧空白处“DFS|MAZE 3”表示用户所选遍历方式为DFS，迷宫地图为MAZE3，三个参数TotalLength、RightLength、Efficiency分别表示寻路所走的总长度、正确路径的总长度及所用时间（以秒为单位计时）。<br>五角星 处即为迷宫终点，Micmouse抵达该点则认为遍历结束。<br>结果展示界面：展示搜索结果的图形化界面。</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/7.png" alt="img"><br>图2.3.4 搜索结果的图形化界面<br>Micmouse抵达迷宫中点，此时左侧动画停止播放，右侧三个参数的值也不再发生变化，用户可得知本次遍历Micmouse所走的总长度（TotalLength）、正确路径的总长度（RightLength）、及遍历所用时间（Efficiency）。同时在终端上可看到如图2.3.5所示的每次行走方向及坐标的呈现。</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/8.png" alt="img"><br>图2.3.5 行走方向及坐标在终端的打印结果</p>
+<hr>
+<h1 id="第三章-详细设计"><a href="#第三章-详细设计" class="headerlink" title="第三章 详细设计"></a>第三章 详细设计</h1><h2 id="3-1-系统设计与实现"><a href="#3-1-系统设计与实现" class="headerlink" title="3.1  系统设计与实现"></a>3.1  系统设计与实现</h2><p>【总体框架、流程设计，模块划分及接口设计等】</p>
+<p>文件读取模块：负责读取迷宫地图的文件。</p>
+<p>迷宫类：封装迷宫地图的相关操作。</p>
+<p>DFS算法模块：实现DFS搜索算法。</p>
+<p>BFS算法模块：实现BFS搜索算法。</p>
+<p>图形化界面模块：使用图形库绘制并展示迷宫搜索的过程和结果。</p>
+<h2 id="3-2-模块设计"><a href="#3-2-模块设计" class="headerlink" title="3.2  模块设计"></a>3.2  模块设计</h2><p>【各模块的具体设计与实现】</p>
+<figure class="highlight objective-c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">**文件读取模块**：读取迷宫地图的文本文件，并将地图数据存储到相应的数据结构中。</span><br><span class="line"><span class="comment">/*从txt文件中获取地图样式*/</span></span><br><span class="line"><span class="type">void</span> ReadMaze(<span class="type">int</span> maze[<span class="number">30</span>][<span class="number">30</span>], <span class="keyword">const</span> <span class="type">char</span>* filename)</span><br><span class="line"></span><br><span class="line">**迷宫页面模块**：提供对迷宫地图展示与更新。</span><br><span class="line"><span class="comment">/*绘制地图界面*/</span></span><br><span class="line"><span class="type">void</span> DrawPath()</span><br><span class="line"></span><br><span class="line">**BFS搜索模块**：实现BFS算法的搜索逻辑，并在搜索过程中更新迷宫地图状态。</span><br><span class="line"><span class="comment">/*BFS定义*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> Node &#123;</span><br><span class="line"><span class="type">int</span> i;</span><br><span class="line"><span class="type">int</span> j;</span><br><span class="line"><span class="type">int</span> next;</span><br><span class="line">Node *pre;</span><br><span class="line">&#125; Node, *List;</span><br><span class="line"><span class="comment">/*初始BFS结点*/</span></span><br><span class="line"><span class="type">void</span> InitNode(List &amp;bfsp, <span class="type">int</span> x, <span class="type">int</span> y) &#123;</span><br><span class="line">bfsp=new Node;</span><br><span class="line">bfsp-&gt;i = x;</span><br><span class="line">bfsp-&gt;j = y;</span><br><span class="line">bfsp-&gt;next = <span class="number">-1</span>;</span><br><span class="line">bfsp-&gt;pre = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*定义BFS全局变量*/</span></span><br><span class="line">List bfsStart, bfsEnd, bfsp;</span><br><span class="line"><span class="type">int</span> x=<span class="number">0</span>, y=<span class="number">0</span>;</span><br><span class="line"><span class="comment">/*打印BFS回溯路径*/</span></span><br><span class="line"><span class="type">void</span> PrintPath(List&amp; np)</span><br><span class="line"><span class="comment">/*BFS搜索*/</span></span><br><span class="line"><span class="type">void</span> BFS(<span class="type">int</span> (*maze)[<span class="number">30</span>])</span><br><span class="line"></span><br><span class="line">**DFS搜索模块**：实现DFS算法的搜索逻辑，并在搜索过程中更新迷宫地图状态。</span><br><span class="line"><span class="comment">/*定义DFS路径结点*/</span></span><br><span class="line"><span class="keyword">struct</span> Point&#123;</span><br><span class="line"><span class="type">int</span> i;          <span class="comment">//当前行号</span></span><br><span class="line"><span class="type">int</span> j;          <span class="comment">//当前列号</span></span><br><span class="line"><span class="type">int</span> next;       <span class="comment">//下一步可走的方向号</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/*初始化DFS结点*/</span></span><br><span class="line">InitPoint(Point&amp;p,<span class="type">int</span> x,<span class="type">int</span> y)&#123;</span><br><span class="line">p.i=x;</span><br><span class="line">p.j=y;</span><br><span class="line">p.next=<span class="number">-999</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*初始化DFS栈与定义相关操作*/</span></span><br><span class="line"><span class="keyword">struct</span> Stack&#123;</span><br><span class="line">Point pointstack[<span class="number">500</span>];</span><br><span class="line"><span class="type">int</span> top;</span><br><span class="line">Stack() &#123;</span><br><span class="line">top = <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*DFS搜索*/</span></span><br><span class="line"><span class="type">int</span> DFS(<span class="type">int</span> (*maze)[<span class="number">30</span>])</span><br><span class="line"></span><br><span class="line">**图形化界面交互模块**：使用图形库绘制迷宫地图，并实时展示搜索过程和结果。</span><br><span class="line"><span class="comment">/*DFS画图*/</span></span><br><span class="line"><span class="type">void</span> DFSDrawMap()</span><br><span class="line"></span><br><span class="line"><span class="comment">/*BFS画图*/</span></span><br><span class="line"><span class="type">void</span> BFSDrawMap()</span><br><span class="line"><span class="comment">/*DFS地图选择*/</span></span><br><span class="line"><span class="type">void</span> DFSChooseMap()</span><br><span class="line"><span class="comment">/*BFS地图选择*/</span></span><br><span class="line"><span class="type">void</span> BFSChooseMap()</span><br><span class="line"><span class="comment">/*主页窗口创建*/</span></span><br><span class="line"><span class="type">void</span> StartPage()</span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<h1 id="第四章-测试分析"><a href="#第四章-测试分析" class="headerlink" title="第四章 测试分析"></a>第四章 测试分析</h1><p>【程序运行展示1】<br><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/9.png" alt="img"></p>
+<p>图.DFS MAZE1的运行结果</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/10.png" alt="img"></p>
+<p>图.BFS MAZE1的运行结果</p>
+<p>【程序运行结果分析1】</p>
+<blockquote>
+<p>对MAZE1的运行结果进行分析，结果显示：DFS算法在MicroMouse迷宫寻路中的效率为68%;BFS算法在MicroMouse迷宫寻路中的效率为48%,因此我们可以得出，对于MAZE1来说，使用DFS算法效率更优。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>DFS</th>
+<th>BFS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Efficiency</td>
+<td>68%</td>
+<td>48%</td>
+</tr>
+</tbody></table>
+<p>【程序运行展示2】<br><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/11.png" alt="img"></p>
+<p>图.DFS MAZE2的运行结果</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/12.png" alt="img"></p>
+<p>图.BFS MAZE2的运行结果</p>
+<p>【程序运行结果分析2】</p>
+<blockquote>
+<p>对MAZE2的运行结果进行分析，结果显示：DFS算法在MicroMouse迷宫寻路中的效率为26%;BFS算法在MicroMouse迷宫寻路中的效率为43%,因此我们可以得出，对于MAZE2来说，使用BFS算法效率更优。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>DFS</th>
+<th>BFS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Efficiency</td>
+<td>26%</td>
+<td>43%</td>
+</tr>
+</tbody></table>
+<p>【程序运行展示3】</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/13.png" alt="img"></p>
+<p>图.DFS MAZE3的运行结果</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/14.png" alt="img"></p>
+<p>图.BFS MAZE3的运行结果</p>
+<p>【程序运行结果分析3】</p>
+<blockquote>
+<p>对MAZE3的运行结果进行分析，结果显示：DFS算法在MicroMouse迷宫寻路中的效率为92%;BFS算法在MicroMouse迷宫寻路中的效率为82%,因此我们可以得出，对于MAZE3来说，使用DFS算法效率更优。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>DFS</th>
+<th>BFS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Efficiency</td>
+<td>92%</td>
+<td>82%</td>
+</tr>
+</tbody></table>
+<p>【结论】</p>
+<blockquote>
+<p>基于上述对于三种不同迷宫的程序运行结果来看，对于不同的地图，DFS和BFS算法的效率都是不同的：针对一些迷宫路线来说，使用DFS算法来进行迷宫路线的探索或许更优，针对另一些迷宫路线来说，使用BFS算法来进行迷宫路线的探索或许更优。与此同时，这也是本项目的一个目的：对于不同的迷宫路线，DFS和BFS算法哪种算法的效率更高，选择哪种算法进行探索更优。</p>
+</blockquote>
+<hr>
+<h1 id="第五章-用户手册（可选）"><a href="#第五章-用户手册（可选）" class="headerlink" title="第五章 用户手册（可选）"></a>第五章 用户手册（可选）</h1><p>5.1 使用说明</p>
+<p>Step1.启动编译，起始页面如下图所示，选择你想要使用的遍历方式：DFS或BFS</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/15.jpg" alt="img"></p>
+<p>图4.起始页面</p>
+<p>Step2.在两种不同的遍历方式下，我们都提供了三个不同的迷宫供用户选择，选择一个进行运行。</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/16.jpg" alt="img"></p>
+<p>图5.DFS遍历方式下的迷宫三选一页面</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/17.jpg" alt="img"></p>
+<p>图6.BFS遍历方式下的迷宫三选一页面</p>
+<p>Step3.以DFS的MAZE1为例，左侧为用户展示出小鼠的运行轨迹，右侧为用户展示出了小鼠从起点到终点所走的总路长，正确路长及效率。</p>
+<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/18.png" alt="img"></p>
+<p>图7.DFS的MAZE1的运行结果</p>
+<p>Step4. 运行结束后，按回车返回主页进行下一轮的迷宫探索。</p>
+<hr>
+<h1 id="第六章-课程设计总结"><a href="#第六章-课程设计总结" class="headerlink" title="第六章 课程设计总结"></a>第六章 课程设计总结</h1><p>【设计初衷、实践过程中遇到的困难及解决方案、课程收获等】</p>
+<p>此次课程设计的想法源于网络上讲解MicroMouse迷宫竞赛运用到的算法相关的一个视频，里面针对电脑鼠从起点开始探索一个复杂的迷宫，并尽可能地去寻找到迷宫出口的最优路径。</p>
+<p>在探索路径中，DFS与BFS算法是探索迷宫寻找路径的两种非常重要的算法，于是我们小组就针对DFS与BFS算法去实现这一功能去做相关的学习与尝试。</p>
+<p>我们设计了一个效率因数去衡量比较两种算法针对相同的一个迷宫去遍历的效率。其中定义了TotalLength遍历过程中经过的所有的结点长度与ValidLength从起点到终点有效部分的长度。其比值即为效率因数Efficiency。效率因数越高，表示该种遍历寻路的过程与结果重合度更高，即算法更优。</p>
+<p>同时为了提高程序的自由度，我们设计了三种不同的地图样式，可以根据自己的想法去在txt文件中设计全新的地图样式，小鼠的起点与终点都是可以通过修改pStart与pEnd结点信息去设置。</p>
+<p>小组合作与项目进度总体上是比较顺利的，每周都会产生新的构思与想法，设计的代码也在不断地更新、迭代。</p>
+<p>在实践过程中遇到不少困惑我们的问题，针对遇到的问题我们做出如下收获与反思：<br><strong>1.检索代码信息与解决问题的能力得到了提升。</strong></p>
+<p>EGE图形化库是第一次是使用，里面包含众多函数，每次调用都需要不断地去搜索，学习。大多数情况都可以在官方文档<a target="_blank" rel="noopener" href="https://xege.org/manual/tutorial/index.htm">https://xege.org/manual/tutorial/index.htm</a>中得到解决，例如在程序中插入一个背景是透明色的PNG图片。putimage（）函数导入的png图片存在黑底 <code>putimage（）</code> 函数便不再适用，插入含透明色的png图像<code>putimage_withalpha()</code>。在此次学习过程中，检索代码信息与解决问题的能力得到了提升。</p>
+<p><strong>2.对结构体指针的理解不够深入。</strong>在设计BFS算法遍历的过程中，运用到单向链表、栈、队列一系列数据结构，不可避免地运用到大量的指针传参，如:</p>
+<figure class="highlight objective-c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*BFS定义*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> Node &#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="type">int</span> j;</span><br><span class="line">    <span class="type">int</span> next;</span><br><span class="line">    Node *pre;</span><br><span class="line">&#125; Node, *List;</span><br></pre></td></tr></table></figure>
+
+
+<p>其中设计到Node与List的灵活变换，在运行的过程中产生了许多错误。好在团队及时讨论，沉着冷静分析解决了问题。</p>
+<p><strong>3.代码设计的全局观不够。</strong></p>
+<p>第一次去完成一个600余行的一整个项目，在实现流程上存在相关问题。整个设计包括DFS和BFS两个部分，我们是分为两个文件单独设计的，在设计完后才将两份文件中的有效片段拼凑在一个可运行文件中，导致设计的数据结构有些杂乱与复杂，结构相对比较分散。在编译代码的过程中，出现报错最多的便是提示：该变量未定义，问题大多出现在写代码过程中构思不够优化，需要额外定义许多额外的全局变量去达到想要的效果。</p>
+<p>总的来说，我们的课程设计很有一定的深度，选择的问题和算法对整个团队来说是蛮巨挑战性的。在实践中遇到的问题也是很常见的。通过努力解决这些问题，我们不仅提升了代码能力，而且对算法和数据结构有了更深入的理解。</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/C/"># C</a>
+                    
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"># 数据结构</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2023/10/14/%E3%80%90%E8%80%8D%E3%80%91%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8D%E7%A1%AE%E5%AE%9A%E5%BA%A6%E4%B8%8E%E7%99%BE%E5%88%86%E5%B7%AE%EF%BC%89%E5%8D%95%E9%93%BE%E8%A1%A8/">【单链表】数据处理（不确定度与百分差）</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<!-- 脚本部分 -->
+<script>
+  var now = new Date(); 
+  function createtime() { 
+      var grt= new Date("08/29/2023 20:00:00");//在此处修改你的建站时间
+      now.setTime(now.getTime()+250); 
+      days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+      if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+      mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+      snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+      document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+      document.getElementById("times").innerHTML = hnum + " 时 " + mnum + " 分 " + snum + " 秒"; 
+  } 
+  setInterval("createtime()",250);
+</script>
+<div class="copyright">
+    <span>Creator | SANSHI</span>
+</div>
+
+
+
+
+    <!-- 显示部分 -->
+
+</footer>
+
+    </div>
+    <script>
+        !
+        function() {
+            function n(n, e, t) {
+                return n.getAttribute(e) || t
+            }
+            function e(n) {
+                return document.getElementsByTagName(n)
+            }
+            function t() {
+                var t = e("script"),
+                o = t.length,
+                i = t[o - 1];
+                return {
+                    l: o,
+                    z: n(i, "zIndex", -1),     //置于主页面背后
+                    o: n(i, "opacity", .5),     //线条透明度
+                    c: n(i, "color", "0,0,0"),  //线条颜色
+                    n: n(i, "count", 100)    //线条数量
+                }
+            }
+            function o() {
+                a = m.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+                c = m.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+            }
+            function i() {
+                r.clearRect(0, 0, a, c);
+                var n, e, t, o, m, l;
+                s.forEach(function(i, x) {
+                    for (i.x += i.xa, i.y += i.ya, i.xa *= i.x > a || i.x < 0 ? -1 : 1, i.ya *= i.y > c || i.y < 0 ? -1 : 1, r.fillRect(i.x - .5, i.y - .5, 1, 1), e = x + 1; e < u.length; e++) n = u[e],
+                    null !== n.x && null !== n.y && (o = i.x - n.x, m = i.y - n.y, l = o * o + m * m, l < n.max && (n === y && l >= n.max / 2 && (i.x -= .03 * o, i.y -= .03 * m), t = (n.max - l) / n.max, r.beginPath(), r.lineWidth = t / 2, r.strokeStyle = "rgba(" + d.c + "," + (t + .2) + ")", r.moveTo(i.x, i.y), r.lineTo(n.x, n.y), r.stroke()))
+                }),
+                x(i)
+            }
+            var a, c, u, m = document.createElement("canvas"),
+            d = t(),
+            l = "c_n" + d.l,
+            r = m.getContext("2d"),
+            x = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+            function(n) {
+                window.setTimeout(n, 1e3 / 45)
+            },
+            w = Math.random,
+            y = {
+                x: null,
+                y: null,
+                max: 2e4
+            };
+            m.id = l,
+            m.style.cssText = "position:fixed;top:0;left:0;z-index:" + d.z + ";opacity:" + d.o,
+            e("body")[0].appendChild(m),
+            o(),
+            window.onresize = o,
+            window.onmousemove = function(n) {
+                n = n || window.event,
+                y.x = n.clientX,
+                y.y = n.clientY
+            },
+            window.onmouseout = function() {
+                y.x = null,
+                y.y = null
+            };
+            for (var s = [], f = 0; d.n > f; f++) {
+                var h = w() * a,
+                g = w() * c,
+                v = 2 * w() - 1,
+                p = 2 * w() - 1;
+                s.push({
+                    x: h,
+                    y: g,
+                    xa: v,
+                    ya: p,
+                    max: 6e3
+                })
+            }
+            u = s.concat([y]),
+            setTimeout(function() {
+                i()
+            },
+            100)
+        } ();
+        </script>
+        <!-- 引入jQuery -->
+            <script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+        <!-- 雪花特效2 -->
+            <script type="text/javascript" src="/js/snow2.js"></script>
+        
+</body>
+
+</html>
