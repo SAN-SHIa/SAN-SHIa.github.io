@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="SANSHI">
+
+
+
+
+
+<title>DataStructureOverview | SANSHI</title>
+
+
+
+    <link rel="icon" href="/sanshi1.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">SANSHI&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tag</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">SANSHI&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tag</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">DataStructureOverview</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">SANSHI</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 29, 2023&nbsp;&nbsp;0:42:15</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><h3 id="树相关"><a href="#树相关" class="headerlink" title="树相关"></a>树相关</h3><h4 id="树的基础操作"><a href="#树的基础操作" class="headerlink" title="树的基础操作"></a>树的基础操作</h4><blockquote>
+<p><strong>树的初始化</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">Node</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="type">char</span> data;</span><br><span class="line">Node*lchild;</span><br><span class="line">Node*rchild;</span><br><span class="line">&#125;Node,*BiTree;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*初始化树*/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">InitTree</span><span class="params">(BiTree&amp;tree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">tree=<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>树的前序输入</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*读取结点数据*/</span></span><br><span class="line"><span class="function"><span class="type">char</span>* <span class="title">GetTree</span><span class="params">(BiTree&amp;tree,<span class="type">char</span>*str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> <span class="comment">//如果带存入的数据为空，则将该节点置空，数组下标移到下一个</span></span><br><span class="line"> <span class="keyword">if</span>(<span class="string">&#x27;#&#x27;</span>==*str)</span><br><span class="line"> &#123;</span><br><span class="line">     tree=<span class="literal">NULL</span>;</span><br><span class="line">     <span class="keyword">return</span> str+<span class="number">1</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">//如果存入数据不为空，新建结点存入数据</span></span><br><span class="line"> tree=<span class="keyword">new</span> Node;</span><br><span class="line"> tree-&gt;data=*str;</span><br><span class="line"> <span class="type">char</span>*afterleft=<span class="built_in">GetTree</span>(tree-&gt;lchild,str+<span class="number">1</span>);<span class="comment">//顺着左侧结点继续输入</span></span><br><span class="line"> <span class="type">char</span>*afterright=<span class="built_in">GetTree</span>(tree-&gt;rchild,afterleft);</span><br><span class="line"> <span class="keyword">return</span> afterright;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>销毁一棵树</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*删除一棵树*/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">DestroyBiTree</span><span class="params">(BiTree&amp; tree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (tree != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="built_in">DestroyBiTree</span>(tree-&gt;lchild); <span class="comment">// 递归删除左子树</span></span><br><span class="line">        <span class="built_in">DestroyBiTree</span>(tree-&gt;rchild); <span class="comment">// 递归删除右子树</span></span><br><span class="line">        <span class="keyword">delete</span> tree; <span class="comment">// 删除当前节点</span></span><br><span class="line">        tree = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="树的四种遍历"><a href="#树的四种遍历" class="headerlink" title="树的四种遍历"></a>树的四种遍历</h4><h5 id="递归版本"><a href="#递归版本" class="headerlink" title="递归版本"></a>递归版本</h5><blockquote>
+<p><strong>前序遍历</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*前序遍历*/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">PreTravel</span><span class="params">(BiTree&amp;tree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(tree==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;<span class="string">&quot;#&quot;</span>&lt;&lt;<span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;tree-&gt;data;</span><br><span class="line">    <span class="built_in">PreTravel</span>(tree-&gt;lchild);</span><br><span class="line">    <span class="built_in">PreTravel</span>(tree-&gt;rchild);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>中序遍历</strong></p>
+<p>略略略~</p>
+<p><strong>后续遍历</strong></p>
+<p>略略略~</p>
+<p><strong>层序遍历</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*层序遍历*/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">LevelTravel</span><span class="params">(Node* tree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(tree == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    queue&lt;Node*&gt; Q;</span><br><span class="line">    Q.<span class="built_in">push</span>(tree);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!Q.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        Node* q = Q.<span class="built_in">front</span>();</span><br><span class="line">        cout &lt;&lt; q-&gt;data &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        Q.<span class="built_in">pop</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (q-&gt;lchild) &#123;</span><br><span class="line">            Q.<span class="built_in">push</span>(q-&gt;lchild);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (q-&gt;rchild) &#123;</span><br><span class="line">            Q.<span class="built_in">push</span>(q-&gt;rchild);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h5 id="非递归版本"><a href="#非递归版本" class="headerlink" title="非递归版本"></a>非递归版本</h5><blockquote>
+<p><strong>前序遍历</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//非递归前序遍历，返回遍历结果字符串</span></span><br><span class="line"><span class="function">string <span class="title">PreTraverse_nonRec</span><span class="params">(BiTree &amp;t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    string result=<span class="string">&quot;&quot;</span>;</span><br><span class="line">    stack&lt;BiNode*&gt; s;</span><br><span class="line">    BiNode *p=t;</span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span> || !s.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(p)&#123;</span><br><span class="line">            result+=p-&gt;data;</span><br><span class="line">            s.<span class="built_in">push</span>(p);</span><br><span class="line">            p=p-&gt;lchild;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!s.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            p=s.<span class="built_in">top</span>();</span><br><span class="line">            s.<span class="built_in">pop</span>();</span><br><span class="line">            p=p-&gt;rchild;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>中序遍历</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//非递归中序遍历，返回遍历结果字符串</span></span><br><span class="line"><span class="function">string <span class="title">InTraverse_nonRec</span><span class="params">(BiTree &amp;t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    string result=<span class="string">&quot;&quot;</span>;</span><br><span class="line">    stack&lt;BiNode *&gt; s;</span><br><span class="line">    BiNode *p=t;</span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span> || !s.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(p)</span><br><span class="line">        &#123;</span><br><span class="line">            s.<span class="built_in">push</span>(p);</span><br><span class="line">            p=p-&gt;lchild;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(s.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            p=s.<span class="built_in">top</span>();</span><br><span class="line">            s.<span class="built_in">pop</span>();</span><br><span class="line">            result=result+p-&gt;data;</span><br><span class="line">            p=p-&gt;rchild;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>后续遍历</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//非递归后序遍历，返回遍历结果字符串</span></span><br><span class="line"><span class="function">string <span class="title">SucTraverse_nonRec</span><span class="params">(BiTree &amp;t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    string result=<span class="string">&quot;&quot;</span>;</span><br><span class="line">    stack&lt;BiNode*&gt; s;</span><br><span class="line">    BiNode *p=t;</span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span> || !s.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(p)&#123;</span><br><span class="line">            result.<span class="built_in">insert</span>(<span class="number">0</span>,p-&gt;data);</span><br><span class="line">            s.<span class="built_in">push</span>(p);</span><br><span class="line">            p=p-&gt;rchild;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!s.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            p=s.<span class="built_in">top</span>();</span><br><span class="line">            s.<span class="built_in">pop</span>();</span><br><span class="line">            p=p-&gt;lchild;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="树的计算"><a href="#树的计算" class="headerlink" title="树的计算"></a>树的计算</h4><blockquote>
+<p><strong>树整体结点个数的计算</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*统计结点个数*/</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">GetNum</span><span class="params">(BiTree&amp;tree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(tree==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> lheight=<span class="built_in">GetNum</span>(tree-&gt;lchild);</span><br><span class="line">    <span class="type">int</span> rheight=<span class="built_in">GetNum</span>(tree-&gt;rchild);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> lheight+rheight+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>树整体深度的计算</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*树的高度*/</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">GetHeight</span><span class="params">(BiTree&amp;tree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(tree==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> lheight=<span class="built_in">GetHeight</span>(tree-&gt;lchild);</span><br><span class="line">    <span class="type">int</span> rheight=<span class="built_in">GetHeight</span>(tree-&gt;rchild);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">max</span>(lheight,rheight)+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="树的高级玩法"><a href="#树的高级玩法" class="headerlink" title="树的高级玩法"></a>树的高级玩法</h4><blockquote>
+<p><strong>判断一棵树是否为完全二叉树</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*判断是否为完全二叉树*/</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">isCompleteBinaryTree</span><span class="params">(BiTree&amp;tree)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!tree) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    std::queue&lt;Node*&gt; q;</span><br><span class="line">    q.<span class="built_in">push</span>(tree);</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        Node* current = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> (!current) &#123;</span><br><span class="line">            <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) </span><br><span class="line">            &#123;</span><br><span class="line">                Node* temp = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">if</span> (temp) </span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        q.<span class="built_in">push</span>(current-&gt;lchild);</span><br><span class="line">        q.<span class="built_in">push</span>(current-&gt;rchild);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>根据前序与中序遍历还原二叉树</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*前序中序还原二叉树*/</span></span><br><span class="line"><span class="function">BiTree <span class="title">PreInTree</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pre,<span class="type">const</span> <span class="type">char</span> *mid,<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&lt;=<span class="number">0</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;<span class="comment">//如果root==-1，无论左子树还是右子树都不会继续递归</span></span><br><span class="line"></span><br><span class="line">    BiTree t=<span class="keyword">new</span> Node;</span><br><span class="line">    t-&gt;data=*pre;</span><br><span class="line">    <span class="type">int</span> root=<span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;x;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(mid[i]==*pre)&#123;</span><br><span class="line">            root=i;<span class="comment">//找到中序遍历中“中点”的位置</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    t-&gt;lchild=<span class="built_in">PreInTree</span>(pre+<span class="number">1</span>,mid,root);</span><br><span class="line">    t-&gt;rchild=<span class="built_in">PreInTree</span>(pre+<span class="number">1</span>+root,mid+<span class="number">1</span>+root,x-root<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">return</span> t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="哈夫曼树的理解"><a href="#哈夫曼树的理解" class="headerlink" title="哈夫曼树的理解"></a>哈夫曼树的理解</h4><p><img src="/2023/12/29/DataStructureOverview/Huff.jpg" alt="img"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/C/"># C</a>
+                    
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"># 数据结构</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/">【数据结构】课程设计-MicroMouse迷宫遍历算法演示</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<!-- 脚本部分 -->
+<script>
+  var now = new Date(); 
+  function createtime() { 
+      var grt= new Date("08/29/2023 20:00:00");//在此处修改你的建站时间
+      now.setTime(now.getTime()+250); 
+      days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+      if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+      mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+      snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+      document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+      document.getElementById("times").innerHTML = hnum + " 时 " + mnum + " 分 " + snum + " 秒"; 
+  } 
+  setInterval("createtime()",250);
+</script>
+<div class="copyright">
+    <span>Creator | SANSHI</span>
+</div>
+
+
+
+
+    <!-- 显示部分 -->
+
+</footer>
+
+    </div>
+    <script>
+        !
+        function() {
+            function n(n, e, t) {
+                return n.getAttribute(e) || t
+            }
+            function e(n) {
+                return document.getElementsByTagName(n)
+            }
+            function t() {
+                var t = e("script"),
+                o = t.length,
+                i = t[o - 1];
+                return {
+                    l: o,
+                    z: n(i, "zIndex", -1),     //置于主页面背后
+                    o: n(i, "opacity", .5),     //线条透明度
+                    c: n(i, "color", "0,0,0"),  //线条颜色
+                    n: n(i, "count", 100)    //线条数量
+                }
+            }
+            function o() {
+                a = m.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+                c = m.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+            }
+            function i() {
+                r.clearRect(0, 0, a, c);
+                var n, e, t, o, m, l;
+                s.forEach(function(i, x) {
+                    for (i.x += i.xa, i.y += i.ya, i.xa *= i.x > a || i.x < 0 ? -1 : 1, i.ya *= i.y > c || i.y < 0 ? -1 : 1, r.fillRect(i.x - .5, i.y - .5, 1, 1), e = x + 1; e < u.length; e++) n = u[e],
+                    null !== n.x && null !== n.y && (o = i.x - n.x, m = i.y - n.y, l = o * o + m * m, l < n.max && (n === y && l >= n.max / 2 && (i.x -= .03 * o, i.y -= .03 * m), t = (n.max - l) / n.max, r.beginPath(), r.lineWidth = t / 2, r.strokeStyle = "rgba(" + d.c + "," + (t + .2) + ")", r.moveTo(i.x, i.y), r.lineTo(n.x, n.y), r.stroke()))
+                }),
+                x(i)
+            }
+            var a, c, u, m = document.createElement("canvas"),
+            d = t(),
+            l = "c_n" + d.l,
+            r = m.getContext("2d"),
+            x = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+            function(n) {
+                window.setTimeout(n, 1e3 / 45)
+            },
+            w = Math.random,
+            y = {
+                x: null,
+                y: null,
+                max: 2e4
+            };
+            m.id = l,
+            m.style.cssText = "position:fixed;top:0;left:0;z-index:" + d.z + ";opacity:" + d.o,
+            e("body")[0].appendChild(m),
+            o(),
+            window.onresize = o,
+            window.onmousemove = function(n) {
+                n = n || window.event,
+                y.x = n.clientX,
+                y.y = n.clientY
+            },
+            window.onmouseout = function() {
+                y.x = null,
+                y.y = null
+            };
+            for (var s = [], f = 0; d.n > f; f++) {
+                var h = w() * a,
+                g = w() * c,
+                v = 2 * w() - 1,
+                p = 2 * w() - 1;
+                s.push({
+                    x: h,
+                    y: g,
+                    xa: v,
+                    ya: p,
+                    max: 6e3
+                })
+            }
+            u = s.concat([y]),
+            setTimeout(function() {
+                i()
+            },
+            100)
+        } ();
+        </script>
+        <!-- 引入jQuery -->
+            <script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+        <!-- 雪花特效2 -->
+            <script type="text/javascript" src="/js/snow2.js"></script>
+        
+</body>
+
+</html>
