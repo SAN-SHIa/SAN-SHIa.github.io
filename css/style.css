@@ -905,8 +905,8 @@ header label {
   padding: 1em 1.2em 1em 1.2em;
   position: relative;
   color: rgba(52,73,94,0.8);
-  background-color: #e9f5fa;
-  border-left: 2px solid #2d96bd;
+  background-color: #F6F8FA;
+  border-left: 2px solid #4870AC;
 }
 .post-content blockquote p {
   margin: 0;
@@ -970,8 +970,8 @@ header label {
   line-height: 1.7em;
   padding: 3px 5px;
   border-radius: 4px;
-  color: #c7254e;
-  background: #f8f5ec;
+  color: #4F70AC;
+  background: #F6F8FA;
 }
 .dark-theme .post-content code {
   color: #fffe28;
@@ -1276,7 +1276,7 @@ header label {
 }
 .highlight {
   color: #000;
-  background: #fff;
+  background: #FDF6E3;
 }
 .highlight .code .comment,
 .highlight .code .quote {
