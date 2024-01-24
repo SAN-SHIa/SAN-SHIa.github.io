@@ -1276,7 +1276,7 @@ header label {
 }
 .post-content figure.highlight {
   margin: 2em 0;
-  background: #f7f7f7;
+  background: #F6F8FA;
   color: #4d4d4c;
   font-size: 12px;
   overflow: scroll;
@@ -1287,19 +1287,19 @@ header label {
   color: $hight-gutter;
 }
 .post-content figure.highlight pre {
-  background: #f7f7f7;
+  background: #F6F8FA;
   margin: 0;
 }
 .post-content code {
   padding: 2px 4px;
-  background: #f7f7f7;
+  background: #F6F8FA;
   font-family: Menlo, Monaco, Consolas, Courier New, monospace;
   font-size: 12px;
 }
 .post-content pre {
   padding: 10px;
   overflow: auto;
-  background: #f7f7f7;
+  background: #F6F8FA;
   font-family: Menlo, Monaco, Consolas, Courier New, monospace;
 }
 .post-content pre code {
