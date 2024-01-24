@@ -145,13 +145,12 @@ template {
 @font-face {
   font-family: '思源宋体 CN';
   src: url("../fonts/lanting/SourceHanSerifCN-Medium-6.otf") format('opentype');
-  /*src: url("../fonts/lanting/systzt.ttf")format('truetype'); /* IE9 */
-
-  font-weight: 300;
+  font-style: normal;
+  font-weight: 600;
   font-display: swap;
 }
 html {
-  font-family: '思源宋体 CN', 'Lantinghei SC', 'PingFang SC', 'Microsoft Jhenghei', '宋体', 'Microsoft Yahei','lanting', 'Seguo UI', 'Arial';;
+  font-family: '思源宋体 CN', 'Lantinghei SC', '宋体', 'PingFang SC', 'Microsoft Jhenghei', 'Microsoft Yahei', 'lanting', 'Seguo UI', 'Arial';
 }
 html::-webkit-scrollbar {
   width: 8px;

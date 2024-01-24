@@ -13,7 +13,7 @@
 
 
 
-<title>【数据结构】绪论课 | SANSHI</title>
+<title>【Detail】C&amp;C++的内存管理 | SANSHI</title>
 
 
 
@@ -196,7 +196,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">【数据结构】绪论课</h1>
+            <h1 class="post-title">【Detail】C&amp;C++的内存管理</h1>
             
                 <div class="post-meta">
                     
@@ -205,62 +205,87 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">September 8, 2023&nbsp;&nbsp;17:25:16</a>
+                        Date: <a href="#">January 24, 2024&nbsp;&nbsp;11:45:14</a>
                         </span>
                     
-                    
-                        <span class="post-category">
-                    Category:
-                            
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
-                            
-                        </span>
                     
                 </div>
             
         </header>
 
         <div class="post-content">
-            <h2 id="数据结构-绪论"><a href="#数据结构-绪论" class="headerlink" title="数据结构-绪论"></a>数据结构-绪论</h2><p><strong>数据结构是研究如何将数据以一种特定的方式存储到内存中。</strong></p>
-<h3 id="冯诺依曼架构-Von-Neumann-architecture"><a href="#冯诺依曼架构-Von-Neumann-architecture" class="headerlink" title="冯诺依曼架构&#x2F;Von Neumann architecture"></a>冯诺依曼架构&#x2F;Von Neumann architecture</h3><p><img src="/2023/09/08/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E7%BB%AA%E8%AE%BA%E8%AF%BE/Von_Neumann_Architecture.svg.png" alt="img"></p>
-<p>黑色箭头表示数据信号。</p>
-<h4 id="CPU-Central-Processing-Unit"><a href="#CPU-Central-Processing-Unit" class="headerlink" title="CPU Central Processing Unit"></a>CPU Central Processing Unit</h4><p>包括运算器，控制器，寄存器（Register）等器件。</p>
-<h4 id="存储器与寄存器的关系"><a href="#存储器与寄存器的关系" class="headerlink" title="存储器与寄存器的关系"></a>存储器与寄存器的关系</h4><p><strong>CPU &lt;——&gt;寄存器 &lt;—-&gt;缓存&lt;—–&gt;内存</strong></p>
-<p><strong>存储器</strong>在CPU外。一般指硬盘，U盘等可以在切断电源后保存资料的设备。容量一般比较大，缺点是读写速度都很慢，普通的机械硬盘读写速度一般是50MB&#x2F;S左右。</p>
-<p><strong>缓存</strong>就是数据交换的缓冲区（称作Cache），当某一硬件要读取数据时，会首先从缓存中查找需要的数据，如果找到了则直接执行，找不到的话则从内存中找。由于缓存的运行速度比内存快得多，故缓存的作用就是帮助硬件更快地运行。</p>
-<p><strong>寄存器</strong>一般是指由基本的RS触发器结构衍生出来的D触发，就是一些与非门构成的结构，一般整合在CPU内。其读写速度跟CPU的运行速度基本匹配，但因为性能优越，所以造价昂贵。</p>
-<p><strong>内存</strong>分为ROM和RAM</p>
-<hr>
-<h3 id="实验课"><a href="#实验课" class="headerlink" title="实验课"></a>实验课</h3><h4 id="g的使用"><a href="#g的使用" class="headerlink" title="%g的使用"></a><code>%g</code>的使用</h4><p><code>%g</code> 和 <code>%f</code> 是C语言中用于格式化输出浮点数的两种不同格式说明符，它们在输出方面有一些区别：</p>
-<p><code>%f</code>：这个格式说明符用于输出浮点数的固定小数点表示形式，通常会显示小数点后的一定位数（默认是6位）。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">num = <span class="number">3.14159</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%f&quot;</span>, num);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%g&quot;</span>, num);</span><br></pre></td></tr></table></figure>
-
-<p>输出：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3.141590</span></span><br><span class="line"><span class="number">1.23456e-05</span></span><br></pre></td></tr></table></figure>
-
-<p>%g：这个格式说明符用于输出浮点数的一种更通用的表示形式，它会根据数字的大小和精度来动态选择使用固定小数点表示法（<code>%f</code>）或指数表示法（<code>%e</code> 或 <code>%E</code>）以得到更简洁的输出。</p>
-<p><code>%g</code> 也可以在整数部分末尾的零被省略掉，以更简洁的形式输出。例如，**<code>100.00</code> 会以 <code>%f</code> 输出为 <code>100.000000</code>，但以 <code>%g</code> 输出为 <code>100</code>。**</p>
-<h4 id="结构体的访问"><a href="#结构体的访问" class="headerlink" title="结构体的访问"></a>结构体的访问</h4><p><strong><code>.</code>运算符和<code>-&gt;</code>运算符来访问结构体的成员有不同的语法规则和含义。</strong></p>
+            <h2 id="C-C-的内存管理"><a href="#C-C-的内存管理" class="headerlink" title="C&amp;C++的内存管理"></a>C&amp;C++的内存管理</h2><h3 id="内存分布"><a href="#内存分布" class="headerlink" title="内存分布"></a>内存分布</h3><blockquote>
 <ol>
-<li>对于结构体变量（例如 <code>struct stu a;</code>），你可以使用<code>.</code>运算符来访问其成员。例如，<code>a.eng</code> 表示访问结构体变量 <code>a</code> 中的 <code>eng</code> 成员，而 <code>a.maths</code> 表示访问 <code>maths</code> 成员。</li>
-<li>对于指向结构体的指针（例如 <code>struct stu* a;</code>），你应该使用<code>-&gt;</code>运算符来访问其成员。例如，<code>a-&gt;eng</code> 表示访问指针 <code>a</code> 指向的结构体中的 <code>eng</code> 成员，而 <code>a-&gt;maths</code> 表示访问 <code>maths</code> 成员。</li>
+<li>栈又叫堆栈–非静态局部变量&#x2F;函数参数&#x2F;返回值等等，栈是向下增长的。<strong>临时变量存储在栈中。建立栈帧本质是即用即销毁。</strong></li>
+<li>内存映射段是高效的I&#x2F;O映射方式，用于装载一个共享的动态内存库。用户可使用系统接口 创建共享共享内存，做进程间通信。（Linux） </li>
+<li>堆用于程序运行时动态内存分配，堆是可以上增长的。</li>
+<li>静态区&#x2F;数据段–存储**全局数据和静态数据(<code>static</code>)**。</li>
+<li>常量区&#x2F;代码段–可执行的代码&#x2F;只读常量。</li>
 </ol>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
-<p><strong>What is DATA Structure?</strong> </p>
+<p>例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">char</span>*pChar=<span class="string">&quot;abcd&quot;</span>;</span><br><span class="line"><span class="comment">//pChar是指针变量，在栈，*pChar是常量&quot;abcd&quot;位于常量区</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span>*ptr=(<span class="type">int</span>*)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(<span class="type">int</span>)*<span class="number">4</span>);</span><br><span class="line"><span class="comment">//ptr是指针变量，在栈，*ptr是指向堆上开辟的空间</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="C语言内存管理方式"><a href="#C语言内存管理方式" class="headerlink" title="C语言内存管理方式"></a>C语言内存管理方式</h3><blockquote>
+<p><strong>辨析<code>malloc</code> <code>calloc</code> <code>realloc</code></strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="function"><span class="type">void</span>* <span class="title">malloc</span> <span class="params">(<span class="type">size_t</span> size)</span></span>;</span><br><span class="line">&gt;<span class="function"><span class="type">void</span>* <span class="title">calloc</span> <span class="params">(<span class="type">size_t</span> num, <span class="type">size_t</span> size)</span></span>;</span><br><span class="line">&gt;<span class="function"><span class="type">void</span>* <span class="title">realloc</span> <span class="params">(<span class="type">void</span>* ptr, <span class="type">size_t</span> size)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>calloc</code>函数的功能是为 <code>num </code>个大小为 <code>size</code> 的元素开辟一块空间，并且<strong>把空间的每个字节初始化为0</strong>。与函数<code>malloc</code>的区别只在于<code> calloc</code> 会在返回地址之前把申请的空间的每个字节初始化为全0。</p>
+<p>有时会我们发现过去申请的空间太小了，有时候我们又会觉得申请的空间过大了，那为了合理的时候内存，我们一定会对内存的大小做灵活的调整。那<code>realloc</code><strong>函数就可以做到对动态开辟内存大小的调整</strong>。</p>
+</blockquote>
+<h3 id="C-内存管理方式"><a href="#C-内存管理方式" class="headerlink" title="C++内存管理方式"></a>C++内存管理方式</h3><blockquote>
+<p><img src="/2024/01/24/%E3%80%90Detail%E3%80%91C-C-%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/compare.png" alt="img"></p>
+<p><strong>new的意义</strong>：开空间+调用构造函数初始化。</p>
+</blockquote>
+<p><strong>注意</strong>：在申请自定义类型的空间时，<code>new</code>会调用构造函数，<code>delete</code>会调用析构函数，而<code>malloc</code>与 <code>free</code>不会。</p>
+<h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><h4 id="operator-new与operator-delete函数"><a href="#operator-new与operator-delete函数" class="headerlink" title="operator new与operator delete函数"></a><code>operator new</code>与<code>operator delete</code>函数</h4><blockquote>
+<p><code>operator new</code> 实际也是通过<code>malloc</code>来申请空间。</p>
+<ul>
+<li>如果 <code>malloc</code>申请空间成功就直接返回。</li>
+<li>否则执行用户提供的空间不足应对措施，如果用户提供该措施就继续申请，否则就抛异常。</li>
+</ul>
+<p><code>operator delete</code> 最终是通过<code>free</code>来释放空间的。</p>
+</blockquote>
+<h4 id="new-delete"><a href="#new-delete" class="headerlink" title="new&amp;delete"></a><code>new</code>&amp;<code>delete</code></h4><blockquote>
+<p><code>new</code>的原理 </p>
+<ol>
+<li>调用<code>operator new</code>函数申请空间 </li>
+<li>在申请的空间上执行构造函数，完成对象的构造</li>
+</ol>
+<p><code>delete</code>的原理</p>
+<ol>
+<li>在空间上执行析构函数，完成对象中资源的清理工作 </li>
+<li>调用<code>operator delete</code>函数释放对象的空间</li>
+</ol>
+</blockquote>
+<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><h4 id="malloc-free和new-delete的区别"><a href="#malloc-free和new-delete的区别" class="headerlink" title="malloc/free和new/delete的区别"></a><code>malloc/free</code>和<code>new/delete</code>的区别</h4><blockquote>
+<p><strong>共同点</strong>：</p>
+<ul>
+<li>都是从堆上申请空间，并且需要用户手动释放。</li>
+</ul>
 <blockquote>
-<p>DS &#x3D;Data elements + Relationships of data elements </p>
+<p><strong>不同点</strong>：</p>
+<p><strong>特性与用法</strong></p>
+<ul>
+<li><p>malloc和free是函数，new和delete是操作符 </p>
+</li>
+<li><p>malloc申请的空间不会初始化，new可以初始化 </p>
+</li>
+<li><p>malloc申请空间时，需要手动计算空间大小并传递，new只需在其后跟上空间的类型即可， 如果是多个对象，[]中指定对象个数即可</p>
+</li>
+<li><p>malloc的返回值为void*, 在使用时必须强转，new不需要，因为new后跟的是空间的类型 </p>
+</li>
+<li><p>malloc申请空间失败时，返回的是NULL，因此使用时必须判空，new不需要，但是new需要捕获异常</p>
+</li>
+</ul>
+<p><strong>底层</strong></p>
+<ul>
+<li>弥补C不足：申请自定义类型对象时，malloc&#x2F;free只会开辟空间，不会调用构造函数与析构函数，而new 在申请空间后会调用构造函数完成对象的初始化，delete在释放空间前会调用析构函数完成空间中资源的清理。</li>
+</ul>
 </blockquote>
-<p><strong>What is Program?</strong> </p>
-<blockquote>
-<p>Data structures + Algorithms &#x3D; Program </p>
 </blockquote>
-<p><strong>What is ADT (Abstract Data Structure)？</strong></p>
-<blockquote>
-<p>ADT &#x3D; DS + Operations</p>
+<h4 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h4><blockquote>
+<p><strong>危害</strong>：普通程序影响不大，长期运行的程序出现内存泄漏，影响很大。如操作系统、后台服务等等，出现 内存泄漏会导致响应越来越慢，最终卡死。</p>
 </blockquote>
-</blockquote>
-<p><code>T(N)</code>时间复杂度</p>
-<p><code>S(N)</code>空间复杂度</p>
 
         </div>
 
@@ -279,9 +304,11 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"># 数据结构</a>
-                    
                         <a href="/tags/C/"># C</a>
+                    
+                        <a href="/tags/C/"># C++</a>
+                    
+                        <a href="/tags/Detail/"># Detail</a>
                     
                         
                 </span>
@@ -294,10 +321,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2023/09/08/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E5%86%85%E5%AD%98%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D/">【数据结构】内存动态分配</a>
+                <a class="prev" rel="prev" href="/2024/01/24/%E3%80%90C-%E3%80%91%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80/">【C++】面向对象基础</a>
             
             
-            <a class="next" rel="next" href="/2023/09/05/%E5%AD%97%E7%AC%A6%E4%B8%B2/">【Detail】字符串</a>
+            <a class="next" rel="next" href="/2024/01/11/DataStructureOverview/">【DataStructure】Overview</a>
             
         </section>
 
