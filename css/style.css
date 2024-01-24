@@ -53,8 +53,12 @@ sub {
 sup {
   top: -0.5em;
 }
+:root {
+  --img-shadow-color: #e3e8f0;
+}
 img {
   border-style: none;
+  filter: drop-shadow(var(--img-shadow-color) 0px 6px 6px);
 }
 button,
 input,
@@ -1346,6 +1350,7 @@ header label {
 .highlight {
   color: #000;
   background: #fff;
+  filter: drop-shadow(var(--img-shadow-color) 0px 6px 6px);
 }
 .highlight .code .comment,
 .highlight .code .quote {
