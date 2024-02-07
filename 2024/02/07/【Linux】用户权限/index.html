@@ -13,7 +13,7 @@
 
 
 
-<title>【linux】基础指令 | SANSHI</title>
+<title>【Linux】用户权限 | SANSHI</title>
 
 
 
@@ -196,7 +196,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">【linux】基础指令</h1>
+            <h1 class="post-title">【Linux】用户权限</h1>
             
                 <div class="post-meta">
                     
@@ -205,7 +205,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">February 7, 2024&nbsp;&nbsp;16:04:49</a>
+                        Date: <a href="#">February 7, 2024&nbsp;&nbsp;23:42:41</a>
                         </span>
                     
                     
@@ -221,477 +221,188 @@
         </header>
 
         <div class="post-content">
-            <h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h2 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h2><blockquote>
+            <h2 id="Linux-权限相关"><a href="#Linux-权限相关" class="headerlink" title="Linux-权限相关"></a>Linux-权限相关</h2><h3 id="bash命令行"><a href="#bash命令行" class="headerlink" title="bash命令行"></a>bash命令行</h3><blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ2ze4xrxurbpglmuv68wlZ ~]＄</span><br></pre></td></tr></table></figure>
+
 <table>
 <thead>
 <tr>
-<th>安装方式</th>
-<th>描述</th>
+<th>用户名</th>
+<th>主机名</th>
+<th>当前目录</th>
+<th>命令行提示符</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>裸机安装</td>
-<td>在物理机器上直接安装Linux操作系统。</td>
-</tr>
-<tr>
-<td>虚拟机安装</td>
-<td>使用虚拟机软件（如VMware, VirtualBox）在虚拟环境中安装Linux。</td>
-</tr>
-<tr>
-<td>云服务器</td>
-<td>在云服务平台上创建并配置Linux虚拟机实例。</td>
+<td><code>root</code></td>
+<td><code>iZ2ze4xrxurbpglmuv68wlZ</code></td>
+<td><code>~</code></td>
+<td><code>＄/#</code></td>
 </tr>
 </tbody></table>
+<ul>
+<li><p>Shell是一个更广泛的概念，它包括了命令行解释器和其他功能。Bash是Shell的一种实现，而Bash命令行则是用户与Bash Shell交互的具体方式。在Bash命令行中，用户通过输入文本命令来执行操作，这些命令由Bash的命令行解释器解析和执行。</p>
+</li>
+<li><p>Shell 对于Linux，有相同的作用，主要是对我们的指令进行解析，解析指令给Linux内核。反馈结果在通过内核运 行出结果，通过shell解析给用户</p>
+</li>
+</ul>
 </blockquote>
-<h2 id="Xshell"><a href="#Xshell" class="headerlink" title="Xshell"></a>Xshell</h2><blockquote>
+<h3 id="用户分类"><a href="#用户分类" class="headerlink" title="用户分类"></a>用户分类</h3><blockquote>
+<ul>
+<li><strong>root用户&#x2F;超级用户</strong>：具有最高权限，无权限限制。</li>
+<li><strong>普通用户</strong>：权限受限，通常需要使用<code>sudo</code>来执行需要提权的命令。</li>
+</ul>
+</blockquote>
+<h3 id="文件属性"><a href="#文件属性" class="headerlink" title="文件属性"></a>文件属性</h3><blockquote>
+<p><img src="/2024/02/07/%E3%80%90Linux%E3%80%91%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90/1.png" alt="img"></p>
 <table>
 <thead>
 <tr>
-<th>功能</th>
-<th>命令</th>
+<th>文件类型</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>登录</td>
-<td><code>ssh root@自己的公网ip</code>（例如：<code>ssh root@123.45.xx.xxx</code>）</td>
+<td><code>-</code></td>
+<td>普通文件（文本或可执行程序）</td>
 </tr>
 <tr>
-<td>全屏显示</td>
-<td>使用快捷键<code>Alt+Enter</code>。</td>
+<td><code>d</code></td>
+<td>目录文件</td>
+</tr>
+<tr>
+<td><code>b</code></td>
+<td>块设备文件（如磁盘文件）</td>
+</tr>
+<tr>
+<td><code>c</code></td>
+<td>字符设备文件（如键盘、显示器）</td>
+</tr>
+<tr>
+<td><code>p</code></td>
+<td>管道文件（用于进程间通信）</td>
 </tr>
 </tbody></table>
 </blockquote>
-<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><blockquote>
-<h3 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h3><table>
+<h3 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h3><blockquote>
+<table>
 <thead>
 <tr>
-<th>命令</th>
+<th>类别</th>
+<th>权限字符</th>
 <th>描述</th>
+<th>示例</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>添加用户</td>
-<td><code>adduser name</code></td>
+<td>读取</td>
+<td><code>r</code></td>
+<td>允许查看文件内容</td>
+<td><code>chmod u+r test.txt</code>（给文件所有者添加读取权限）</td>
 </tr>
 <tr>
-<td>设置密码</td>
-<td><code>passwd sanshi</code></td>
+<td>写入</td>
+<td><code>w</code></td>
+<td>允许修改文件内容</td>
+<td><code>chmod u+w test.txt</code>（给文件所有者添加写入权限）</td>
 </tr>
 <tr>
-<td>删除用户</td>
-<td><code>userdel -r name</code></td>
-</tr>
-</tbody></table>
-<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>ls</td>
-<td>列出文件和目录（<code>ls -l</code>详细列出，<code>ls -a</code>显示隐藏文件）。</td>
+<td>执行</td>
+<td><code>x</code></td>
+<td>允许执行文件</td>
+<td><code>chmod u+x test.txt</code>（给文件所有者添加执行权限）</td>
 </tr>
 <tr>
-<td>pwd</td>
-<td>显示当前工作目录。</td>
-</tr>
-<tr>
-<td>cd</td>
-<td>更改当前工作目录（<code>cd ~</code>进入家目录）。</td>
-</tr>
-<tr>
-<td>mkdir</td>
-<td>创建新目录。</td>
-</tr>
-<tr>
-<td>touch</td>
-<td>创建空文件。</td>
-</tr>
-<tr>
-<td>cat</td>
-<td>查看文件内容（<code>cat -n</code>编号，<code>cat -b</code>非空行编号）。</td>
-</tr>
-<tr>
-<td>cp</td>
-<td>拷贝文件或目录（<code>cp -r</code>递归拷贝目录）。</td>
-</tr>
-<tr>
-<td>tree</td>
-<td>显示目录结构树。</td>
-</tr>
-<tr>
-<td>mv</td>
-<td>移动或重命名文件。</td>
-</tr>
-<tr>
-<td>alias</td>
-<td>创建命令别名（如<code>alias ll=&#39;ls -l&#39;</code>）。</td>
-</tr>
-</tbody></table>
-<h3 id="时间相关"><a href="#时间相关" class="headerlink" title="时间相关"></a>时间相关</h3><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>date</td>
-<td>显示和设置系统日期和时间。</td>
-</tr>
-<tr>
-<td>cal</td>
-<td>显示日历。</td>
-</tr>
-</tbody></table>
-<h3 id="查找工具"><a href="#查找工具" class="headerlink" title="查找工具"></a>查找工具</h3><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>find</td>
-<td>查找文件（<code>find ~ -name *.c</code>查找所有<code>.c</code>文件）。</td>
-</tr>
-<tr>
-<td>which</td>
-<td>查找指令的路径。</td>
-</tr>
-<tr>
-<td>grep</td>
-<td>文本搜索（<code>grep &#39;pattern&#39; filename</code>搜索包含特定模式的行）。</td>
-</tr>
-</tbody></table>
-<h3 id="文件压缩"><a href="#文件压缩" class="headerlink" title="文件压缩"></a>文件压缩</h3><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>zip</td>
-<td>压缩文件（<code>zip -r archive.zip files</code>）。</td>
-</tr>
-<tr>
-<td>unzip</td>
-<td>解压文件（<code>unzip archive.zip</code>）。</td>
-</tr>
-<tr>
-<td>tar</td>
-<td>打包或解包文件（<code>tar czf archive.tar.gz files</code>）。</td>
-</tr>
-</tbody></table>
-<h3 id="系统信息"><a href="#系统信息" class="headerlink" title="系统信息"></a>系统信息</h3><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>uname -a</td>
-<td>显示系统详细信息（内核名称、主机名、内核版本等）。</td>
+<td>无权限</td>
+<td><code>-</code></td>
+<td>没有相应权限</td>
+<td><code>chmod u-x test.txt</code>（移除文件所有者的执行权限）</td>
 </tr>
 </tbody></table>
 </blockquote>
-<h2 id="指令操作"><a href="#指令操作" class="headerlink" title="指令操作"></a>指令操作</h2><blockquote>
-<h3 id="文件类型与路径"><a href="#文件类型与路径" class="headerlink" title="文件类型与路径"></a>文件类型与路径</h3><table>
+<h3 id="角色分类"><a href="#角色分类" class="headerlink" title="角色分类"></a>角色分类</h3><blockquote>
+<table>
 <thead>
 <tr>
-<th>类型&#x2F;路径</th>
+<th>角色</th>
 <th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>拥有者</td>
+<td>文件的所有者</td>
+</tr>
+<tr>
+<td>所属组</td>
+<td>文件所属的用户组</td>
+</tr>
+<tr>
+<td>其他人</td>
+<td>除拥有者和所属组成员外的其他用户</td>
+</tr>
+</tbody></table>
+</blockquote>
+<h3 id="权限修改"><a href="#权限修改" class="headerlink" title="权限修改"></a>权限修改</h3><blockquote>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>chmod</td>
+<td>更改文件权限</td>
+<td><code>chmod u+w,g+rwx,o-rwx test.txt</code>（修改文件权限）</td>
+</tr>
+<tr>
+<td>chown</td>
+<td>更改文件所有者</td>
+<td><code>chown sanshi test.txt</code>（将文件所有者改为sanshi）</td>
+</tr>
+<tr>
+<td>chgrp</td>
+<td>更改文件所属组</td>
+<td><code>chgrp sanshi test.txt</code>（将文件所属组改为sanshi）</td>
+</tr>
+<tr>
+<td>umask</td>
+<td>设置新文件默认权限掩码</td>
+<td><code>umask 002</code>（设置新文件默认权限掩码）</td>
+</tr>
+</tbody></table>
+</blockquote>
+<h3 id="文件权限计算"><a href="#文件权限计算" class="headerlink" title="文件权限计算"></a>文件权限计算</h3><blockquote>
+<p><strong>最终权限&#x3D;起始权限&amp;（~umask）</strong></p>
+<p>按位取反+按位与运算</p>
+<table>
+<thead>
+<tr>
+<th>文件类型</th>
+<th>默认权限</th>
+<th>umask</th>
+<th>最终权限</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>普通文件</td>
-<td>以<code>-</code>开头。</td>
+<td>666</td>
+<td>002</td>
+<td>664</td>
 </tr>
 <tr>
 <td>目录文件</td>
-<td>以<code>d</code>开头。</td>
-</tr>
-<tr>
-<td>当前目录（.）</td>
-<td>表示当前路径。</td>
-</tr>
-<tr>
-<td>上级目录（..）</td>
-<td>表示上一级目录。</td>
-</tr>
-<tr>
-<td>绝对路径</td>
-<td>从根目录<code>/</code>开始的完整路径。</td>
-</tr>
-<tr>
-<td>相对路径</td>
-<td>相对于当前目录的路径。</td>
+<td>777</td>
+<td>002</td>
+<td>775</td>
 </tr>
 </tbody></table>
-<h3 id="ls指令"><a href="#ls指令" class="headerlink" title="ls指令"></a>ls指令</h3><table>
-<thead>
-<tr>
-<th>选项</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-l</td>
-<td>长格式列出文件信息。</td>
-</tr>
-<tr>
-<td>-a</td>
-<td>显示所有文件，包括隐藏文件（以<code>.</code>开头的文件）。</td>
-</tr>
-<tr>
-<td>-d</td>
-<td>仅显示目录本身，不显示其内容。</td>
-</tr>
-<tr>
-<td>-F</td>
-<td>在文件名后添加类型标识（如<code>*</code>表示可执行文件，<code>/</code>表示目录）。</td>
-</tr>
-</tbody></table>
-<h3 id="pwd指令"><a href="#pwd指令" class="headerlink" title="pwd指令"></a>pwd指令</h3><table>
-<thead>
-<tr>
-<th>描述</th>
-<th>命令</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>显示当前目录</td>
-<td><code>pwd</code></td>
-</tr>
-</tbody></table>
-<h3 id="cd指令"><a href="#cd指令" class="headerlink" title="cd指令"></a>cd指令</h3><table>
-<thead>
-<tr>
-<th>描述</th>
-<th>命令</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>进入目录</td>
-<td><code>cd name/</code></td>
-</tr>
-<tr>
-<td>进入家目录</td>
-<td><code>cd ~</code></td>
-</tr>
-<tr>
-<td>返回上一次路径</td>
-<td><code>cd -</code></td>
-</tr>
-</tbody></table>
-<h3 id="mkdir指令"><a href="#mkdir指令" class="headerlink" title="mkdir指令"></a>mkdir指令</h3><table>
-<thead>
-<tr>
-<th>描述</th>
-<th>命令</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>创建目录</td>
-<td><code>mkdir 目录名</code></td>
-</tr>
-</tbody></table>
-<h3 id="touch指令"><a href="#touch指令" class="headerlink" title="touch指令"></a>touch指令</h3><table>
-<thead>
-<tr>
-<th>描述</th>
-<th>命令</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>创建文件</td>
-<td><code>touch 文件名</code></td>
-</tr>
-</tbody></table>
-<h3 id="echo-cat指令"><a href="#echo-cat指令" class="headerlink" title="echo &#x2F; cat指令"></a>echo &#x2F; cat指令</h3><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>输出到文件</td>
-<td><code>echo &quot;message&quot; &gt; 文件名</code></td>
-</tr>
-<tr>
-<td>查看文件内容</td>
-<td><code>cat 文件名</code></td>
-</tr>
-</tbody></table>
-<h3 id="cat输出选项"><a href="#cat输出选项" class="headerlink" title="cat输出选项"></a>cat输出选项</h3><table>
-<thead>
-<tr>
-<th>选项</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-n</td>
-<td>对输出的所有行编号。</td>
-</tr>
-<tr>
-<td>-b</td>
-<td>对非空输出行编号。</td>
-</tr>
-<tr>
-<td>-s</td>
-<td>不输出多行空行。</td>
-</tr>
-<tr>
-<td>&gt;&gt;</td>
-<td>追加内容到文件。</td>
-</tr>
-<tr>
-<td>&lt;</td>
-<td>从文件读取输入。</td>
-</tr>
-</tbody></table>
-<h3 id="查看文件"><a href="#查看文件" class="headerlink" title="查看文件"></a>查看文件</h3><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>cat</td>
-<td>查看小文件内容。</td>
-</tr>
-<tr>
-<td>more</td>
-<td>查看大文件内容，按回车键翻页。</td>
-</tr>
-<tr>
-<td>less</td>
-<td>类似more，支持前后翻页，不加载整个文件。</td>
-</tr>
-<tr>
-<td>head</td>
-<td>显示文件的前几行（<code>head -n lines filename</code>）。</td>
-</tr>
-<tr>
-<td>tail</td>
-<td>显示文件的后几行（<code>tail -n lines filename</code>）。</td>
-</tr>
-<tr>
-<td>管道操作</td>
-<td>使用管道（&#96;</td>
-</tr>
-</tbody></table>
-<h3 id="cp拷贝"><a href="#cp拷贝" class="headerlink" title="cp拷贝"></a>cp拷贝</h3><table>
-<thead>
-<tr>
-<th>描述</th>
-<th>命令</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>同目录拷贝</td>
-<td><code>cp source destination</code></td>
-</tr>
-<tr>
-<td>不同目录拷贝</td>
-<td><code>cp source/destination</code></td>
-</tr>
-<tr>
-<td>递归拷贝目录</td>
-<td><code>cp -r source destination</code></td>
-</tr>
-</tbody></table>
-<h3 id="tree指令"><a href="#tree指令" class="headerlink" title="tree指令"></a>tree指令</h3><table>
-<thead>
-<tr>
-<th>描述</th>
-<th>命令</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>安装tree</td>
-<td><code>yum install tree</code></td>
-</tr>
-<tr>
-<td>使用tree</td>
-<td><code>tree -L level</code>（显示目录结构，<code>level</code>为目录层级）。</td>
-</tr>
-</tbody></table>
-<h3 id="mv指令"><a href="#mv指令" class="headerlink" title="mv指令"></a>mv指令</h3><table>
-<thead>
-<tr>
-<th>描述</th>
-<th>命令</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>重命名</td>
-<td><code>mv oldname newname</code></td>
-</tr>
-<tr>
-<td>剪切文件</td>
-<td><code>mv file ..</code>（剪切到上级目录）。</td>
-</tr>
-<tr>
-<td>移动文件</td>
-<td><code>mv ../file .</code>（从上级目录移动到当前目录）。</td>
-</tr>
-</tbody></table>
-<h3 id="alias指令"><a href="#alias指令" class="headerlink" title="alias指令"></a>alias指令</h3><table>
-<thead>
-<tr>
-<th>描述</th>
-<th>命令</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>创建别名</td>
-<td><code>alias command=&#39;original_command&#39;</code></td>
-</tr>
-</tbody></table>
-<h3 id="时间相关指令"><a href="#时间相关指令" class="headerlink" title="时间相关指令"></a>时间相关指令</h3><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>获取时间戳</td>
-<td><code>date +%s</code></td>
-</tr>
-<tr>
-<td>日期转换</td>
-<td><code>date -d@timestamp</code></td>
-</tr>
-</tbody></table>
-<h3 id="查找工具-1"><a href="#查找工具-1" class="headerlink" title="查找工具"></a>查找工具</h3><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>find</td>
-<td>查找文件（<code>find / -name pattern</code>）。</td>
-</tr>
-<tr>
-<td>which</td>
-<td>查找指令的路径（<code>which command</code>）。</td>
-</tr>
-<tr>
-<td>grep</td>
-<td>文本搜索（<code>grep pattern filename</code>）。</td>
-</tr>
-</tbody></table>
+</blockquote>
+<h3 id="特殊权限"><a href="#特殊权限" class="headerlink" title="特殊权限"></a>特殊权限</h3><blockquote>
+<p><strong>粘滞位</strong>（Sticky Bit）：</p>
+<p>给目录设置。一般为共享目录，可以对目录中针对各自文件的怎删改查，只允许文件拥有者&#x2F;目录所有者&#x2F;root用户删除文件。是一种特殊的x权限。</p>
+<p><code>chmod o+t test.txt</code></p>
 </blockquote>
 
         </div>
@@ -724,10 +435,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2024/02/07/%E3%80%90Linux%E3%80%91%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90/">【Linux】用户权限</a>
             
-            
-            <a class="next" rel="next" href="/2024/01/31/C-cmp%E6%AF%94%E8%BE%83%E5%87%BD%E6%95%B0/">【C++】 cmp比较函数</a>
+            <a class="next" rel="next" href="/2024/02/07/%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4/">【linux】基础指令</a>
             
         </section>
 
