@@ -944,7 +944,7 @@ header label {
   color: #eee;
 }
 .post-copyright a:hover {
-  color: #ef3982;
+  color: #4870AC;
 }
 .dark-theme .post-copyright a:hover {
   color: #fff;
@@ -971,7 +971,7 @@ header label {
   padding: 3px 5px;
   border-radius: 4px;
   color: #c7254e;
-  background: #f8f5ec;
+  background: #F6F8FA;
 }
 .dark-theme .post-content code {
   color: #fffe28;
