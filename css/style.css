@@ -53,12 +53,8 @@ sub {
 sup {
   top: -0.5em;
 }
-:root {
-  --img-shadow-color: #e3e8f0;
-}
 img {
   border-style: none;
-  filter: drop-shadow(var(--img-shadow-color) 0px 6px 6px);
 }
 button,
 input,
@@ -644,7 +640,7 @@ header label {
   text-decoration: none;
   transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, opacity 0.2s ease;
 }
-.dark-theme .archive-item-link:hover {
+.archive-item-link:hover {
   color: #fff;
   text-decoration: none;
   transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, opacity 0.2s ease;
@@ -909,8 +905,8 @@ header label {
   padding: 1em 1.2em 1em 1.2em;
   position: relative;
   color: rgba(52,73,94,0.8);
-  background-color: #F6F8FA;
-  border-left: 2px solid #4870AC;
+  background-color: #e9f5fa;
+  border-left: 2px solid #2d96bd;
 }
 .post-content blockquote p {
   margin: 0;
@@ -974,8 +970,8 @@ header label {
   line-height: 1.7em;
   padding: 3px 5px;
   border-radius: 4px;
-  color: #4F70AC;
-  background: #F6F8FA;
+  color: #c7254e;
+  background: #f8f5ec;
 }
 .dark-theme .post-content code {
   color: #fffe28;
@@ -1280,7 +1276,7 @@ header label {
 }
 .highlight {
   color: #000;
-  background: #FDF6E3;
+  background: #fff;
 }
 .highlight .code .comment,
 .highlight .code .quote {
@@ -1350,7 +1346,6 @@ header label {
 .highlight {
   color: #000;
   background: #fff;
-  filter: drop-shadow(var(--img-shadow-color) 0px 6px 6px);
 }
 .highlight .code .comment,
 .highlight .code .quote {
