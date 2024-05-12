@@ -18,7 +18,6 @@ hr {
 pre {
   font-family: monospace, monospace /* 1 */;
   font-size: 1em /* 2 */;
-  box-shadow: 5px 5px 5px #CFD4DB;
 }
 a {
   background-color: transparent;
@@ -32,7 +31,10 @@ b,
 strong {
   font-weight: bolder;
 }
-code,
+code
+{
+  border: 1px solid #c9c9ca;
+}
 kbd,
 samp {
   font-family: monospace, monospace /* 1 */;
@@ -867,6 +869,8 @@ header label {
 .post-content table th,
 .post-content table td {
   padding: 5px 15px;
+  border: 1px solid #c9c9ca;
+  box-shadow: 5px 5px 5px #CFD4DB;
   border: 0.5px solid #e8e8e8;
 }
 .post-content .image-caption:not(:empty) {
