@@ -13,7 +13,7 @@
 
 
 
-<title>Archives | SANSHI</title>
+<title>【C++】 Qt可视化类模板应用——多项式计算器 | SANSHI</title>
 
 
 
@@ -124,107 +124,174 @@
     }
 </script>
             <div class="main">
-                <div class="post-wrap archive">
+                <div class="container">
     
     
-        
-
-        
-            <h3>2023</h3>
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2023/10/10/%E3%80%90C++%E3%80%91%E5%9F%BA%E7%A1%80%E6%B8%85%E5%8D%95/">【C++】基础清单</a>
-            <span class="archive-item-date">October 10, 2023</span>
-        </article>
-    
-        
-
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2023/10/05/%E8%90%8C%E8%8A%BD%E6%9D%AF/">【ESP32】基于ESP32实现拟态辉光灯文创产品</a>
-            <span class="archive-item-date">October 5, 2023</span>
-        </article>
-    
-        
-
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2023/09/26/%E8%AE%A1%E4%BA%8CPython-%E4%B8%B4%E6%97%B6%E6%8A%B1%E4%BD%9B%E8%84%9A%E7%89%88/">【Python】计算机二级临时抱佛脚版本</a>
-            <span class="archive-item-date">September 26, 2023</span>
-        </article>
-    
-        
-
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2023/09/14/%E4%BF%A1%E6%81%AF%E5%AD%A6%E9%99%A2%E7%AC%AC%E5%8D%81%E5%B1%8A%E6%99%BA%E8%83%BD%E5%B0%8F%E8%BD%A6%E5%A4%A7%E8%B5%9B/">【赛事】信息学院第十届智能小车大赛</a>
-            <span class="archive-item-date">September 14, 2023</span>
-        </article>
-    
-        
-
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2023/09/11/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E4%BA%8C%E5%8F%89%E6%A0%91/">【数据结构】二叉树</a>
-            <span class="archive-item-date">September 11, 2023</span>
-        </article>
-    
-        
-
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2023/09/10/TOP-K-%E6%96%87%E4%BB%B6/">【Detail】TOP-K+文件</a>
-            <span class="archive-item-date">September 10, 2023</span>
-        </article>
-    
-        
-
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2023/09/09/%E4%BA%8C%E5%8F%89%E6%A0%91/">【数据结构】堆</a>
-            <span class="archive-item-date">September 9, 2023</span>
-        </article>
-    
-        
-
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2023/09/08/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E5%86%85%E5%AD%98%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D/">【数据结构】内存动态分配</a>
-            <span class="archive-item-date">September 8, 2023</span>
-        </article>
-    
-        
-
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2023/09/08/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E7%BB%AA%E8%AE%BA%E8%AF%BE/">【数据结构】绪论课</a>
-            <span class="archive-item-date">September 8, 2023</span>
-        </article>
-    
-        
-
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2023/09/05/%E5%AD%97%E7%AC%A6%E4%B8%B2/">【Detail】字符串</a>
-            <span class="archive-item-date">September 5, 2023</span>
-        </article>
-    
-    
-    <nav class="pagination">
-        <a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a>
-    </nav>
-
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
 </div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">【C++】 Qt可视化类模板应用——多项式计算器</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">SANSHI</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">May 12, 2024&nbsp;&nbsp;17:23:59</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/C/">C++</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="多项式计算器-Polynomial-Calculator"><a href="#多项式计算器-Polynomial-Calculator" class="headerlink" title="多项式计算器 (Polynomial Calculator)"></a>多项式计算器 (Polynomial Calculator)</h1><p>这是一个使用Qt库构建的面向对象程序设计大作业项目，实现了多项式的基本运算和定积分计算。<br>可执行文件和源码见下方仓库：<br><a target="_blank" rel="noopener" href="https://github.com/SAN-SHIa/PolynomialCalculator">https://github.com/SAN-SHIa/PolynomialCalculator</a></p>
+<h2 id="功能简介"><a href="#功能简介" class="headerlink" title="功能简介"></a>功能简介</h2><ul>
+<li><strong>加法</strong>：合并两个多项式。</li>
+<li><strong>减法</strong>：一个多项式减去另一个多项式。</li>
+<li><strong>乘法</strong>：两个多项式的乘积。</li>
+<li><strong>定积分</strong>：计算多项式在指定区间的定积分。</li>
+</ul>
+<h2 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h2><ul>
+<li>Qt (5.14.2)</li>
+</ul>
+<h2 id="安装指南"><a href="#安装指南" class="headerlink" title="安装指南"></a>安装指南</h2><ol>
+<li><p>克隆仓库到本地：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/SAN-SHIa/PolynomialCalculator.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开<code>可执行文件</code>文件夹，通过exe文件文件运行查看程序效果。</p>
+</li>
+</ol>
+<h2 id="GUI界面设计"><a href="#GUI界面设计" class="headerlink" title="GUI界面设计"></a>GUI界面设计</h2><ul>
+<li>使用Qt库中的组件设计了简洁直观的用户界面。</li>
+<li>组件包括：<ul>
+<li>Line Edit：用于输入变量和显示输出结果。</li>
+<li>Label：展示图标。</li>
+<li>Push Button：选择运算方式。</li>
+</ul>
+</li>
+</ul>
+<h2 id="类模板设计"><a href="#类模板设计" class="headerlink" title="类模板设计"></a>类模板设计</h2><ul>
+<li><strong>polynomial</strong>：定义多项式结构，包括系数、指数和指向下一项的指针。</li>
+<li><strong>calculator</strong>：主要的计算器类，包含多项式的基本操作和运算功能。</li>
+</ul>
+<hr>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/C/"># C++</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2024/04/29/Python%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0%E9%AD%94%E6%96%B9%E5%A2%99%E8%84%9A%E6%9C%AC%E9%87%8F%E5%8C%96/">【Python】脚本实现魔方墙脚本量化</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
             </div>
             <footer id="footer" class="footer">
     <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
