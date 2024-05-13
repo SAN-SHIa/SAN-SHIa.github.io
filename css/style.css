@@ -18,7 +18,8 @@ hr {
 pre {
   font-family: monospace, monospace /* 1 */;
   font-size: 1em /* 2 */;
-  
+  border: 3px solid #fff;
+  box-shadow: 5px 5px 5px #CFD4DB;
 }
 a {
   background-color: transparent;
@@ -739,7 +740,7 @@ header label {
   color: #87878d !important;
 }
 .post-wrap .post-meta a {
-  color: #2d96bd;
+  color: #4870AC;
 }
 .dark-theme .post-wrap .post-meta a {
   color: #eee;
@@ -867,10 +868,20 @@ header label {
 .dark-theme .post-content table thead {
   background: #626262;
 }
-.post-content table th,
+.post-content table th
+{
+  padding: 5px 15px;
+  border: 1px solid #c9c9ca;
+  box-shadow: 5px 5px 5px #CFD4DB;
+  border: 0.5px solid #e8e8e8;
+  background: #4870AC;
+}
 .post-content table td {
   padding: 5px 15px;
   border: 1px solid #c9c9ca;
+  box-shadow: 5px 5px 5px #CFD4DB;
+  border: 0.5px solid #e8e8e8;
+  background:#f8f8f8
 }
 .post-content .image-caption:not(:empty) {
   min-width: 20%;
