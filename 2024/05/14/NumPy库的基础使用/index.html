@@ -13,7 +13,7 @@
 
 
 
-<title>【C++】 Qt可视化类模板应用——多项式计算器 | SANSHI</title>
+<title>【机器学习】 NumPy库的基础使用 | SANSHI</title>
 
 
 
@@ -196,7 +196,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">【C++】 Qt可视化类模板应用——多项式计算器</h1>
+            <h1 class="post-title">【机器学习】 NumPy库的基础使用</h1>
             
                 <div class="post-meta">
                     
@@ -205,14 +205,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">May 12, 2024&nbsp;&nbsp;17:23:59</a>
+                        Date: <a href="#">May 14, 2024&nbsp;&nbsp;22:58:08</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/C/">C++</a>
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
                             
                         </span>
                     
@@ -221,38 +221,15 @@
         </header>
 
         <div class="post-content">
-            <h1 id="多项式计算器-Polynomial-Calculator"><a href="#多项式计算器-Polynomial-Calculator" class="headerlink" title="多项式计算器 (Polynomial Calculator)"></a>多项式计算器 (Polynomial Calculator)</h1><p>这是一个使用Qt库构建的面向对象程序设计大作业项目，实现了多项式的基本运算和定积分计算。<br>可执行文件和源码见下方仓库：<br><a target="_blank" rel="noopener" href="https://github.com/SAN-SHIa/PolynomialCalculator">https://github.com/SAN-SHIa/PolynomialCalculator</a></p>
-<h2 id="功能简介"><a href="#功能简介" class="headerlink" title="功能简介"></a>功能简介</h2><ul>
-<li><strong>加法</strong>：合并两个多项式。</li>
-<li><strong>减法</strong>：一个多项式减去另一个多项式。</li>
-<li><strong>乘法</strong>：两个多项式的乘积。</li>
-<li><strong>定积分</strong>：计算多项式在指定区间的定积分。</li>
-</ul>
-<h2 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h2><ul>
-<li>Qt (5.14.2)</li>
-</ul>
-<h2 id="安装指南"><a href="#安装指南" class="headerlink" title="安装指南"></a>安装指南</h2><ol>
-<li><p>克隆仓库到本地：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/SAN-SHIa/PolynomialCalculator.git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>打开<code>可执行文件</code>文件夹，通过exe文件文件运行查看程序效果。</p>
-</li>
-</ol>
-<h2 id="GUI界面设计"><a href="#GUI界面设计" class="headerlink" title="GUI界面设计"></a>GUI界面设计</h2><ul>
-<li>使用Qt库中的组件设计了简洁直观的用户界面。</li>
-<li>组件包括：<ul>
-<li>Line Edit：用于输入变量和显示输出结果。</li>
-<li>Label：展示图标。</li>
-<li>Push Button：选择运算方式。</li>
-</ul>
-</li>
-</ul>
-<h2 id="类模板设计"><a href="#类模板设计" class="headerlink" title="类模板设计"></a>类模板设计</h2><ul>
-<li><strong>polynomial</strong>：定义多项式结构，包括系数、指数和指向下一项的指针。</li>
-<li><strong>calculator</strong>：主要的计算器类，包含多项式的基本操作和运算功能。</li>
-</ul>
-<hr>
+            <h1 id="NumPy"><a href="#NumPy" class="headerlink" title="NumPy"></a>NumPy</h1><h4 id="1-创建NumPy数组"><a href="#1-创建NumPy数组" class="headerlink" title="1. 创建NumPy数组"></a>1. 创建NumPy数组</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个Python列表</span></span><br><span class="line">list_array = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(list_array))  <span class="comment"># 输出: list</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将列表转换为NumPy数组</span></span><br><span class="line">np_array = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line"><span class="built_in">print</span>(np_array)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(np_array))  <span class="comment"># 输出: numpy.ndarray</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数组的数学运算</span></span><br><span class="line"><span class="built_in">print</span>(np_array + <span class="number">1</span>)  <span class="comment"># 输出: array([2, 3, 4, 5, 6])</span></span><br><span class="line"><span class="built_in">print</span>(np_array + np_array)  <span class="comment"># 输出: array([ 2, 4, 6, 8, 10])</span></span><br></pre></td></tr></table></figure>
 
+<h4 id="2-数组的数据类型"><a href="#2-数组的数据类型" class="headerlink" title="2. 数组的数据类型"></a>2. 数组的数据类型</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 混合类型列表</span></span><br><span class="line">li = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3.14</span>, <span class="number">4</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将混合类型列表转换为NumPy数组，默认转换为最宽泛的类型，即float64</span></span><br><span class="line">np_array = np.array(li)</span><br><span class="line"><span class="built_in">print</span>(np_array.dtype)  <span class="comment"># 输出: dtype(&#x27;float64&#x27;)</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-ndarray的结构和属性"><a href="#3-ndarray的结构和属性" class="headerlink" title="3. ndarray的结构和属性"></a>3. ndarray的结构和属性</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个二维数组</span></span><br><span class="line">np_array_2d = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>], [<span class="number">9</span>, <span class="number">12</span>, <span class="number">11</span>]])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 属性访问</span></span><br><span class="line"><span class="built_in">print</span>(np_array_2d.shape)  <span class="comment"># 输出: (3, 3)</span></span><br><span class="line"><span class="built_in">print</span>(np_array_2d.size)   <span class="comment"># 输出: 9</span></span><br><span class="line"><span class="built_in">print</span>(np_array_2d.ndim)   <span class="comment"># 输出: 2</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-索引和切片"><a href="#4-索引和切片" class="headerlink" title="4. 索引和切片"></a>4. 索引和切片</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 索引单个元素</span></span><br><span class="line"><span class="built_in">print</span>(np_array_2d[<span class="number">1</span>, <span class="number">1</span>])  <span class="comment"># 输出: 5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改元素值</span></span><br><span class="line">np_array_2d[<span class="number">1</span>, <span class="number">1</span>] = <span class="number">777</span></span><br><span class="line"><span class="built_in">print</span>(np_array_2d)  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 按行或列取值</span></span><br><span class="line"><span class="built_in">print</span>(np_array_2d[<span class="number">1</span>])  <span class="comment"># 输出: array([4, 777, 6])</span></span><br><span class="line"><span class="built_in">print</span>(np_array_2d[:, <span class="number">1</span>])  <span class="comment"># 输出: array([ 2, 777, 12])</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 切片操作</span></span><br><span class="line"><span class="built_in">print</span>(np_array_2d[:, <span class="number">0</span>:<span class="number">2</span>])  <span class="comment"># 输出: array([[ 1,  2],</span></span><br><span class="line">       <span class="comment">#                    [ 4, 777],</span></span><br><span class="line">       <span class="comment">#                    [ 9, 12]])</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="5-数组赋值和复制"><a href="#5-数组赋值和复制" class="headerlink" title="5. 数组赋值和复制"></a>5. 数组赋值和复制</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 赋值时需要使用copy()来避免原始数组被修改</span></span><br><span class="line">array2 = np_array_2d.copy()</span><br><span class="line">array2[<span class="number">0</span>, <span class="number">1</span>] = <span class="number">7</span></span><br><span class="line"><span class="built_in">print</span>(array2)  <span class="comment"># 修改后的数组</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 原始数组保持不变</span></span><br><span class="line"><span class="built_in">print</span>(np_array_2d)</span><br></pre></td></tr></table></figure>
         </div>
 
         
@@ -270,9 +247,9 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/C/"># C++</a>
+                        <a href="/tags/Python/"># Python</a>
                     
-                        <a href="/tags/Qt/"># Qt</a>
+                        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"># 机器学习</a>
                     
                         
                 </span>
@@ -285,10 +262,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2024/05/14/NumPy%E5%BA%93%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">【机器学习】 NumPy库的基础使用</a>
             
-            
-            <a class="next" rel="next" href="/2024/04/29/Python%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0%E9%AD%94%E6%96%B9%E5%A2%99%E8%84%9A%E6%9C%AC%E9%87%8F%E5%8C%96/">【Python】脚本实现魔方墙脚本量化</a>
+            <a class="next" rel="next" href="/2024/05/12/polynomial/">【C++】 Qt可视化类模板应用——多项式计算器</a>
             
         </section>
 
