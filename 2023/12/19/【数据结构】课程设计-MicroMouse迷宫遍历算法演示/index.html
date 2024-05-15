@@ -222,188 +222,41 @@
 
         <div class="post-content">
             <hr>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV17Q4y137ms/?t=1&spm_id_from=333.1007.seo_video.first">课设演示视频地址 点击此处</a></p>
-<h1 id="第一章-需求分析"><a href="#第一章-需求分析" class="headerlink" title="第一章 需求分析"></a>第一章 需求分析</h1><h2 id="1-1-引言"><a href="#1-1-引言" class="headerlink" title="1.1  引言"></a>1.1  引言</h2><p>MicroMouse,译名为“电脑鼠”。是使用嵌入式微控制器、传感器和机电运动部件构成的一种智能行走装置（微型机器人），电脑鼠可以在不同“迷宫”中自动记忆和选择路径，采用相应的算法，快速地达到所设定的目的地。国际电工和电子工程学会（IEEE）每年都要举办一次国际性的电脑鼠走迷宫竞赛，自举办以来参加国踊跃，为此许多大学还开设了“电脑鼠原理和制作”选修课程。</p>
-<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/1.png" alt="img"></p>
-<p>图1</p>
-<p>在Micromouse竞赛中，深度优先搜索（DFS）和广度优先搜索（BFS）也是常用的算法之一，用于寻找迷宫中的路径和探索未知环境。</p>
-<p>DFS和BFS都是常见的基础搜索算法，它们在Micromouse竞赛中可以作为路径规划的基础算法，并可以与其他高级算法结合使用，用于更复杂的路径规划和探索策略。参赛者通常会根据自己Micromouse的设计和迷宫的特点选择合适的搜索算法，并对其进行优化以实现更高效的路径规划和探索。</p>
-<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/2.png" alt="img"></p>
-<p>图2.DFS算法解决迷宫问题</p>
-<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/3.png" alt="img"></p>
-<p>图3.BFS算法解决迷宫问题</p>
-<h2 id="1-2-任务概述"><a href="#1-2-任务概述" class="headerlink" title="1.2  任务概述"></a>1.2  任务概述</h2><p>本项目旨在实现一个基于DFS和BFS算法的MicroMouse迷宫寻路可视化程序。该程序可以读取不同样式的迷宫地图，使用DFS和BFS算法搜索最优路径，并通过图形化界面展示搜索过程和结果。项目通过C++语言实现，并结合图形库和文件读取实现迷宫的可视化展示。并引入效率因数Q。</p>
-<p>深度优先搜索（DFS）：DFS算法会尽可能深地搜索迷宫的分支路径，直到遇到障碍物或者到达迷宫的边界，然后回溯到上一个节点继续搜索其他路径。</p>
-<p>广度优先搜索（BFS）：BFS算法会逐层地搜索迷宫，先搜索距离出发点最近的节点，然后逐渐扩展到距离更远的节点。</p>
-<h2 id="1-3-数据描述"><a href="#1-3-数据描述" class="headerlink" title="1.3  数据描述"></a>1.3  数据描述</h2><p><strong>1.3.1迷宫地图数据</strong></p>
-<p>迷宫地图以文本文件形式存储，每个数字代表不同类型的迷宫元素：</p>
-<p>0：表示可通行的路径。</p>
-<p>1：表示墙壁，不可通过的障碍物。</p>
-<p>2：从起点到终点遍历到正确的路径</p>
-<p>3：从起点到终点遍历过的路径</p>
-<p>迷宫地图以二维数组的形式存储，例如 int maze[30][30]。</p>
-<p><strong>1.3.2DFS和BFS搜索所需的数据结构</strong></p>
-<p>结构体：可能需要定义节点结构体、迷宫类等数据结构来方便地存储和操作数据。</p>
-<p>栈（Stack）和队列（Queue）：用于DFS和BFS算法的搜索过程中存储节点、记录路径等操作。</p>
-<p><strong>1.3.3数据的读取和存储</strong></p>
-<p>迷宫地图数据以文本文件的形式存储。文件内容按照迷宫地图的行列结构进行排列，使用数字表示不同的迷宫元素，每个数字之间可以用空格隔开。</p>
-<h2 id="1-4-功能需求"><a href="#1-4-功能需求" class="headerlink" title="1.4  功能需求"></a>1.4  功能需求</h2><p>1.迷宫的创建：文件读取</p>
-<p>2.求解方式：使用DFS和BFS算法进行迷宫寻路搜索</p>
-<p>3.提供交互式界面，允许用户选择不同迷宫样式和算法进行搜索。</p>
-<p>4.以图形界面展示迷宫搜索过程和结果（其中结果包括搜索过程中的总路长，正确路长及其搜索效率）。</p>
-<h2 id="1-5-运行需求"><a href="#1-5-运行需求" class="headerlink" title="1.5  运行需求"></a>1.5  运行需求</h2><p>编程语言：C++</p>
-<p>开发环境：Dev-C++</p>
-<p>图形库：&lt;graphics.h&gt;中所定义的图形库</p>
-<h2 id="1-6-任务计划"><a href="#1-6-任务计划" class="headerlink" title="1.6  任务计划"></a>1.6  任务计划</h2><p> <strong>第一周</strong></p>
-<p>1.配置编程环境DevC++与图形化库EGE</p>
-<p>2.讨论选题与可行性</p>
-<p>3.熟悉相关函数的使用</p>
-<p> <strong>第二周</strong></p>
-<p>1.确认选题</p>
-<p>2.设计程序设计大致结构与效果，初步尝试DFS遍历</p>
-<p>3.实现读取文件绘制构造不同的地图样式</p>
-<p> <strong>第三周</strong></p>
-<p>1.构造BFS算法遍历地图实现</p>
-<p>2.实现鼠标操作的相关页面交互</p>
-<p>3.整合重复文件与函数</p>
-<p> <strong>第四周</strong></p>
-<p>1.引入效率因数，在遍历的过程中记录寻路的效率</p>
-<p>2.设计窗口UI</p>
-<p>3.优化细节，增添注释</p>
-<hr>
-<h1 id="第二章-概要设计"><a href="#第二章-概要设计" class="headerlink" title="第二章 概要设计"></a>第二章 概要设计</h1><h2 id="2-1-总体设计"><a href="#2-1-总体设计" class="headerlink" title="2.1 总体设计"></a>2.1 总体设计</h2><p><strong>2.1.1 UI交互界面</strong></p>
-<p>该界面是DFS、BFS可视化方式实现的引导，用户可通过该界面选择所需的迷宫遍历方式。</p>
-<p>该界面需要具有的主要功能有：DFS、BFS方式的选择，迷宫地图的选择。</p>
-<p>其中关于迷宫地图我们提供了三张不同的地图可供挑选，以迷宫中心作为迷宫出口。</p>
-<p>该界面的呈现通过EGE图形库实现。</p>
-<p><strong>2.1.2 迷宫地图的绘制</strong></p>
-<p>约定以”1“标记墙壁，”0“标记通路，”2“标记可行节点，”3“标记死路（即遍历之后发现不可行的路径），将地图样式根据以上约定存入text文档，以矩阵形式读入并借助EGE库实现可视化。墙壁、通路、可行节点、死路以不同颜色进行区分，以地图中心作为迷宫终点，用五角星⭐标记。</p>
-<p><strong>2.1.3 DFS、BFS寻路及其可视化</strong></p>
-<p>通过栈结构实现DFS、BFS。在迷宫地图加载成功后，根据用户所选择的遍历方式及地图开始遍历。以DFS为例，用户在每一个迷宫节点寻求可行通路，每个节点都可能有除目前遍历方向外的三个可行方向，若仅有一个方向可行（该方向与目前遍历方向不同），则沿该方向继续遍历，同时标记已遍历节点为可行节点；若有多个方向都为通路，则按右、下、左、上的顺序依次深度搜索，同时标记已遍历节点为可行节点；若出现无可行通路的情况，则沿原路返回直至到达仍有未遍历方向的“岔路口”，同时标记回溯路径为“死路”。同样地，若用户选择BFS遍历方式，则在每个“岔路口”优先遍历每个每个方向而非深入每个方向的路径遍历即可。</p>
-<p>通过引入Micromouse图标展示遍历路径，Micromouse小图标的移动表示寻路的过程，Micromouse抵达迷宫出口（即地图中心）则停止，代表一次遍历的完成，同时Micromouse所行走的方向及具体路径将以坐标形式被打印在终端上。</p>
-<h2 id="2-2-面向过程设计"><a href="#2-2-面向过程设计" class="headerlink" title="2.2 面向过程设计"></a>2.2 面向过程设计</h2><p>数据结构：迷宫地图、搜索算法所需的数据结构（栈、队列等）。<br>类设计：可能包括迷宫类、搜索类等。<br>迷宫地图寻路的面向过程编程可粗略拟为：<br>（1）选择遍历方式（DFS&#x2F;BFS）；<br>（2）选择迷宫地图；<br>（3）按照所选遍历方式遍历迷宫地图。</p>
-<p>若用户选择DFS遍历方式，则过程（3）又可细化为如下过程：<br>①在当前迷宫节点搜寻可行方向；<br>②在每一个节点处，若仅有一个可行方向，则沿该方向继续向前遍历，同时标记已走路径为“2”；若有多个可行方向，则以右、下、左、上的顺序依次深度搜索，标记已走路径为“2”；若该节点处无可行通路，则沿原路返回直至抵达有未遍历方向的节点处，同时标记回溯路径为“3”；<br>③抵达迷宫出口，遍历结束。</p>
-<p>若用户选择BFS遍历方式，则过程（3）可细化为：<br>①在当前迷宫节点搜寻可行方向；<br>②在每一个节点处，若仅有一个可行方向，则沿该方向继续向前遍历，同时标记已走路径为“2”；若有多个可行方向，则以右、下、左、上的顺序将该节点的每个方向都作遍历并标记已遍历节点为“2”；若该节点处无可行通路，则沿原路返回直至抵达有未遍历方向的节点处，同时标记回溯路径为“3”；<br>③抵达迷宫出口，遍历结束。</p>
-<h2 id="2-3-运行界面设计"><a href="#2-3-运行界面设计" class="headerlink" title="2.3 运行界面设计"></a>2.3 运行界面设计</h2><p>主页界面：提供选择DFS和BFS算法以及不同迷宫样式的按钮。</p>
-<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/4.png" alt="img"><br>图2.3.1 主页界面·遍历方式的选择<br>如图2.3.1所示，在运行程序后首先出现该界面，用户可选择DFS或BFS作为之后迷宫寻路的遍历手段。<br>该界面图标部分源自网络，其余皆由组长手绘制成，通过EGE呈现。</p>
-<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/5.png" alt="img"><br>图2.3.2 主页界面·迷宫地图的选择<br>选择遍历方式后会跳转出如图2.3.2所示的界面，用户可根据自身喜好选择三者其一。<br>迷宫地图首先以矩阵形式被存储在text文件中，被读入程序后经EGE呈现，具体呈现方式见报告其他部分，此处不再赘述。<br>搜索过程展示界面：展示搜索过程的图形化界面。</p>
-<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/6.png" alt="img"><br>图2.3.3 搜索过程的图形化界面<br>图2.3.3即为迷宫的寻路过程界面，左侧为寻路动画，右侧空白处“DFS|MAZE 3”表示用户所选遍历方式为DFS，迷宫地图为MAZE3，三个参数TotalLength、RightLength、Efficiency分别表示寻路所走的总长度、正确路径的总长度及所用时间（以秒为单位计时）。<br>五角星 处即为迷宫终点，Micmouse抵达该点则认为遍历结束。<br>结果展示界面：展示搜索结果的图形化界面。</p>
-<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/7.png" alt="img"><br>图2.3.4 搜索结果的图形化界面<br>Micmouse抵达迷宫中点，此时左侧动画停止播放，右侧三个参数的值也不再发生变化，用户可得知本次遍历Micmouse所走的总长度（TotalLength）、正确路径的总长度（RightLength）、及遍历所用时间（Efficiency）。同时在终端上可看到如图2.3.5所示的每次行走方向及坐标的呈现。</p>
-<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/8.png" alt="img"><br>图2.3.5 行走方向及坐标在终端的打印结果</p>
-<hr>
-<h1 id="第三章-详细设计"><a href="#第三章-详细设计" class="headerlink" title="第三章 详细设计"></a>第三章 详细设计</h1><h2 id="3-1-系统设计与实现"><a href="#3-1-系统设计与实现" class="headerlink" title="3.1  系统设计与实现"></a>3.1  系统设计与实现</h2><p>【总体框架、流程设计，模块划分及接口设计等】</p>
-<p>文件读取模块：负责读取迷宫地图的文件。</p>
-<p>迷宫类：封装迷宫地图的相关操作。</p>
-<p>DFS算法模块：实现DFS搜索算法。</p>
-<p>BFS算法模块：实现BFS搜索算法。</p>
-<p>图形化界面模块：使用图形库绘制并展示迷宫搜索的过程和结果。</p>
-<h2 id="3-2-模块设计"><a href="#3-2-模块设计" class="headerlink" title="3.2  模块设计"></a>3.2  模块设计</h2><p>【各模块的具体设计与实现】</p>
-<figure class="highlight objective-c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">**文件读取模块**：读取迷宫地图的文本文件，并将地图数据存储到相应的数据结构中。</span><br><span class="line"><span class="comment">/*从txt文件中获取地图样式*/</span></span><br><span class="line"><span class="type">void</span> ReadMaze(<span class="type">int</span> maze[<span class="number">30</span>][<span class="number">30</span>], <span class="keyword">const</span> <span class="type">char</span>* filename)</span><br><span class="line"></span><br><span class="line">**迷宫页面模块**：提供对迷宫地图展示与更新。</span><br><span class="line"><span class="comment">/*绘制地图界面*/</span></span><br><span class="line"><span class="type">void</span> DrawPath()</span><br><span class="line"></span><br><span class="line">**BFS搜索模块**：实现BFS算法的搜索逻辑，并在搜索过程中更新迷宫地图状态。</span><br><span class="line"><span class="comment">/*BFS定义*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> Node &#123;</span><br><span class="line"><span class="type">int</span> i;</span><br><span class="line"><span class="type">int</span> j;</span><br><span class="line"><span class="type">int</span> next;</span><br><span class="line">Node *pre;</span><br><span class="line">&#125; Node, *List;</span><br><span class="line"><span class="comment">/*初始BFS结点*/</span></span><br><span class="line"><span class="type">void</span> InitNode(List &amp;bfsp, <span class="type">int</span> x, <span class="type">int</span> y) &#123;</span><br><span class="line">bfsp=new Node;</span><br><span class="line">bfsp-&gt;i = x;</span><br><span class="line">bfsp-&gt;j = y;</span><br><span class="line">bfsp-&gt;next = <span class="number">-1</span>;</span><br><span class="line">bfsp-&gt;pre = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*定义BFS全局变量*/</span></span><br><span class="line">List bfsStart, bfsEnd, bfsp;</span><br><span class="line"><span class="type">int</span> x=<span class="number">0</span>, y=<span class="number">0</span>;</span><br><span class="line"><span class="comment">/*打印BFS回溯路径*/</span></span><br><span class="line"><span class="type">void</span> PrintPath(List&amp; np)</span><br><span class="line"><span class="comment">/*BFS搜索*/</span></span><br><span class="line"><span class="type">void</span> BFS(<span class="type">int</span> (*maze)[<span class="number">30</span>])</span><br><span class="line"></span><br><span class="line">**DFS搜索模块**：实现DFS算法的搜索逻辑，并在搜索过程中更新迷宫地图状态。</span><br><span class="line"><span class="comment">/*定义DFS路径结点*/</span></span><br><span class="line"><span class="keyword">struct</span> Point&#123;</span><br><span class="line"><span class="type">int</span> i;          <span class="comment">//当前行号</span></span><br><span class="line"><span class="type">int</span> j;          <span class="comment">//当前列号</span></span><br><span class="line"><span class="type">int</span> next;       <span class="comment">//下一步可走的方向号</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/*初始化DFS结点*/</span></span><br><span class="line">InitPoint(Point&amp;p,<span class="type">int</span> x,<span class="type">int</span> y)&#123;</span><br><span class="line">p.i=x;</span><br><span class="line">p.j=y;</span><br><span class="line">p.next=<span class="number">-999</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*初始化DFS栈与定义相关操作*/</span></span><br><span class="line"><span class="keyword">struct</span> Stack&#123;</span><br><span class="line">Point pointstack[<span class="number">500</span>];</span><br><span class="line"><span class="type">int</span> top;</span><br><span class="line">Stack() &#123;</span><br><span class="line">top = <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*DFS搜索*/</span></span><br><span class="line"><span class="type">int</span> DFS(<span class="type">int</span> (*maze)[<span class="number">30</span>])</span><br><span class="line"></span><br><span class="line">**图形化界面交互模块**：使用图形库绘制迷宫地图，并实时展示搜索过程和结果。</span><br><span class="line"><span class="comment">/*DFS画图*/</span></span><br><span class="line"><span class="type">void</span> DFSDrawMap()</span><br><span class="line"></span><br><span class="line"><span class="comment">/*BFS画图*/</span></span><br><span class="line"><span class="type">void</span> BFSDrawMap()</span><br><span class="line"><span class="comment">/*DFS地图选择*/</span></span><br><span class="line"><span class="type">void</span> DFSChooseMap()</span><br><span class="line"><span class="comment">/*BFS地图选择*/</span></span><br><span class="line"><span class="type">void</span> BFSChooseMap()</span><br><span class="line"><span class="comment">/*主页窗口创建*/</span></span><br><span class="line"><span class="type">void</span> StartPage()</span><br></pre></td></tr></table></figure>
-
-
-<hr>
-<h1 id="第四章-测试分析"><a href="#第四章-测试分析" class="headerlink" title="第四章 测试分析"></a>第四章 测试分析</h1><p>【程序运行展示1】<br><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/9.png" alt="img"></p>
-<p>图.DFS MAZE1的运行结果</p>
-<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/10.png" alt="img"></p>
-<p>图.BFS MAZE1的运行结果</p>
-<p>【程序运行结果分析1】</p>
-<blockquote>
-<p>对MAZE1的运行结果进行分析，结果显示：DFS算法在MicroMouse迷宫寻路中的效率为68%;BFS算法在MicroMouse迷宫寻路中的效率为48%,因此我们可以得出，对于MAZE1来说，使用DFS算法效率更优。</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV17Q4y137ms/?t=1&spm_id_from=333.1007.seo_video.first">课设演示视频地址 点击此处</a><br><a target="_blank" rel="noopener" href="https://github.com/SAN-SHIa/MicroMouse">源代码仓库 点击此处</a></p>
+<h1 id="DFS与BFS算法在MicroMouse迷宫寻路中的效率可视化及分析"><a href="#DFS与BFS算法在MicroMouse迷宫寻路中的效率可视化及分析" class="headerlink" title="DFS与BFS算法在MicroMouse迷宫寻路中的效率可视化及分析"></a>DFS与BFS算法在MicroMouse迷宫寻路中的效率可视化及分析</h1><blockquote>
+<p>本项目旨在实现一个基于深度优先搜索（DFS）和广度优先搜索（BFS）算法的MicroMouse迷宫寻路可视化程序。程序使用C++语言编写，并结合EGE图形库实现迷宫的图形化展示。</p>
 </blockquote>
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>DFS</th>
-<th>BFS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Efficiency</td>
-<td>68%</td>
-<td>48%</td>
-</tr>
-</tbody></table>
-<p>【程序运行展示2】<br><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/11.png" alt="img"></p>
-<p>图.DFS MAZE2的运行结果</p>
-<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/12.png" alt="img"></p>
-<p>图.BFS MAZE2的运行结果</p>
-<p>【程序运行结果分析2】</p>
-<blockquote>
-<p>对MAZE2的运行结果进行分析，结果显示：DFS算法在MicroMouse迷宫寻路中的效率为26%;BFS算法在MicroMouse迷宫寻路中的效率为43%,因此我们可以得出，对于MAZE2来说，使用BFS算法效率更优。</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>DFS</th>
-<th>BFS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Efficiency</td>
-<td>26%</td>
-<td>43%</td>
-</tr>
-</tbody></table>
-<p>【程序运行展示3】</p>
-<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/13.png" alt="img"></p>
-<p>图.DFS MAZE3的运行结果</p>
-<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/14.png" alt="img"></p>
-<p>图.BFS MAZE3的运行结果</p>
-<p>【程序运行结果分析3】</p>
-<blockquote>
-<p>对MAZE3的运行结果进行分析，结果显示：DFS算法在MicroMouse迷宫寻路中的效率为92%;BFS算法在MicroMouse迷宫寻路中的效率为82%,因此我们可以得出，对于MAZE3来说，使用DFS算法效率更优。</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>DFS</th>
-<th>BFS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Efficiency</td>
-<td>92%</td>
-<td>82%</td>
-</tr>
-</tbody></table>
-<p>【结论】</p>
-<blockquote>
-<p>基于上述对于三种不同迷宫的程序运行结果来看，对于不同的地图，DFS和BFS算法的效率都是不同的：针对一些迷宫路线来说，使用DFS算法来进行迷宫路线的探索或许更优，针对另一些迷宫路线来说，使用BFS算法来进行迷宫路线的探索或许更优。与此同时，这也是本项目的一个目的：对于不同的迷宫路线，DFS和BFS算法哪种算法的效率更高，选择哪种算法进行探索更优。</p>
-</blockquote>
-<hr>
-<h1 id="第五章-用户手册（可选）"><a href="#第五章-用户手册（可选）" class="headerlink" title="第五章 用户手册（可选）"></a>第五章 用户手册（可选）</h1><p>5.1 使用说明</p>
-<p>Step1.启动编译，起始页面如下图所示，选择你想要使用的遍历方式：DFS或BFS</p>
-<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/15.jpg" alt="img"></p>
-<p>图4.起始页面</p>
-<p>Step2.在两种不同的遍历方式下，我们都提供了三个不同的迷宫供用户选择，选择一个进行运行。</p>
-<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/16.jpg" alt="img"></p>
-<p>图5.DFS遍历方式下的迷宫三选一页面</p>
-<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/17.jpg" alt="img"></p>
-<p>图6.BFS遍历方式下的迷宫三选一页面</p>
-<p>Step3.以DFS的MAZE1为例，左侧为用户展示出小鼠的运行轨迹，右侧为用户展示出了小鼠从起点到终点所走的总路长，正确路长及效率。</p>
-<p><img src="/2023/12/19/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-MicroMouse%E8%BF%B7%E5%AE%AB%E9%81%8D%E5%8E%86%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/18.png" alt="img"></p>
-<p>图7.DFS的MAZE1的运行结果</p>
-<p>Step4. 运行结束后，按回车返回主页进行下一轮的迷宫探索。</p>
-<hr>
-<h1 id="第六章-课程设计总结"><a href="#第六章-课程设计总结" class="headerlink" title="第六章 课程设计总结"></a>第六章 课程设计总结</h1><p>【设计初衷、实践过程中遇到的困难及解决方案、课程收获等】</p>
-<p>此次课程设计的想法源于网络上讲解MicroMouse迷宫竞赛运用到的算法相关的一个视频，里面针对电脑鼠从起点开始探索一个复杂的迷宫，并尽可能地去寻找到迷宫出口的最优路径。</p>
-<p>在探索路径中，DFS与BFS算法是探索迷宫寻找路径的两种非常重要的算法，于是我们小组就针对DFS与BFS算法去实现这一功能去做相关的学习与尝试。</p>
-<p>我们设计了一个效率因数去衡量比较两种算法针对相同的一个迷宫去遍历的效率。其中定义了TotalLength遍历过程中经过的所有的结点长度与ValidLength从起点到终点有效部分的长度。其比值即为效率因数Efficiency。效率因数越高，表示该种遍历寻路的过程与结果重合度更高，即算法更优。</p>
-<p>同时为了提高程序的自由度，我们设计了三种不同的地图样式，可以根据自己的想法去在txt文件中设计全新的地图样式，小鼠的起点与终点都是可以通过修改pStart与pEnd结点信息去设置。</p>
-<p>小组合作与项目进度总体上是比较顺利的，每周都会产生新的构思与想法，设计的代码也在不断地更新、迭代。</p>
-<p>在实践过程中遇到不少困惑我们的问题，针对遇到的问题我们做出如下收获与反思：<br><strong>1.检索代码信息与解决问题的能力得到了提升。</strong></p>
-<p>EGE图形化库是第一次是使用，里面包含众多函数，每次调用都需要不断地去搜索，学习。大多数情况都可以在官方文档<a target="_blank" rel="noopener" href="https://xege.org/manual/tutorial/index.htm">https://xege.org/manual/tutorial/index.htm</a>中得到解决，例如在程序中插入一个背景是透明色的PNG图片。putimage（）函数导入的png图片存在黑底 <code>putimage（）</code> 函数便不再适用，插入含透明色的png图像<code>putimage_withalpha()</code>。在此次学习过程中，检索代码信息与解决问题的能力得到了提升。</p>
-<p><strong>2.对结构体指针的理解不够深入。</strong>在设计BFS算法遍历的过程中，运用到单向链表、栈、队列一系列数据结构，不可避免地运用到大量的指针传参，如:</p>
-<figure class="highlight objective-c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*BFS定义*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> Node &#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="type">int</span> j;</span><br><span class="line">    <span class="type">int</span> next;</span><br><span class="line">    Node *pre;</span><br><span class="line">&#125; Node, *List;</span><br></pre></td></tr></table></figure>
-
-
-<p>其中设计到Node与List的灵活变换，在运行的过程中产生了许多错误。好在团队及时讨论，沉着冷静分析解决了问题。</p>
-<p><strong>3.代码设计的全局观不够。</strong></p>
-<p>第一次去完成一个600余行的一整个项目，在实现流程上存在相关问题。整个设计包括DFS和BFS两个部分，我们是分为两个文件单独设计的，在设计完后才将两份文件中的有效片段拼凑在一个可运行文件中，导致设计的数据结构有些杂乱与复杂，结构相对比较分散。在编译代码的过程中，出现报错最多的便是提示：该变量未定义，问题大多出现在写代码过程中构思不够优化，需要额外定义许多额外的全局变量去达到想要的效果。</p>
-<p>总的来说，我们的课程设计很有一定的深度，选择的问题和算法对整个团队来说是蛮巨挑战性的。在实践中遇到的问题也是很常见的。通过努力解决这些问题，我们不仅提升了代码能力，而且对算法和数据结构有了更深入的理解。</p>
+<h2 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h2><p>MicroMouse竞赛中，DFS和BFS算法被广泛用于探索迷宫和寻找路径。本程序可以读取不同样式的迷宫地图，使用DFS和BFS算法搜索最优路径，并通过图形化界面展示搜索过程和结果。</p>
+<h2 id="功能需求"><a href="#功能需求" class="headerlink" title="功能需求"></a>功能需求</h2><ol>
+<li><strong>迷宫创建</strong>：通过文件读取生成迷宫。</li>
+<li><strong>求解方式</strong>：实现DFS和BFS算法进行迷宫寻路搜索。</li>
+<li><strong>交互式界面</strong>：用户可以选择不同的迷宫样式和算法进行搜索。</li>
+<li><strong>结果展示</strong>：图形化展示迷宫搜索过程和结果，包括总路长、正确路长及搜索效率。</li>
+</ol>
+<h2 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h2><ul>
+<li><strong>编程语言</strong>：C++</li>
+<li><strong>开发环境</strong>：Dev-C++</li>
+<li><strong>图形库</strong>：EGE图形化库</li>
+</ul>
+<h2 id="安装指南"><a href="#安装指南" class="headerlink" title="安装指南"></a>安装指南</h2><ol>
+<li>确保系统中已安装Dev-C++和EGE图形库。</li>
+<li>将项目代码复制到本地开发环境中。</li>
+<li>配置项目以确保图形库正确链接。</li>
+</ol>
+<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><ol>
+<li>启动程序，选择DFS或BFS作为迷宫寻路的遍历算法。</li>
+<li>选择一个迷宫样式进行运行。</li>
+<li>观察并分析搜索过程和结果。</li>
+</ol>
+<h2 id="报告结构"><a href="#报告结构" class="headerlink" title="报告结构"></a>报告结构</h2><ul>
+<li><strong>任务书</strong>：详细介绍了教学要求、设计要求及成果、评分标准等。</li>
+<li><strong>需求分析</strong>：包括引言、任务概述、数据描述、功能需求和运行需求。</li>
+<li><strong>概要设计</strong>：总体设计、面向过程设计和运行界面设计。</li>
+<li><strong>详细设计</strong>：系统设计与实现、模块设计。</li>
+<li><strong>测试分析</strong>：程序运行展示和结果分析。</li>
+<li><strong>用户手册</strong>：提供了使用说明。</li>
+<li><strong>课程设计总结</strong>：总结了项目的设计过程和团队的收获与反思。</li>
+</ul>
 
         </div>
 
