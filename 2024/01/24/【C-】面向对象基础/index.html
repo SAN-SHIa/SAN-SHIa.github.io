@@ -221,7 +221,8 @@
         </header>
 
         <div class="post-content">
-            <h1 id="面向对象编程总结"><a href="#面向对象编程总结" class="headerlink" title="面向对象编程总结"></a>面向对象编程总结</h1><h3 id="一、基础"><a href="#一、基础" class="headerlink" title="一、基础"></a>一、基础</h3><ol>
+            <h1 id="面向对象编程总结"><a href="#面向对象编程总结" class="headerlink" title="面向对象编程总结"></a>面向对象编程总结</h1><p>[TOC]</p>
+<h3 id="一、基础"><a href="#一、基础" class="headerlink" title="一、基础"></a>一、基础</h3><ol>
 <li><p>成员函数定义</p>
 </li>
 <li><p>初始化列表</p>
@@ -371,11 +372,12 @@
 
 
 
-<h4 id="7-4-全局函数重载二元运算符"><a href="#7-4-全局函数重载二元运算符" class="headerlink" title="7.4 全局函数重载二元运算符"></a>7.4 全局函数重载二元运算符</h4><p>成员函数重载左操作数的类型是固定的。例如重载了<code>+</code>,那么<code>date+1</code>可以，<code>1+date</code>不可以。因为默认了左操作数的类型。但重载全局函数不存在该问题。</p>
+<h4 id="7-4-全局函数重载二元运算符"><a href="#7-4-全局函数重载二元运算符" class="headerlink" title="7.4 全局函数重载二元运算符"></a>7.4 全局函数重载二元运算符</h4><p>成员函数重载左操作数的类型是固定的。例如重载了<code>+</code>,那么<code>date+1</code>可以，<code>1+date</code>不可以。&#x3D;&#x3D;<strong>因为默认了左操作数的类型。但重载全局函数不存在该问题。</strong>&#x3D;&#x3D;</p>
 <p><strong>希望运算符的两个操作数都能进行类型转换，则使用全局函数重载运算符。</strong></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">重载operator&gt;&gt;的基本形式如下：</span><br><span class="line">  istream&amp; operator&gt;&gt; (istream&amp;,  type&amp;);</span><br><span class="line">重载operator&lt;&lt;的基本形式如下：</span><br><span class="line">  ostream&amp; operator&lt;&lt; (ostream&amp;,  <span class="type">const</span> type&amp;);</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    friend ostream&amp; operator&lt;&lt;(ostream&amp;os,<span class="type">const</span> Date&amp;d);</span><br><span class="line">     </span><br><span class="line">ostream&amp; operator&lt;&lt;(ostream&amp;os,<span class="type">const</span> Date&amp;d)&#123;</span><br><span class="line">    <span class="keyword">return</span> os&lt;&lt;d.y&lt;&lt;<span class="string">&quot;~&quot;</span>&lt;&lt;d.m&lt;&lt;<span class="string">&quot;~&quot;</span>&lt;&lt;d.d&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
 
 
@@ -412,6 +414,9 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>&#123;</span> private: <span class="type">int</span> b;&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B1</span> :</span> virtual public B &#123; private: <span class="type">int</span> b1;&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B2</span> :</span> virtual public B &#123; private: <span class="type">int</span> b2;&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> :</span> public B1, public B2&#123; private: <span class="type">float</span> d;&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>派生类只能通过最底层的派生类访问虚基类的成员</strong>：在虚基类的派生中，派生类只能通过最底层的派生类来访问虚基类的成员，而不能通过其他派生类来访问。这是因为虚基类的成员只会被继承一次，而且只会在最底层的派生类中存在。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Vehicle</span>&#123;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Boat</span>: <span class="keyword">virtual</span> <span class="keyword">public</span> Vehicle&#123;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Car</span>: <span class="keyword">virtual</span> <span class="keyword">public</span> Vehicle&#123;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AmphibianCar</span>:<span class="keyword">public</span> Car,<span class="keyword">public</span> Boat&#123;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>+ </p>
 <hr>
 <h3 id="九、多态"><a href="#九、多态" class="headerlink" title="九、多态"></a>九、多态</h3><p>多态性是指相同的动词作⽤到不同类型的对象上。</p>
 <p>&#x3D;&#x3D;C++实现的多态性：&#x3D;&#x3D;</p>
@@ -427,9 +432,24 @@
 </ul>
 <h4 id="9-1静态联编和动态联编"><a href="#9-1静态联编和动态联编" class="headerlink" title="9.1静态联编和动态联编"></a>9.1静态联编和动态联编</h4><p><strong>联编</strong>：⼀个源程序需要经过编译、连接，才能成为可执 ⾏代码。上述过程中需要将⼀个函数调⽤链接上 相应的函数代码，这⼀过程称为联编。</p>
 <p><strong><code>virtual </code>关键字的作⽤</strong>：指示C++编译 器对该函数的调⽤进⾏动态联编。</p>
+<blockquote>
+<p>要使用动态联编，必须满足以下两个条件：</p>
+<ol>
+<li>成员函数必须是虚函数（virtual function）。</li>
+<li>必须通过指向基类的指针或引用来调用成员函数。</li>
+</ol>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Shape</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Drawing a shape.&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Circle</span> : <span class="keyword">public</span> Shape &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">draw</span><span class="params">()</span>  </span>&#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Drawing a circle.&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Rectangle</span> : <span class="keyword">public</span> Shape &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">draw</span><span class="params">()</span>  </span>&#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Drawing a rectangle.&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Circle c;</span><br><span class="line">    Rectangle r;</span><br><span class="line">    c.<span class="built_in">draw</span>();</span><br><span class="line">    r.<span class="built_in">draw</span>();</span><br><span class="line">    </span><br><span class="line">    Shape* shape1 = <span class="keyword">new</span> <span class="built_in">Circle</span>();</span><br><span class="line">    Shape* shape2 = <span class="keyword">new</span> <span class="built_in">Rectangle</span>();</span><br><span class="line">    shape1-&gt;<span class="built_in">draw</span>(); <span class="comment">// 调用Circle类的draw函数</span></span><br><span class="line">    shape2-&gt;<span class="built_in">draw</span>(); <span class="comment">// 调用Rectangle类的draw函数</span></span><br><span class="line">    <span class="keyword">delete</span> shape1;</span><br><span class="line">    <span class="keyword">delete</span> shape2;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>c.draw();</code> 和 <code>r.draw();</code> 是通过对象直接调用成员函数，这种情况下，编译器在编译时期就可以确定调用哪个函数，这是静态联编。</p>
+</li>
+<li><p>然而，<code>shape1-&gt;draw();</code> 和 <code>shape2-&gt;draw();</code> 是通过指向基类 <code>Shape</code> 的指针调用成员函数。这种情况下，编译器在编译时期无法确定 <code>shape1</code> 和 <code>shape2</code> 指向的具体类型，只能在运行时根据 <code>shape1</code> 和 <code>shape2</code> 实际指向的对象类型来确定调用哪个函数，这就是动态联编。</p>
+</li>
+</ul>
 <h4 id="9-2-虚函数"><a href="#9-2-虚函数" class="headerlink" title="9.2 虚函数"></a>9.2 虚函数</h4><p>访问对象的不同去调用不同的函数。只有当访问虚函数是通过基类指针s时才可获得运⾏时的多态性。</p>
-<p><strong>函数覆盖（override）</strong>：在派⽣类中，虚函数被重新定义以实现不 同的操作。 这种⽅式称为函数超越 （overriding），⼜称 为函数覆盖。</p>
-<p><strong>纯虚函数</strong>：纯虚函数是指在基类中声明但是没有定义的虚函 数，⽽且设置函数值等于零。</p>
+<p><strong>函数覆盖（override）</strong>：在派⽣类中，虚函数被重新定义以实现不同的操作。 这种⽅式称为函数超越 （overriding），⼜称 为函数覆盖。</p>
+<p><strong>纯虚函数</strong>：纯虚函数是指在基类中声明但是没有定义的虚函数，⽽且设置函数值等于零。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virtual <span class="type">float</span> <span class="title function_">area</span><span class="params">( )</span>=<span class="number">0</span>;</span><br></pre></td></tr></table></figure>
 
 <p>定义纯虚函数是为了实现一个接口，起到一个规范的作用，规范继承这个类的程序员必须实现这个函数。</p>
@@ -535,6 +555,66 @@
 
 <h4 id="11-2类模板"><a href="#11-2类模板" class="headerlink" title="11.2类模板"></a>11.2类模板</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAX_SIZE 1024</span></span><br><span class="line"></span><br><span class="line">using namespace <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line">template &lt;typename T&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Array</span> &#123;</span></span><br><span class="line">private:</span><br><span class="line">    <span class="type">int</span> len;</span><br><span class="line">    T data[MAX_SIZE];</span><br><span class="line">public:</span><br><span class="line">    Array() &#123;</span><br><span class="line">        len = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(data, <span class="number">0</span>, <span class="keyword">sizeof</span>(data));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">void</span> <span class="title function_">add</span><span class="params">(T element)</span> &#123;</span><br><span class="line">        data[len] = element;</span><br><span class="line">        len++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">void</span> <span class="title function_">show</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; data[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    Array&lt;<span class="type">int</span>&gt; array_int;<span class="comment">//此处记得要给出参数列表</span></span><br><span class="line"></span><br><span class="line">    array_int.add(<span class="number">1</span>);</span><br><span class="line">    array_int.add(<span class="number">2</span>);</span><br><span class="line">    array_int.add(<span class="number">3</span>);</span><br><span class="line">    array_int.show(); <span class="comment">// 1 2 3</span></span><br><span class="line"></span><br><span class="line">    Array&lt;<span class="built_in">string</span>&gt; array_str;</span><br><span class="line">    array_str.add(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">    array_str.add(<span class="string">&quot;b&quot;</span>);</span><br><span class="line">    array_str.add(<span class="string">&quot;c&quot;</span>);</span><br><span class="line">    array_str.show(); <span class="comment">// a b c</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<hr>
+<h3 id="十二、异常处理"><a href="#十二、异常处理" class="headerlink" title="十二、异常处理"></a>十二、异常处理</h3><h4 id="12-1-throw-try-catch"><a href="#12-1-throw-try-catch" class="headerlink" title="12.1 throw-try-catch"></a>12.1 throw-try-catch</h4><p><code>throw</code> 语句用于抛出一个异常。这个异常可以是任何类型的值或对象。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">throw</span> expression;</span><br></pre></td></tr></table></figure>
+
+<p><code>try</code> 块包含可能抛出异常的代码。<code>catch</code> 块用于捕获并处理异常。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 代码块，可能抛出异常</span></span><br><span class="line">&#125; <span class="built_in">catch</span> (type1 arg1) &#123;</span><br><span class="line">    <span class="comment">// 处理 type1 类型的异常</span></span><br><span class="line">&#125; <span class="built_in">catch</span> (type2 arg2) &#123;</span><br><span class="line">    <span class="comment">// 处理 type2 类型的异常</span></span><br><span class="line">&#125; <span class="comment">// 可以有多个 catch 块</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li><p><code>throw</code> 语句会立即终止当前的代码块，并跳转到与之最近的 <code>catch</code> 块。</p>
+</li>
+<li><p>如果 <code>throw</code> 语句在一个 <code>try</code> 块内部，那么它会跳转到这个 <code>try</code> 块后面的 <code>catch</code> 块。如果 <code>throw</code> 语句不在任何 <code>try</code> 块内部，或者没有找到匹配的 <code>catch</code> 块，那么程序会调用 <code>std::terminate</code> 函数，通常会导致程序终止。</p>
+</li>
+<li><p><code>catch</code> 块的参数类型必须与 <code>throw</code> 语句抛出的异常类型匹配。如果有多个 <code>catch</code> 块，那么会选择第一个匹配的 <code>catch</code> 块。</p>
+</li>
+<li><p><code>catch</code> 块的参数是一个新的局部变量，它的值是 <code>throw</code> 语句抛出的异常值的副本。如果异常是一个对象，那么这个对象会被复制。为了避免复制的开销，通常会抛出和捕获异常对象的引用。</p>
+</li>
+<li><p>如果异常是一个类类型，那么可以使用基类来捕获所有的派生类异常。例如，<code>catch (const std::exception&amp; e)</code> 可以捕获所有派生自 <code>std::exception</code> 的异常。</p>
+</li>
+<li><p>可以使用 <code>catch (...)</code> 来捕获所有类型的异常，但是这样做无法获取到异常的具体信息。通常，<code>catch (...)</code> 会在最后一个 <code>catch</code> 块，用于捕获其他 <code>catch</code> 块没有捕获到的异常。</p>
+</li>
+<li><p>在 <code>catch</code> 块中，应该避免再次抛出异常，除非你打算在更高的层次处理这个异常。如果在 <code>catch</code> 块中抛出了新的异常，那么原来的异常就会丢失。</p>
+</li>
+<li><p>异常应该用于处理真正的异常情况，而不是用于控制正常的程序流程。过度使用异常会使代码难以理解和维护，也会影响程序的性能。</p>
+</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="十三、理论性表述梳理"><a href="#十三、理论性表述梳理" class="headerlink" title="十三、理论性表述梳理"></a>十三、理论性表述梳理</h3><blockquote>
+<ul>
+<li>虚函数<ul>
+<li>只能是成员函数。</li>
+<li>基类和派生类函数名和参数列表必须相同。</li>
+<li>抽象类指的是包含纯虚函数的类，抽象类无法用于实例化对象。</li>
+</ul>
+</li>
+<li>构造析构顺序<ul>
+<li>当创建一个派生类的对象时，首先会调用基类的构造函数，然后是派生类的构造函数。</li>
+<li>当销毁一个派生类的对象时，首先会调用派生类的析构函数，然后是基类的析构函数。</li>
+</ul>
+</li>
+<li>友元函数：<ul>
+<li>如果函数 fun()被说明为类 A 的友元，那么在 fun()中可以访问类 A 的私有成员</li>
+<li>友元关系不能被继承</li>
+<li>友元破坏了类的封装性</li>
+<li>尽管友元函数可以访问类的私有和保护成员，但它仍然不是类的成员函数，因此它不能使用类的this指针</li>
+</ul>
+</li>
+<li>函数重载<ul>
+<li>函数重载是根据函数的参数列表来确定的</li>
+<li>参数列表中参数的数量，类型和顺序</li>
+</ul>
+</li>
+<li>类<ul>
+<li>属性（Attribute）：用于描述对象的静态特征。</li>
+<li>方法（Method）：用于描述对象的动态特征。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
 
         </div>
 
