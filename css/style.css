@@ -18,7 +18,7 @@ hr {
 pre {
   font-family: monospace, monospace /* 1 */;
   font-size: 1em /* 2 */;
-  border: 3px solid #fff;
+  /*border: 3px solid #fff;*/
   box-shadow: 5px 5px 5px #CFD4DB;
 }
 a {
@@ -35,7 +35,7 @@ strong {
 }
 code
 {
-  border: 1px solid #c9c9ca;
+  border: 1px solid #fff;
 }
 kbd,
 samp {
@@ -984,7 +984,7 @@ header label {
 }
 .post-content code {
   line-height: 1.7em;
-  padding: 3px 5px;
+  padding: 1px 3px;
   border-radius: 4px;
   color: #4870AC;
   background: #F6F8FA;
@@ -1011,7 +1011,7 @@ header label {
 }
 .post-content figure.highlight::-webkit-scrollbar-thumb {
   width: 6px;
-  background-color: #eee;
+  background-color: #fff;
   border-radius: 2px;
 }
 .post-content figure.highlight figcaption {
@@ -1028,7 +1028,7 @@ header label {
 .post-content figure.highlight table,
 .post-content figure.highlight tr,
 .post-content figure.highlight td {
-  margin: 0;
+  margin: 5px 5px 5px;
   padding: 0;
   border: 0;
   width: 100%;
