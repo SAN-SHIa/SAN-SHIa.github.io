@@ -1028,7 +1028,7 @@ header label {
 .post-content figure.highlight table,
 .post-content figure.highlight tr,
 .post-content figure.highlight td {
-  margin: 5px 5px 5px;
+  margin: 0px 4px 10px;
   padding: 0;
   border: 0;
   width: 100%;
