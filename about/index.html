@@ -17,7 +17,6 @@
 
 
 
-
     <link rel="icon" href="/favicon.ico">
 
 
@@ -145,7 +144,7 @@
 <li>15th Blue Bridge Cup C&#x2F;C++ Third Price</li>
 </ul>
 <p><span style="float: right;"><strong>This Blog will record all of the insights I have gained from my college level studies.</strong></span></p>
-<p><span style="float: right;"><strong>Contact me via my email if needed�?<a href="mailto:&#x79;&#x74;&#104;&#x69;&#x72;&#x74;&#121;&#64;&#111;&#117;&#x74;&#108;&#111;&#x6f;&#107;&#46;&#x63;&#111;&#109;">&#x79;&#x74;&#104;&#x69;&#x72;&#x74;&#121;&#64;&#111;&#117;&#x74;&#108;&#111;&#x6f;&#107;&#46;&#x63;&#111;&#109;</a></strong></span></p>
+<p><span style="float: right;"><strong>Contact me via my email if needed:<a href="mailto:&#121;&#116;&#104;&#x69;&#x72;&#116;&#121;&#x40;&#x6f;&#x75;&#116;&#108;&#x6f;&#x6f;&#x6b;&#x2e;&#99;&#111;&#x6d;">&#121;&#116;&#104;&#x69;&#x72;&#116;&#121;&#x40;&#x6f;&#x75;&#116;&#108;&#x6f;&#x6f;&#x6b;&#x2e;&#99;&#111;&#x6d;</a></strong></span></p>
 
         </section>
     </article>
@@ -153,12 +152,12 @@
 
             </div>
             <footer id="footer" class="footer">
-    <span id="timeDate">载入天数...</span><span id="times">载入时分�?...</span>
+    <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
 <!-- 脚本部分 -->
 <script>
   var now = new Date(); 
   function createtime() { 
-      var grt= new Date("08/29/2023 20:00:00");//在此处修改你的建站时�?
+      var grt= new Date("08/29/2023 20:00:00");//在此处修改你的建站时间
       now.setTime(now.getTime()+250); 
       days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
       hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
@@ -166,8 +165,8 @@
       mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
       seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
       snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
-      document.getElementById("timeDate").innerHTML = "本站已安全运�? "+dnum+" �? "; 
-      document.getElementById("times").innerHTML = hnum + " �? " + mnum + " �? " + snum + " �?"; 
+      document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+      document.getElementById("times").innerHTML = hnum + " 时 " + mnum + " 分 " + snum + " 秒"; 
   } 
   setInterval("createtime()",250);
   
@@ -201,8 +200,8 @@
                 i = t[o - 1];
                 return {
                     l: o,
-                    z: n(i, "zIndex", -1),     //置于主页面背�?
-                    o: n(i, "opacity", .5),     //线条透明�?
+                    z: n(i, "zIndex", -1),     //置于主页面背后
+                    o: n(i, "opacity", .5),     //线条透明度
                     c: n(i, "color", "0,0,0"),  //线条颜色
                     n: n(i, "count", 100)    //线条数量
                 }
