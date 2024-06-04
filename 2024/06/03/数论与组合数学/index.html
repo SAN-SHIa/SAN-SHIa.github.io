@@ -322,7 +322,7 @@
 <p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/7.jpg" alt="img"></p>
 <p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/8.jpg" alt="img"></p>
 </blockquote>
-<h4 id="模多项式"><a href="#模多项式" class="headerlink" title="模多项式"></a>模多项式</h4><p>$\begin{aligned}&amp;f(x)\equiv0\mathrm{<del>mod</del>}p\text{ (p is a prime) of degree }n\text{ has at most }n \text{ solutions.}\end{aligned}$​</p>
+<h4 id="模多项式"><a href="#模多项式" class="headerlink" title="模多项式"></a>模多项式</h4><p>$\begin{aligned}&amp;f(x)\equiv0\mathrm{ mod }p\text{ (p is a prime) of degree }n\text{ has at most }n \text{ solutions.}\end{aligned}$​</p>
 <p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/9.jpg" alt="img"></p>
 <h4 id="阶"><a href="#阶" class="headerlink" title="阶"></a>阶</h4><ul>
 <li><p>定义：gcd(a,m)&#x3D;1,满足$a^h&#x3D;1mod$ $m$的最小正整数h是a mod m 的阶，写作$h&#x3D;ord_m\left(a\right)$</p>
@@ -352,10 +352,10 @@
 </li>
 </ul>
 <h3 id="平方剩余、二次互反律"><a href="#平方剩余、二次互反律" class="headerlink" title="平方剩余、二次互反律"></a>平方剩余、二次互反律</h3><h4 id="平方剩余"><a href="#平方剩余" class="headerlink" title="平方剩余"></a>平方剩余</h4><ul>
-<li>定义:   $\text{p是素数,}a\neq0\mathrm{<del>}mod\mathrm{</del>}p\text{,当}a&#x3D;b^2 \ mod\mathrm{~}p\text{时,a是平方剩余,否则是平方非剩余}$​</li>
-<li>定理：$a\neq0\mathrm{<del>}mod\mathrm{</del>}p,a^{\frac{p-1}2}&#x3D;1\mathrm{<del>}mod\mathrm{</del>}p\Rightarrow\text{а是平方剩余}$​</li>
+<li>定义:   $\text{p是素数,}a\neq0\mathrm{ }mod\mathrm{ }p\text{,当}a&#x3D;b^2 \ mod\mathrm{ }p\text{时,a是平方剩余,否则是平方非剩余}$​</li>
+<li>定理：$a\neq0\mathrm{ }mod\mathrm{ }p,a^{\frac{p-1}2}&#x3D;1\mathrm{ }mod\mathrm{ }p\Rightarrow\text{а是平方剩余}$​</li>
 </ul>
-<p>15是17的平方剩余：$15^{\frac{17-1}2}\equiv1\mathrm{<del>mod</del>}17.$​</p>
+<p>15是17的平方剩余：$15^{\frac{17-1}2}\equiv1\mathrm{ mod }17.$​</p>
 <p>12不是17的平方剩余：$12^{\frac{17-1}2}\equiv-1 mod 17.$​</p>
 <blockquote>
 <p><strong>例题：形式转换</strong></p>
@@ -365,13 +365,14 @@
 <li>定义：</li>
 </ul>
 <p><code>p为素数</code></p>
-<p>$$\begin{pmatrix}a\p\end{pmatrix}&#x3D;\begin{cases}1&amp;a是\ \ \ \ \mod\ p的平方剩余\-1&amp;a不是\mod\ p的平方剩余\end{cases}$$</p>
+<p>$$<br>\left( \frac{a}{p} \right) &#x3D; \begin{cases}<br>1 &amp; \text{如果 } a \text{ 是模 } p \text{ 的平方剩余} \<br>-1 &amp; \text{如果 } a \text{ 不是模 } p \text{ 的平方剩余}<br>\end{cases}<br>$$</p>
 <p>$$\left(\frac ap\right)&#x3D;a^{\frac{p-1}2}mod \ p$$最后得到结果无非就是<code>1/-1</code>，可见<code>Table of x^k mod m</code></p>
 <ul>
 <li>意义：</li>
 </ul>
 <p>由Legendre符号的定义可以看出，如果能够很快地算出它的值，那么就会立刻知道同余式</p>
-<p>是否有解。具体地说：<br>$$\mathrm{x^2\equiv a<del>mod</del>p,<del>p是奇素数,</del>a\in\mathbb{Z}}$$</p>
+<p>是否有解。具体地说：</p>
+<p>$$<br>x^2 \equiv a \pmod{p}, \quad p \text{ 是奇素数}, \quad a \in \mathbb{Z}<br>$$</p>
 <ol>
 <li>当$\left(\frac{\mathrm{a}}{\mathrm{p}}\right)&#x3D;1$时，a是模p的平方剩余，根据平方剩余的定义，同余式有解。</li>
 <li>当$\left(\frac{\mathrm{a}}{\mathrm{p}}\right)&#x3D;0$时，有p| a$\Rightarrow$a$\equiv$0 mod p, 此 时 同 余 式 $\mathrm{x^2\equiv a\equiv0\mod p}$。有唯一解x$\equiv$0 mod p ( p是 素 数 , $Z&#x2F; \mathfrak{p}$ 是域，是整环)。</li>
@@ -388,7 +389,7 @@
 <h4 id="二次互反律"><a href="#二次互反律" class="headerlink" title="二次互反律"></a>二次互反律</h4><ul>
 <li>定义：<code>当p、q都为素数时</code></li>
 </ul>
-<p>$$\left(\frac{p}{q}\right)&#x3D;\begin{cases}+\left(\frac{q}{p}\right)&amp;\text{if } p\equiv1<br> \ mod \ 4 \text{ or } q\equiv\ 1 \ mod \ 4\-\left(\frac{q}{p}\right)&amp;\text{if } p\equiv q\equiv3 \ mod \  4.\end{cases}$$​</p>
+<p>$$<br>\left( \frac{p}{q} \right) &#x3D; \begin{cases}<br>+\left( \frac{q}{p} \right) &amp; \text{如果 } p \equiv 1 \pmod{4} \text{ 或 } q \equiv 1 \pmod{4} \<br>-\left( \frac{q}{p} \right) &amp; \text{如果 } p \equiv q \equiv 3 \pmod{4}<br>\end{cases}<br>$$</p>
 <blockquote>
 <p><strong>大量的练习题：</strong></p>
 </blockquote>
@@ -396,7 +397,9 @@
 <h3 id="分圆多项式、算术函数"><a href="#分圆多项式、算术函数" class="headerlink" title="分圆多项式、算术函数"></a>分圆多项式、算术函数</h3><h4 id="欧拉函数的计算"><a href="#欧拉函数的计算" class="headerlink" title="欧拉函数的计算"></a>欧拉函数的计算</h4><p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/13.jpg" alt="img"></p>
 <h4 id="分圆多项式"><a href="#分圆多项式" class="headerlink" title="分圆多项式"></a>分圆多项式</h4><ul>
 <li>定义：$\text{对正整数n来说,能整除}x^n-1\text{但不能整除}x^k-1(k&lt;n)\text{的多项式是分圆多项式,用}\phi_n\left(x\right)\text{表示。}$​</li>
-<li><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/14.jpg" alt="img"></li>
+</ul>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/14.png" alt="img"></p>
+<ul>
 <li>定理1：$ x^n-1&#x3D;\prod_{d|n} \phi_d\left(x\right)$</li>
 <li>定理2：$ \phi_n\left(x\right)\text{的最高次}n&#x3D;\phi(x)$</li>
 </ul>
