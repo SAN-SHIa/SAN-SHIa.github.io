@@ -275,7 +275,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">gcd</span><span class="params">(<span class="type">int</span> m,<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>) <span class="keyword">return</span> m;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> gcd(n,m%n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>定理： $ { Let } g&#x3D;\operatorname{gcd}(a, b) \text {, then } \exists v_{0}, y_{0} \in Z \text { such that } g&#x3D;a x_{0}+b y_{0} \text {. }$</li>
+<li>定理：<br>$$<br> { Let } g&#x3D;\operatorname{gcd}(a, b) \text {, then } \exists v_{0}, y_{0} \in Z \text { such that } g&#x3D;a x_{0}+b y_{0} \text {. }<br>$$</li>
 </ul>
 <blockquote>
 <p><strong>例题</strong></p>
@@ -364,19 +364,21 @@
 <h4 id="Legendre符号"><a href="#Legendre符号" class="headerlink" title="Legendre符号"></a>Legendre符号</h4><ul>
 <li>定义：</li>
 </ul>
-<p><code>p为素数</code></p>
-<p>$$<br>\left( \frac{a}{p} \right) &#x3D; \begin{cases}<br>1 &amp; \text{如果 } a \text{ 是模 } p \text{ 的平方剩余} \<br>-1 &amp; \text{如果 } a \text{ 不是模 } p \text{ 的平方剩余}<br>\end{cases}<br>$$</p>
-<p>$$\left(\frac ap\right)&#x3D;a^{\frac{p-1}2}mod \ p$$最后得到结果无非就是<code>1/-1</code>，可见<code>Table of x^k mod m</code></p>
+<p><strong>p为素数</strong><br>$$<br>\left( \frac{a}{p} \right) &#x3D; \begin{cases}<br>1 &amp; \text{如果 } a \text{ 是模 } p \text{ 的平方剩余} \<br>-1 &amp; \text{如果 } a \text{ 不是模 } p \text{ 的平方剩余}<br>\end{cases}<br>$$</p>
+<p>$$<br>\left(\frac{a}{p}\right) &#x3D; a^{\frac{p-1}{2}} \mod p<br>$$</p>
+<p>最后得到结果无非就是 $1$ 或 $-1$，可见 <code>Table of x^k mod m</code>。</p>
 <ul>
 <li>意义：</li>
 </ul>
-<p>由Legendre符号的定义可以看出，如果能够很快地算出它的值，那么就会立刻知道同余式</p>
-<p>是否有解。具体地说：</p>
+<p>由Legendre符号的定义可以看出，如果能够很快地算出它的值，那么就会立刻知道同余式是否有解。具体地说：</p>
 <p>$$<br>x^2 \equiv a \pmod{p}, \quad p \text{ 是奇素数}, \quad a \in \mathbb{Z}<br>$$</p>
 <ol>
-<li>当$\left(\frac{\mathrm{a}}{\mathrm{p}}\right)&#x3D;1$时，a是模p的平方剩余，根据平方剩余的定义，同余式有解。</li>
-<li>当$\left(\frac{\mathrm{a}}{\mathrm{p}}\right)&#x3D;0$时，有p| a$\Rightarrow$a$\equiv$0 mod p, 此 时 同 余 式 $\mathrm{x^2\equiv a\equiv0\mod p}$。有唯一解x$\equiv$0 mod p ( p是 素 数 , $Z&#x2F; \mathfrak{p}$ 是域，是整环)。</li>
-<li>当$\left(\frac{\mathrm{a}}{\mathrm{p}}\right)&#x3D;-1$​时，a是模p的平方非剩余，由平方非剩余的定义，同余式无解。</li>
+<li><p>当 $\left(\frac{a}{p}\right) &#x3D; 1$ 时，$a$ 是模 $p$ 的平方剩余，根据平方剩余的定义，同余式有解。</p>
+</li>
+<li><p>当 $\left(\frac{a}{p}\right) &#x3D; 0$ 时，有 $p \mid a \Rightarrow a \equiv 0 \pmod{p}$，此时同余式 $x^2 \equiv a \equiv 0 \pmod{p}$ 有唯一解 $x \equiv 0 \pmod{p}$。</p>
+</li>
+<li><p>当 $\left(\frac{a}{p}\right) &#x3D; -1$ 时，$a$ 是模 $p$ 的平方非剩余，由平方非剩余的定义，同余式无解。</p>
+</li>
 </ol>
 <blockquote>
 <p><strong>定理及例题 ：</strong></p>
@@ -389,7 +391,7 @@
 <h4 id="二次互反律"><a href="#二次互反律" class="headerlink" title="二次互反律"></a>二次互反律</h4><ul>
 <li>定义：<code>当p、q都为素数时</code></li>
 </ul>
-<p>$$<br>\left( \frac{p}{q} \right) &#x3D; \begin{cases}<br>+\left( \frac{q}{p} \right) &amp; \text{如果 } p \equiv 1 \pmod{4} \text{ 或 } q \equiv 1 \pmod{4} \<br>-\left( \frac{q}{p} \right) &amp; \text{如果 } p \equiv q \equiv 3 \pmod{4}<br>\end{cases}<br>$$</p>
+<p>$<br>\left( \frac{p}{q} \right) &#x3D; \begin{cases}<br>+\left( \frac{q}{p} \right) &amp; \text{如果 } p \equiv 1 \pmod{4} \text{ 或 } q \equiv 1 \pmod{4} \<br>-\left( \frac{q}{p} \right) &amp; \text{如果 } p \equiv q \equiv 3 \pmod{4}<br>\end{cases}<br>$</p>
 <blockquote>
 <p><strong>大量的练习题：</strong></p>
 </blockquote>
@@ -400,8 +402,8 @@
 </ul>
 <p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/14.png" alt="img"></p>
 <ul>
-<li>定理1：$ x^n-1&#x3D;\prod_{d|n} \phi_d\left(x\right)$</li>
-<li>定理2：$ \phi_n\left(x\right)\text{的最高次}n&#x3D;\phi(x)$</li>
+<li>定理1：$$ x^n-1&#x3D;\prod_{d|n} \phi_d\left(x\right)$$</li>
+<li>定理2：$$ \phi_n\left(x\right)\text{的最高次}n&#x3D;\phi(x)$$</li>
 </ul>
 <h4 id="算数函数"><a href="#算数函数" class="headerlink" title="算数函数"></a>算数函数</h4><ul>
 <li>加性  <code>f(mn)=f(m)+f(n)</code></li>
@@ -421,13 +423,37 @@
 <p>Real number $x$, compute integers $a_0,a_1,\cdots$,such that $a_0&#x3D;\lfloor x\rfloor .$<br>$$x&#x3D;a_0+\frac1{a_1+\frac1{a_2+\frac1{\ddots+\frac1{a_n}}}}$$<br>$x_1&#x3D;\frac{1}{x-a_0}$,then $a_1&#x3D;\lfloor x_1\rfloor$,</p>
 <p>$x_2&#x3D;\frac1{x_1-a_1}$, then $a_2&#x3D;\lfloor x_2\rfloor,\cdots$​</p>
 <hr>
-<h2 id="组合数学部分"><a href="#组合数学部分" class="headerlink" title="组合数学部分"></a>组合数学部分</h2><p>辗转相除法</p>
-<p>欧几里得算法</p>
-<p>模逆元</p>
-<p>排列与组合</p>
-<p>生成函数</p>
-<p>卡特兰数</p>
-
+<h2 id="组合数学部分"><a href="#组合数学部分" class="headerlink" title="组合数学部分"></a>组合数学部分</h2><h3 id="基本计数原理"><a href="#基本计数原理" class="headerlink" title="基本计数原理"></a>基本计数原理</h3><h4 id="加法原理"><a href="#加法原理" class="headerlink" title="加法原理"></a>加法原理</h4><h4 id="乘法原理"><a href="#乘法原理" class="headerlink" title="乘法原理"></a>乘法原理</h4><blockquote>
+<p>例题：</p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/18.jpg" alt="img"></p>
+</blockquote>
+<h4 id="数学归纳法"><a href="#数学归纳法" class="headerlink" title="数学归纳法"></a>数学归纳法</h4><p><code>PMI</code></p>
+<h4 id="鸽巢原理"><a href="#鸽巢原理" class="headerlink" title="鸽巢原理"></a>鸽巢原理</h4><blockquote>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/19.jpg" alt="img"></p>
+</blockquote>
+<h4 id="容斥原理"><a href="#容斥原理" class="headerlink" title="容斥原理"></a>容斥原理</h4><blockquote>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/20.jpg" alt="img"></p>
+</blockquote>
+<h4 id="错排问题"><a href="#错排问题" class="headerlink" title="错排问题"></a>错排问题</h4><p>有n个信封，n封信。求每封信都对应错误信封的方案数量</p>
+<ul>
+<li><p>递推公式：</p>
+<ul>
+<li><p><code>D(1)=0,D(2)=1</code></p>
+</li>
+<li><p><code>D(n)=(n-1)(D(n-1)+D(n-2))</code></p>
+</li>
+</ul>
+</li>
+<li><p>生成函数：$d_n &#x3D;n!\sum_{k&#x3D;0}^n\frac{(-1)^k}{k!}$</p>
+</li>
+</ul>
+<h3 id="排列与组合"><a href="#排列与组合" class="headerlink" title="排列与组合"></a>排列与组合</h3><h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/21.jpg" alt="img"></p>
+<h4 id="二项式系数"><a href="#二项式系数" class="headerlink" title="二项式系数"></a>二项式系数</h4><ul>
+<li>二项式系数：$$(x+y)^n&#x3D;\sum_{k&#x3D;0}^n\binom nkx^{n-k}y^k.$$​</li>
+<li>证明：</li>
+</ul>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/22.jpg" alt="img"></p>
+<h3 id="划分"><a href="#划分" class="headerlink" title="划分"></a>划分</h3><h4 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h4>
         </div>
 
         
