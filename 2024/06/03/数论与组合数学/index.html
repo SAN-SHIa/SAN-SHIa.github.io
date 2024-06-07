@@ -453,7 +453,56 @@
 <li>证明：</li>
 </ul>
 <p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/22.jpg" alt="img"></p>
-<h3 id="划分"><a href="#划分" class="headerlink" title="划分"></a>划分</h3><h4 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h4>
+<h3 id="划分"><a href="#划分" class="headerlink" title="划分"></a>划分</h3><h4 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h4><p><code>针对n个相同的球，放到k个同种箱子（是否可空）</code></p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/23.jpg" alt="img"></p>
+<ul>
+<li>正整数n有$2^{n-1}$个不同划分</li>
+</ul>
+<h4 id="集合划分"><a href="#集合划分" class="headerlink" title="集合划分"></a>集合划分</h4><p><code>针对n个不相同的球，放到k个不同种箱子</code></p>
+<ul>
+<li>第二种斯特林数：The number of partitions of an <strong>𝑛-element set</strong> into exactly <strong>𝑘 nonempty  parts</strong> is the Stirling number of the second kind <code>𝑆(𝑛, 𝑘)</code> .</li>
+</ul>
+<p>$$<br>\text{For all positive integers }k&lt;n,\<br>S(n,k)&#x3D;S(n-1,k-1)+k\cdot S(n-1,k).<br>$$</p>
+<blockquote>
+<p><code>S(7,4)</code>与<code>S(8,3)</code>谁更大？</p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/24.png" alt="img"></p>
+</blockquote>
+<ul>
+<li>$\text{Bell number }B_n$</li>
+</ul>
+<p>$$<br>B_n&#x3D;\sum_{k&#x3D;0}^nS\left(n,k\right)<br>$$</p>
+<p>​	<strong>e.g.</strong> $ 𝐵_3$ &#x3D; 5. $𝐵_1$ &#x3D; 1. We define $𝐵_0$</p>
+<h4 id="整数划分"><a href="#整数划分" class="headerlink" title="整数划分"></a>整数划分</h4><p><code>n个相同的球，放到k个相同箱子的不同分法</code></p>
+<ul>
+<li>费勒斯图</li>
+</ul>
+<p>结论1：将n个分为k堆的方案数&#x3D;将n个元素最多的一堆中有k个元素的方案数</p>
+<p>结论2：集合划分为奇数份的方案数等于所有总数为n的自共轭图的种数。</p>
+<h3 id="生成函数"><a href="#生成函数" class="headerlink" title="生成函数"></a>生成函数</h3><ul>
+<li>两项递推类型</li>
+</ul>
+<blockquote>
+<p>例题：求递推公式</p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/25.jpg" alt="img"></p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/26.jpg" alt="img"></p>
+</blockquote>
+<ul>
+<li>三项类型</li>
+</ul>
+<blockquote>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/27.jpg" alt="img"></p>
+</blockquote>
+<h4 id="斐波那契"><a href="#斐波那契" class="headerlink" title="斐波那契"></a>斐波那契</h4><ul>
+<li>结论及证明：</li>
+</ul>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/28.jpg" alt="img"></p>
+<h3 id="卡特兰数"><a href="#卡特兰数" class="headerlink" title="卡特兰数"></a>卡特兰数</h3><h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><ul>
+<li>括号匹配</li>
+<li>不过对角线方案数量</li>
+</ul>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/29.jpg" alt="img"></p>
+<h4 id="通项公式"><a href="#通项公式" class="headerlink" title="通项公式"></a>通项公式</h4><p>$$<br>C_n&#x3D;\frac1{n+1}\binom{2n}n<br>$$</p>
+
         </div>
 
         
