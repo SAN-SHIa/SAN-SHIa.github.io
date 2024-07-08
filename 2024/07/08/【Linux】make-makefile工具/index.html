@@ -13,7 +13,7 @@
 
 
 
-<title>【Python】正则表达式 | SANSHI</title>
+<title>【Linux】make/makefile工具 | SANSHI</title>
 
 
 
@@ -233,7 +233,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">【Python】正则表达式</h1>
+            <h1 class="post-title">【Linux】make/makefile工具</h1>
             
                 <div class="post-meta">
                     
@@ -242,14 +242,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">July 3, 2024&nbsp;&nbsp;23:38:13</a>
+                        Date: <a href="#">July 8, 2024&nbsp;&nbsp;23:46:25</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Python/">Python</a>
+                                <a href="/categories/Linux/">Linux</a>
                             
                         </span>
                     
@@ -258,28 +258,60 @@
         </header>
 
         <div class="post-content">
-            <h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><p><code>.*?</code>匹配任意字符，除了换行符。</p>
-<p>&#96;&#96;</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">content = re.findall(<span class="string">&#x27;豆瓣电影(.*?)TOP250&#x27;</span>,response.text,re.S)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p><code>.</code> 表示除了换行以为所有的字符。</p>
+            <h1 id="Linux-01-make-makefile"><a href="#Linux-01-make-makefile" class="headerlink" title="Linux_01 _make&#x2F;makefile"></a>Linux_01 _make&#x2F;makefile</h1><h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><h3 id="基础实例"><a href="#基础实例" class="headerlink" title="基础实例"></a>基础实例</h3><ul>
+<li><p><strong>-o 后面需要紧跟生成文件的名称</strong></p>
 </li>
-<li><p><code>^</code> 表示匹配的开始，<code>$</code> 表示匹配的结尾。</p>
+<li><p>make 是一条指令</p>
+</li>
+<li><p>makefile 是当前目录下的文件</p>
 </li>
 </ul>
-<p>​	<code>^\d&#123;3&#125;$</code>  与 <code>\d&#123;3&#125;</code>  所匹配的结果有区别。前者匹配要求极为严格，仅有完整的一行完全符合才可。而后者只要中间有成功	匹配的即可。</p>
-<blockquote>
-<p>验证一年的12个月：”^(0?[1-9]|1[0-2])$”正确格式为：”01”～”09”和”1”～”12”。<br><img src="/2024/07/03/%E3%80%90Python%E3%80%91%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/1.png" alt="pic"></p>
-</blockquote>
-<p><code>0?</code> 表示此处的0可有可无数量为0-1之间。</p>
+<p><strong>mycode.c TO mycode(可执行文件)</strong></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">mycode:mycode.c #依赖关系（其中mycode是目标文件，mycode.c是依赖文件）</span></span><br><span class="line">    gcc -o mycode mycode.c	<span class="comment">#依赖方法</span></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	rm -f mycode <span class="comment">#这里只可以用TAB，不可以用四个空格代替</span></span><br></pre></td></tr></table></figure>
+
 <ul>
-<li><p><code>[]</code> 内表示数字的取值范围，数字间用<code>-</code>隔开。</p>
+<li>make指令自动查找当前目录下的makefile文件，会在其中<strong>找到第一个目标文件</strong></li>
+<li>但用make指令，只会默认执行从上往下的第一个目标文件</li>
+<li>可以直接<code>make mycode</code> 因为clean不在第一个，所以需要<code>make clean</code> 去实现</li>
+</ul>
+<h3 id="对比先前方法"><a href="#对比先前方法" class="headerlink" title="对比先前方法"></a>对比先前方法</h3><ul>
+<li><p><strong>NEW</strong></p>
+<ul>
+<li><p>直接输入touch makefile指令创建，用vim makefile写入上述代码内容</p>
 </li>
-<li><p><code> &#123;&#125;</code> 用于控制数字的数量，数据间用<code>,</code>隔开。</p>
+<li><p>在.c文件所在目录下直接make</p>
 </li>
-<li><p><code>(</code> 和 <code>)</code>：这对括号用来标记一个捕获组，意味着其中的内容可以被捕获或者后续引用。</p>
+<li><p>删除用make clearn</p>
 </li>
+</ul>
+</li>
+<li><p><strong>OLD</strong></p>
+<ul>
+<li><p>vim doc.c </p>
+</li>
+<li><p>gcc doc.c -o process 其中 - o 表示生成可执行文件， process为可执行文件文件名</p>
+</li>
+<li><p>.&#x2F;process</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="应用实践"><a href="#应用实践" class="headerlink" title="应用实践"></a>应用实践</h2><h3 id="伪目标"><a href="#伪目标" class="headerlink" title="伪目标"></a>伪目标</h3><ul>
+<li><p>根据文件的修改时间和编译时间进行检测。同一条目标文件不可连续编译两次及以上。</p>
+</li>
+<li><p>但是一般我们这种clean的目标文件，我们将它设置为伪目标,用 .PHONY 修饰,伪目标的特性是，总是被</p>
+<p>执行的。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">.PHONY</span>:clean</span></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line"> 	rm -f hello.i hello.s hello.o hello</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>具体实例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">-rw-rw-r-- 1 sanshi sanshi 111 Jul  6 11:48 makefile</span><br><span class="line"></span><br><span class="line">[sanshi@iZ2ze4xrxurbpglmuv68wlZ linux]$ vim mycode.c</span><br><span class="line"></span><br><span class="line">[sanshi@iZ2ze4xrxurbpglmuv68wlZ linux]$ make</span><br><span class="line">gcc -o mycode mycode.c</span><br><span class="line">[sanshi@iZ2ze4xrxurbpglmuv68wlZ linux]$ ./mycode</span><br><span class="line">hellloooooo!</span><br><span class="line"></span><br><span class="line">[sanshi@iZ2ze4xrxurbpglmuv68wlZ linux]$ make</span><br><span class="line">gcc -o mycode mycode.c</span><br><span class="line">[sanshi@iZ2ze4xrxurbpglmuv68wlZ linux]$ make</span><br><span class="line">gcc -o mycode mycode.c</span><br><span class="line"></span><br><span class="line">[sanshi@iZ2ze4xrxurbpglmuv68wlZ linux]$ make clean</span><br><span class="line">rm -f mycode</span><br><span class="line">rm -f proc1.c proc1</span><br><span class="line"></span><br><span class="line">[sanshi@iZ2ze4xrxurbpglmuv68wlZ linux]$ ll</span><br><span class="line">total 8</span><br><span class="line">-rw-rw-r-- 1 sanshi sanshi 111 Jul  6 11:48 makefile</span><br><span class="line">-rw-rw-r-- 1 sanshi sanshi  79 Jul  6 11:49 mycode.c</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2024/07/08/%E3%80%90Linux%E3%80%91make-makefile%E5%B7%A5%E5%85%B7/1.png" alt="makefile"></p>
+</li>
+</ul>
+<h3 id="特殊符号"><a href="#特殊符号" class="headerlink" title="特殊符号"></a>特殊符号</h3><ul>
+<li><p>在依赖方法处有更简介的符号写法<code>$@ 目标文件</code>,<code> $^ 依赖文件</code></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">mycode:mycode.c </span></span><br><span class="line">    gcc -o mycode mycode.c</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以简写为</span></span><br><span class="line"><span class="section">mycode:mycode.c</span></span><br><span class="line">    gcc -o <span class="variable">$@</span> <span class="variable">$^</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 
         </div>
@@ -299,7 +331,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/Python/"># Python</a>
+                        <a href="/tags/Linux/"># Linux</a>
                     
                         
                 </span>
@@ -312,10 +344,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2024/07/08/%E3%80%90Linux%E3%80%91make-makefile%E5%B7%A5%E5%85%B7/">【Linux】make/makefile工具</a>
             
-            
-            <a class="next" rel="next" href="/2024/07/02/%E3%80%90Python%E3%80%91%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC/">【Python】代码风格</a>
+            <a class="next" rel="next" href="/2024/07/03/%E3%80%90Python%E3%80%91%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">【Python】正则表达式</a>
             
         </section>
 
