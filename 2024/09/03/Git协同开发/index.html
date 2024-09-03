@@ -13,7 +13,7 @@
 
 
 
-<title>Git协同开发 | SANSHI</title>
+<title>【Git】协同开发 | SANSHI</title>
 
 
 
@@ -233,7 +233,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Git协同开发</h1>
+            <h1 class="post-title">【Git】协同开发</h1>
             
                 <div class="post-meta">
                     
@@ -258,7 +258,42 @@
         </header>
 
         <div class="post-content">
-            <h2 id="演示动画"><a href="#演示动画" class="headerlink" title="演示动画"></a>演示动画</h2><p><img src="/2024/09/03/Git%E5%8D%8F%E5%90%8C%E5%BC%80%E5%8F%91/%E5%8A%A8%E7%94%BB.gif" alt="img"></p>
+            <h3 id="创建与切换分支"><a href="#创建与切换分支" class="headerlink" title="创建与切换分支"></a>创建与切换分支</h3><p>创建一个新的分支并切换到该分支：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch bugFix</span><br><span class="line">git checkout bugFix</span><br></pre></td></tr></table></figure>
+
+<p>可以简写为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b bugFix</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h3><p>合并分支前需要先切换到目标分支，然后执行合并操作。例如，先切换到 <code>main</code> 分支，再合并 <code>bugFix</code> 分支：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout main</span><br><span class="line">git merge bugFix</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="HEAD-符号引用"><a href="#HEAD-符号引用" class="headerlink" title="HEAD 符号引用"></a>HEAD 符号引用</h3><p>HEAD 是一个对当前所在分支的符号引用，指向你正在其基础上进行工作的提交记录。<br>分离 HEAD（detached HEAD）状态是指 HEAD 不指向任何分支，而是直接指向某个具体的提交（commit）。这意味着你在一个特定的提交上进行操作，而不是在某个分支上。</p>
+<ol>
+<li><p><strong>查看旧版本</strong>：你可以查看项目的历史版本，而不影响当前分支的状态。</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout &lt;commit-hash&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>临时实验</strong>：你可以在某个特定的提交上进行实验，而不影响任何分支。如果实验成功，可以创建一个新分支保存这些更改。</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">    git checkout &lt;commit-hash&gt;</span><br><span class="line">    <span class="comment"># 进行实验</span></span><br><span class="line">    git checkout -b new-experiment-branch</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">### `git fetch` 操作</span></span><br><span class="line"></span><br><span class="line">`git fetch` 完成了以下两步操作：</span><br><span class="line"></span><br><span class="line">- 从远程仓库下载本地仓库中缺失的提交记录。</span><br><span class="line">- 更新远程分支指针（如 `origin/main`）。</span><br><span class="line"></span><br><span class="line">`git fetch`+`git merge`=`git pull`</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">### 列出和强制更新分支</span></span><br><span class="line"></span><br><span class="line">列出所有本地分支：</span><br><span class="line">```shell</span><br><span class="line">git branch --list</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>强制更新 <code>master</code> 分支到某个特定的提交：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -f master HEAD~3</span><br><span class="line">git branch -f master HEAD^2</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="选择性提交"><a href="#选择性提交" class="headerlink" title="选择性提交"></a>选择性提交</h3><p><code>git cherry-pick</code> 是一个非常有用的 Git 命令，它允许你从一个分支中选择特定的提交并将其应用到另一个分支。相当于直接<code>commit</code>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick &lt;commit-hash&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="源代码管理"><a href="#源代码管理" class="headerlink" title="源代码管理"></a>源代码管理</h3><p>提交代码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;提交信息&quot;</span><br></pre></td></tr></table></figure>
+<p>此时本地 <code>master</code> 分支会前进，但远程保持不动。</p>
+<p>同步到远程仓库：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
 
         </div>
 
