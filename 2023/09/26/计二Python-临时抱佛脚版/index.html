@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="SANSHI">
+
+
+
+
+
+<title>【Python】计算机二级临时抱佛脚版本 | SANSHI</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">SANSHI&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tag</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">SANSHI&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tag</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">【Python】计算机二级临时抱佛脚版本</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">SANSHI</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">September 26, 2023&nbsp;&nbsp;11:46:38</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h3 id="Python-review"><a href="#Python-review" class="headerlink" title="Python_review"></a>Python_review</h3><h3 id="典型错解：函数返回值"><a href="#典型错解：函数返回值" class="headerlink" title="典型错解：函数返回值"></a>典型错解：函数返回值</h3><blockquote>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dict1=&#123;<span class="string">&quot;a&quot;</span>:<span class="string">&quot;1&quot;</span>,<span class="string">&quot;b&quot;</span>:<span class="string">&quot;2&quot;</span>,<span class="string">&quot;c&quot;</span>:<span class="string">&quot;3&quot;</span>&#125;</span><br><span class="line">dict2=&#123;<span class="string">&quot;a&quot;</span>:<span class="string">&#x27;5646&#x27;</span>,<span class="string">&quot;d&quot;</span>:<span class="string">&#x27;894&#x27;</span>,<span class="string">&quot;z&quot;</span>:<span class="string">&#x27;999&#x27;</span>&#125;</span><br><span class="line">dict1=dict1.update(dict2)</span><br><span class="line"><span class="built_in">print</span>(dict1)</span><br></pre></td></tr></table></figure>
+
+<p><code>dict1</code>会被更新为<code>dict1</code>和<code>dict2</code>的合并结果，<strong>并且没有返回值</strong>。</p>
+<p>也就是说，<code>dict1</code>被原地修改了。而在<code>dict1=dict1.update(dict2)</code>中，**<code>dict1.update(dict2)</code>先执行，然后返回<code>None</code>**，再将<code>None</code>赋值给<code>dict1</code>，因此<code>dict1</code>的值会变成<code>None</code>，也就是说，<code>dict1</code>被重新赋予了一个新的值（即 <code>None</code>）。</p>
+</blockquote>
+<h3 id="结巴库的使用"><a href="#结巴库的使用" class="headerlink" title="结巴库的使用"></a>结巴库的使用</h3><blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jieba</span><br><span class="line">s = <span class="string">&quot;中国特色社会主义进入新时代，我国社会主要矛盾已经转化为人民日益增长的美好生活需要和不平衡不充分的发展之间的矛盾。&quot;</span></span><br><span class="line">n = <span class="built_in">len</span>(s)</span><br><span class="line">m = <span class="built_in">len</span>(jieba.lcut(s))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;中文字符数为&#123;&#125;，中文词语数为&#123;&#125;。&quot;</span>.<span class="built_in">format</span>(n, m))</span><br></pre></td></tr></table></figure>
+
+</blockquote>
+<h3 id="Turtle绘图"><a href="#Turtle绘图" class="headerlink" title="Turtle绘图"></a>Turtle绘图</h3><blockquote>
+<p>最最最基础</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> turtle</span><br><span class="line">turtle.forward(<span class="number">100</span>)<span class="comment">#简化写成turtle.fd(100)</span></span><br><span class="line">turtle.done()<span class="comment">#保留页面窗口</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">turtle.goto(x,y)<span class="comment">#起始位置为(0,0)</span></span><br><span class="line">turtle.circle(<span class="number">40</span>,<span class="number">90</span>)<span class="comment">#表示逆时针画圆形，移动90度</span></span><br><span class="line">turtle.setheading(<span class="number">90</span>)<span class="comment">#简化写成turtle.seth(90)</span></span><br></pre></td></tr></table></figure>
+
+</blockquote>
+<h3 id="统计列表元素数量"><a href="#统计列表元素数量" class="headerlink" title="统计列表元素数量"></a>统计列表元素数量</h3><blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ls = [<span class="string">&quot;综合&quot;</span>, <span class="string">&quot;理工&quot;</span>, <span class="string">&quot;综合&quot;</span>, <span class="string">&quot;综合&quot;</span>, <span class="string">&quot;综合&quot;</span>, <span class="string">&quot;综合&quot;</span>, <span class="string">&quot;综合&quot;</span>, <span class="string">&quot;综合&quot;</span>, <span class="string">&quot;综合&quot;</span>, <span class="string">&quot;综合&quot;</span>,\</span><br><span class="line">      <span class="string">&quot;师范&quot;</span>, <span class="string">&quot;理工&quot;</span>, <span class="string">&quot;综合&quot;</span>, <span class="string">&quot;理工&quot;</span>, <span class="string">&quot;综合&quot;</span>, <span class="string">&quot;综合&quot;</span>, <span class="string">&quot;综合&quot;</span>, <span class="string">&quot;综合&quot;</span>, <span class="string">&quot;综合&quot;</span>,<span class="string">&quot;理工&quot;</span>,\</span><br><span class="line">      <span class="string">&quot;理工&quot;</span>, <span class="string">&quot;理工&quot;</span>, <span class="string">&quot;理工&quot;</span>, <span class="string">&quot;师范&quot;</span>, <span class="string">&quot;综合&quot;</span>, <span class="string">&quot;农林&quot;</span>, <span class="string">&quot;理工&quot;</span>, <span class="string">&quot;综合&quot;</span>, <span class="string">&quot;理工&quot;</span>, <span class="string">&quot;理工&quot;</span>, \</span><br><span class="line">      <span class="string">&quot;理工&quot;</span>, <span class="string">&quot;综合&quot;</span>, <span class="string">&quot;理工&quot;</span>, <span class="string">&quot;综合&quot;</span>, <span class="string">&quot;综合&quot;</span>, <span class="string">&quot;理工&quot;</span>, <span class="string">&quot;农林&quot;</span>, <span class="string">&quot;民族&quot;</span>, <span class="string">&quot;军事&quot;</span>]</span><br><span class="line">d=&#123;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> word <span class="keyword">in</span> ls:</span><br><span class="line">   d[word]=d.get(word,<span class="number">0</span>)+<span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> d:</span><br><span class="line">      <span class="built_in">print</span>(<span class="string">&quot;&#123;&#125;:&#123;&#125;&quot;</span>.<span class="built_in">format</span>(key,d[key]))</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>   d.get(word, 0)<code>表示获取字典</code>d<code>中键</code>word<code>对应的值，如果该键不存在，返回默认值 0；然后</code>+1&#96; 表示将获取到的值加1；</p>
+<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="comment">#写入/创建一个新文件</span></span><br><span class="line">&gt;file = <span class="built_in">open</span>(<span class="string">&#x27;file.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>)  <span class="comment"># 打开file.txt文件进行写入（&#x27;w&#x27;表示写入，如果文件不存在则创建文件）</span></span><br><span class="line">&gt;file.write(<span class="string">&#x27;Hello, World!&#x27;</span>)  <span class="comment"># 将字符串写入文件</span></span><br><span class="line">&gt;file.close()  <span class="comment"># 关闭文件</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>   需要注意的是每次read之后会将起点留在阅读到的位置需要重置起点</p>
+<blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#读取一个文件</span></span><br><span class="line">file = <span class="built_in">open</span>(<span class="string">&#x27;file.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>,encoding=<span class="string">&#x27;utf-8&#x27;</span>)  <span class="comment"># 打开file.txt文件进行写入（&#x27;w&#x27;表示写入，如果文件不存在则创建文件）</span></span><br><span class="line">content=file.read()<span class="comment">#获取所有内容为一个字符串</span></span><br><span class="line"><span class="built_in">print</span>(content)</span><br><span class="line"></span><br><span class="line"><span class="comment">#统计其中某个字符的数量</span></span><br><span class="line">num=content.count(<span class="string">&quot;中国&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(num)</span><br><span class="line"></span><br><span class="line"><span class="comment">#重置read遍历的起点</span></span><br><span class="line">file.seek(<span class="number">0</span>)</span><br><span class="line">lines=file.readlines()<span class="comment">#读取每行内容为一个列表元素</span></span><br><span class="line"><span class="built_in">print</span>(lines[<span class="number">2</span>])<span class="comment">#打印固定的元素</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Python/"># Python</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2023/10/05/%E8%90%8C%E8%8A%BD%E6%9D%AF/">【ESP32】基于ESP32实现拟态辉光灯文创产品</a>
+            
+            
+            <a class="next" rel="next" href="/2023/09/14/%E4%BF%A1%E6%81%AF%E5%AD%A6%E9%99%A2%E7%AC%AC%E5%8D%81%E5%B1%8A%E6%99%BA%E8%83%BD%E5%B0%8F%E8%BD%A6%E5%A4%A7%E8%B5%9B/">【赛事】信息学院第十届智能小车大赛</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<!-- 脚本部分 -->
+<script>
+  var now = new Date(); 
+  function createtime() { 
+      var grt= new Date("08/29/2023 20:00:00");//在此处修改你的建站时间
+      now.setTime(now.getTime()+250); 
+      days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+      if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+      mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+      snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+      document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+      document.getElementById("times").innerHTML = hnum + " 时 " + mnum + " 分 " + snum + " 秒"; 
+  } 
+  setInterval("createtime()",250);
+  
+</script>
+
+<div class="copyright">
+    <span>Creator | SANSHI</span>
+
+</div>
+
+
+
+
+    <!-- 显示部分 -->
+
+</footer>
+
+    </div>
+    <script>
+        !
+        function() {
+            function n(n, e, t) {
+                return n.getAttribute(e) || t
+            }
+            function e(n) {
+                return document.getElementsByTagName(n)
+            }
+            function t() {
+                var t = e("script"),
+                o = t.length,
+                i = t[o - 1];
+                return {
+                    l: o,
+                    z: n(i, "zIndex", -1),     //置于主页面背后
+                    o: n(i, "opacity", .5),     //线条透明度
+                    c: n(i, "color", "0,0,0"),  //线条颜色
+                    n: n(i, "count", 100)    //线条数量
+                }
+            }
+            function o() {
+                a = m.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+                c = m.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+            }
+            function i() {
+                r.clearRect(0, 0, a, c);
+                var n, e, t, o, m, l;
+                s.forEach(function(i, x) {
+                    for (i.x += i.xa, i.y += i.ya, i.xa *= i.x > a || i.x < 0 ? -1 : 1, i.ya *= i.y > c || i.y < 0 ? -1 : 1, r.fillRect(i.x - .5, i.y - .5, 1, 1), e = x + 1; e < u.length; e++) n = u[e],
+                    null !== n.x && null !== n.y && (o = i.x - n.x, m = i.y - n.y, l = o * o + m * m, l < n.max && (n === y && l >= n.max / 2 && (i.x -= .03 * o, i.y -= .03 * m), t = (n.max - l) / n.max, r.beginPath(), r.lineWidth = t / 2, r.strokeStyle = "rgba(" + d.c + "," + (t + .2) + ")", r.moveTo(i.x, i.y), r.lineTo(n.x, n.y), r.stroke()))
+                }),
+                x(i)
+            }
+            var a, c, u, m = document.createElement("canvas"),
+            d = t(),
+            l = "c_n" + d.l,
+            r = m.getContext("2d"),
+            x = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+            function(n) {
+                window.setTimeout(n, 1e3 / 45)
+            },
+            w = Math.random,
+            y = {
+                x: null,
+                y: null,
+                max: 2e4
+            };
+            m.id = l,
+            m.style.cssText = "position:fixed;top:0;left:0;z-index:" + d.z + ";opacity:" + d.o,
+            e("body")[0].appendChild(m),
+            o(),
+            window.onresize = o,
+            window.onmousemove = function(n) {
+                n = n || window.event,
+                y.x = n.clientX,
+                y.y = n.clientY
+            },
+            window.onmouseout = function() {
+                y.x = null,
+                y.y = null
+            };
+            for (var s = [], f = 0; d.n > f; f++) {
+                var h = w() * a,
+                g = w() * c,
+                v = 2 * w() - 1,
+                p = 2 * w() - 1;
+                s.push({
+                    x: h,
+                    y: g,
+                    xa: v,
+                    ya: p,
+                    max: 6e3
+                })
+            }
+            u = s.concat([y]),
+            setTimeout(function() {
+                i()
+            },
+            100)
+        } ();
+        </script>
+        <!-- 引入jQuery -->
+            <script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+        <!-- 雪花特效2 -->
+            <script type="text/javascript" src="/js/snow2.js"></script>
+        
+</body>
+
+</html>

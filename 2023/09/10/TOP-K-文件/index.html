@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="SANSHI">
+
+
+
+
+
+<title>【Detail】TOP-K+文件 | SANSHI</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">SANSHI&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tag</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">SANSHI&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tag</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">【Detail】TOP-K+文件</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">SANSHI</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">September 10, 2023&nbsp;&nbsp;15:37:13</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Details/">Details</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="TOP-K-文件"><a href="#TOP-K-文件" class="headerlink" title="TOP-K+文件"></a>TOP-K+文件</h2><blockquote>
+<p>TOP-K问题：即求数据结合中前K个最大的元素或者最小的元素，一般情况下数据量都比较大。</p>
+</blockquote>
+<p>建堆N个的大堆，pop前K个。假设有十亿整型数据（1G约等于10亿Byte）</p>
+<p><strong>先建立一个K个数的小堆。再遍历其余数据，若遍历到的数据比堆顶数据大，就代替他进堆到堆顶。再向下调整，大的数就沉到了堆底。</strong> </p>
+<h3 id="创建数据文件"><a href="#创建数据文件" class="headerlink" title="创建数据文件"></a>创建数据文件</h3><h4 id="文件的使用"><a href="#文件的使用" class="headerlink" title="文件的使用"></a>文件的使用</h4><blockquote>
+<ol>
+<li><p><strong>打开文件</strong>：要打开文件，你可以使用<code>fopen</code>函数。它接受两个参数：<strong>文件名和打开模式。</strong>打开模式可以是读取（”r”）、写入（”w”）、追加（”a”）等。例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FILE* file = <span class="built_in">fopen</span>(<span class="string">&quot;example.txt&quot;</span>, <span class="string">&quot;r&quot;</span>); <span class="comment">// 以只读模式打开文件</span></span><br></pre></td></tr></table></figure>
+
+<p>这将打开名为 <code>&quot;example.txt&quot; </code>的文件以供读取。</p>
+</li>
+<li><p><strong>读取文件</strong>：使用<code>fread</code>、<code>fscanf</code>或<code>fgets</code>等函数来从文件中读取数据。例如，使用<code>fscanf</code>读取整数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">fscanf</span>(file, <span class="string">&quot;%d&quot;</span>, &amp;num);</span><br></pre></td></tr></table></figure>
+
+<p>这将从文件中读取一个整数并将其存储在变量 <code>num</code> 中。</p>
+</li>
+<li><p><strong>写入文件</strong>：使用<code>fwrite</code>、<code>fprintf</code>或<code>fputs</code>等函数将数据写入文件。例如，使用<code>fprintf</code>写入字符串：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">fprintf</span>(file, <span class="string">&quot;Hello, World!\n&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这将字符串 “Hello, World!” 写入文件。</p>
+</li>
+<li><p><strong>关闭文件</strong>：完成文件操作后，使用<code>fclose</code>函数关闭文件，以释放相关资源：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">fclose</span>(file);</span><br></pre></td></tr></table></figure>
+
+<p>关闭文件后，不再能够对其进行读取或写入操作。</p>
+</li>
+</ol>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*创建文件*/</span></span><br><span class="line"><span class="type">const</span> <span class="type">char</span>* file = <span class="string">&quot;data.txt&quot;</span>;</span><br><span class="line">FILE* fin = <span class="built_in">fopen</span>(file, <span class="string">&quot;w&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (fin == <span class="literal">NULL</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">perror</span>(<span class="string">&quot;fopen failed&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="生成随机数"><a href="#生成随机数" class="headerlink" title="生成随机数"></a>生成随机数</h4><blockquote>
+<p>利用种子生成伪随机数</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*生成并写入随机数*/</span></span><br><span class="line"><span class="built_in">srand</span>(<span class="built_in">time</span>(<span class="number">0</span>));</span><br><span class="line"><span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> x= <span class="built_in">rand</span>() % <span class="number">10000</span>;<span class="comment">//控制数据在一万以内</span></span><br><span class="line">	<span class="built_in">fprintf</span>(fin, <span class="string">&quot;%d\n&quot;</span>,x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="向下调正建立小堆"><a href="#向下调正建立小堆" class="headerlink" title="向下调正建立小堆"></a>向下调正建立小堆</h3><blockquote>
+<p>理解向下调整的原理：传入下标最大的父辈（倒数第二行的数据），通过与其子代比较，交换数据。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*--向下调整-建立小堆--*/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">AdjustDown</span><span class="params">(HPDataType* a, <span class="type">int</span> n, <span class="type">int</span> parent)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> child = parent * <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (child &lt; n)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (child + <span class="number">1</span> &lt; n &amp;&amp; a[child] &gt; a[child + <span class="number">1</span>])<span class="comment">//右孩子小于左孩子的情况，需要找到最小的孩子要检查是否一定有右孩子</span></span><br><span class="line">		&#123;</span><br><span class="line">			++child;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (a[child] &lt; a[parent])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">Swap</span>(&amp;a[child], &amp;a[parent]);</span><br><span class="line">			parent = child;</span><br><span class="line">			child = parent * <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="完整源码"><a href="#完整源码" class="headerlink" title="完整源码"></a>完整源码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;malloc.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> HPDataType;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*-简单的交换函数-*/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Swap</span><span class="params">(HPDataType* p1, HPDataType* p2)</span><span class="comment">//交换函数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	HPDataType tmp = *p1;</span><br><span class="line">	*p1 = *p2;</span><br><span class="line">	*p2 = tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*--向下调整-建立小堆--*/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">AdjustDown</span><span class="params">(HPDataType* a, <span class="type">int</span> n, <span class="type">int</span> parent)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> child = parent * <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (child &lt; n)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (child + <span class="number">1</span> &lt; n &amp;&amp; a[child] &gt; a[child + <span class="number">1</span>])<span class="comment">//右孩子小于左孩子的情况，需要找到最小的孩子要检查是否一定有右孩子</span></span><br><span class="line">		&#123;</span><br><span class="line">			++child;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (a[child] &lt; a[parent])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">Swap</span>(&amp;a[child], &amp;a[parent]);</span><br><span class="line">			parent = child;</span><br><span class="line">			child = parent * <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*读取数据并输出最大的前k个数据*/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">TopK</span><span class="params">(<span class="type">const</span> <span class="type">char</span>*file,<span class="type">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">/*建堆-用文件前k个元素建堆*/</span></span><br><span class="line">	<span class="type">int</span> *topk= (<span class="type">int</span>*)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(<span class="type">int</span>) * k);<span class="comment">//创建大小为k的数组，逻辑结构为堆</span></span><br><span class="line">	<span class="built_in">assert</span>(topk);</span><br><span class="line"></span><br><span class="line">	FILE* fout = <span class="built_in">fopen</span>(file, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span> (fout == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">perror</span>(<span class="string">&quot;fopen failed&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*读出前k个数建立一个小堆*/</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;k;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">fscanf</span>(fout, <span class="string">&quot;%d&quot;</span>, &amp;topk[i]);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = (k - <span class="number">2</span>) / <span class="number">2</span>; i &gt;= <span class="number">0</span>; --i)<span class="comment">//i = (k - 2) / 2是第一个父辈的下标</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">AdjustDown</span>(topk, k, i);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*将剩余n-k个元素依次与堆顶元素交换*/</span></span><br><span class="line">	<span class="type">int</span> val = <span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> ret = <span class="built_in">fscanf</span>(fout, <span class="string">&quot;%d&quot;</span>, &amp;val);</span><br><span class="line">	<span class="keyword">while</span> (ret != EOF)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (val &gt; topk[<span class="number">0</span>])</span><br><span class="line">		&#123;</span><br><span class="line">			topk[<span class="number">0</span>] = val;</span><br><span class="line">			<span class="built_in">AdjustDown</span>(topk, k, <span class="number">0</span>);<span class="comment">//交换并向下调整，使得顶部的数据最小</span></span><br><span class="line">		&#125;</span><br><span class="line">		ret = <span class="built_in">fscanf</span>(fout, <span class="string">&quot;%d&quot;</span>, &amp;val);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; k; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, topk[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">	<span class="built_in">fclose</span>(fout);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*创建n个随机数据，存写在文件中*/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">CreatTopk</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> n = <span class="number">20</span>;<span class="comment">//数据的数量</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/*创建文件*/</span></span><br><span class="line">	<span class="type">const</span> <span class="type">char</span>* file = <span class="string">&quot;data.txt&quot;</span>;</span><br><span class="line">	FILE* fin = <span class="built_in">fopen</span>(file, <span class="string">&quot;w&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span> (fin == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">perror</span>(<span class="string">&quot;fopen failed&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/*写入随机数*/</span></span><br><span class="line">	<span class="built_in">srand</span>(<span class="built_in">time</span>(<span class="number">0</span>));</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> x= <span class="built_in">rand</span>() % <span class="number">10000</span>;<span class="comment">//控制数据在一万以内</span></span><br><span class="line">		<span class="built_in">fprintf</span>(fin, <span class="string">&quot;%d\n&quot;</span>,x);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">fclose</span>(fin);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">CreatTopk</span>();</span><br><span class="line">	<span class="built_in">TopK</span>(<span class="string">&quot;data.txt&quot;</span>, <span class="number">10</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/C/"># C</a>
+                    
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"># 数据结构</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2023/09/11/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E4%BA%8C%E5%8F%89%E6%A0%91/">【数据结构】二叉树</a>
+            
+            
+            <a class="next" rel="next" href="/2023/09/09/%E4%BA%8C%E5%8F%89%E6%A0%91/">【数据结构】堆</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<!-- 脚本部分 -->
+<script>
+  var now = new Date(); 
+  function createtime() { 
+      var grt= new Date("08/29/2023 20:00:00");//在此处修改你的建站时间
+      now.setTime(now.getTime()+250); 
+      days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+      if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+      mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+      snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+      document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+      document.getElementById("times").innerHTML = hnum + " 时 " + mnum + " 分 " + snum + " 秒"; 
+  } 
+  setInterval("createtime()",250);
+  
+</script>
+
+<div class="copyright">
+    <span>Creator | SANSHI</span>
+
+</div>
+
+
+
+
+    <!-- 显示部分 -->
+
+</footer>
+
+    </div>
+    <script>
+        !
+        function() {
+            function n(n, e, t) {
+                return n.getAttribute(e) || t
+            }
+            function e(n) {
+                return document.getElementsByTagName(n)
+            }
+            function t() {
+                var t = e("script"),
+                o = t.length,
+                i = t[o - 1];
+                return {
+                    l: o,
+                    z: n(i, "zIndex", -1),     //置于主页面背后
+                    o: n(i, "opacity", .5),     //线条透明度
+                    c: n(i, "color", "0,0,0"),  //线条颜色
+                    n: n(i, "count", 100)    //线条数量
+                }
+            }
+            function o() {
+                a = m.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+                c = m.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+            }
+            function i() {
+                r.clearRect(0, 0, a, c);
+                var n, e, t, o, m, l;
+                s.forEach(function(i, x) {
+                    for (i.x += i.xa, i.y += i.ya, i.xa *= i.x > a || i.x < 0 ? -1 : 1, i.ya *= i.y > c || i.y < 0 ? -1 : 1, r.fillRect(i.x - .5, i.y - .5, 1, 1), e = x + 1; e < u.length; e++) n = u[e],
+                    null !== n.x && null !== n.y && (o = i.x - n.x, m = i.y - n.y, l = o * o + m * m, l < n.max && (n === y && l >= n.max / 2 && (i.x -= .03 * o, i.y -= .03 * m), t = (n.max - l) / n.max, r.beginPath(), r.lineWidth = t / 2, r.strokeStyle = "rgba(" + d.c + "," + (t + .2) + ")", r.moveTo(i.x, i.y), r.lineTo(n.x, n.y), r.stroke()))
+                }),
+                x(i)
+            }
+            var a, c, u, m = document.createElement("canvas"),
+            d = t(),
+            l = "c_n" + d.l,
+            r = m.getContext("2d"),
+            x = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+            function(n) {
+                window.setTimeout(n, 1e3 / 45)
+            },
+            w = Math.random,
+            y = {
+                x: null,
+                y: null,
+                max: 2e4
+            };
+            m.id = l,
+            m.style.cssText = "position:fixed;top:0;left:0;z-index:" + d.z + ";opacity:" + d.o,
+            e("body")[0].appendChild(m),
+            o(),
+            window.onresize = o,
+            window.onmousemove = function(n) {
+                n = n || window.event,
+                y.x = n.clientX,
+                y.y = n.clientY
+            },
+            window.onmouseout = function() {
+                y.x = null,
+                y.y = null
+            };
+            for (var s = [], f = 0; d.n > f; f++) {
+                var h = w() * a,
+                g = w() * c,
+                v = 2 * w() - 1,
+                p = 2 * w() - 1;
+                s.push({
+                    x: h,
+                    y: g,
+                    xa: v,
+                    ya: p,
+                    max: 6e3
+                })
+            }
+            u = s.concat([y]),
+            setTimeout(function() {
+                i()
+            },
+            100)
+        } ();
+        </script>
+        <!-- 引入jQuery -->
+            <script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+        <!-- 雪花特效2 -->
+            <script type="text/javascript" src="/js/snow2.js"></script>
+        
+</body>
+
+</html>

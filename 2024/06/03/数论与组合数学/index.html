@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="SANSHI">
+
+
+
+
+
+<title>【Math】数论与组合数学 | SANSHI</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">SANSHI&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tag</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">SANSHI&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tag</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">【Math】数论与组合数学</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">SANSHI</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">June 3, 2024&nbsp;&nbsp;19:38:36</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Algorithm/">Algorithm</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="数论与组合数学"><a href="#数论与组合数学" class="headerlink" title="数论与组合数学"></a>数论与组合数学</h1><h2 id="数论部分"><a href="#数论部分" class="headerlink" title="数论部分"></a>数论部分</h2><h3 id="数论简介、素数、算术基本-定理"><a href="#数论简介、素数、算术基本-定理" class="headerlink" title="数论简介、素数、算术基本 定理"></a>数论简介、素数、算术基本 定理</h3><h4 id="自然数的基本性质"><a href="#自然数的基本性质" class="headerlink" title="自然数的基本性质"></a>自然数的基本性质</h4><ul>
+<li>数学归纳法<code>PMI (Principle of Mathematical Induction)</code></li>
+</ul>
+<p>​	如果  $p_1 $ 是真的，并且$  p_n \Rightarrow p_{n+1} $，那么 $ p_n$对于所有自然数来说都是真的。</p>
+<ul>
+<li>良序定理<code>WOP (Well Ordering Principle)</code></li>
+</ul>
+<p>​	每个非空集合都存在一个最小元素。</p>
+<h4 id="GCD-Greatest-Common-Divisor"><a href="#GCD-Greatest-Common-Divisor" class="headerlink" title="GCD(Greatest Common Divisor)"></a>GCD(Greatest Common Divisor)</h4><ul>
+<li><p>整除：<code>a|b</code> 读作a整除b。<code>b=a*整数</code></p>
+</li>
+<li><p>辗转相除法</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">gcd</span><span class="params">(<span class="type">int</span> m,<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>) <span class="keyword">return</span> m;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> gcd(n,m%n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>定理：<br>$$<br> { Let } g&#x3D;\operatorname{gcd}(a, b) \text {, then } \exists v_{0}, y_{0} \in Z \text { such that } g&#x3D;a x_{0}+b y_{0} \text {. }<br>$$</li>
+</ul>
+<blockquote>
+<p><strong>例题</strong></p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/1.jpg" alt="img"></p>
+</blockquote>
+<h3 id="同余、中国剩余定理"><a href="#同余、中国剩余定理" class="headerlink" title="同余、中国剩余定理"></a>同余、中国剩余定理</h3><h4 id="同余"><a href="#同余" class="headerlink" title="同余"></a>同余</h4><ul>
+<li><p>定义：$a \equiv b \text { mod } m \text { 代表 } m \mid(a-b)(a, b, m \in Z, m \neq 0)$</p>
+</li>
+<li><p>性质（3）</p>
+</li>
+</ul>
+<h4 id="欧拉定理"><a href="#欧拉定理" class="headerlink" title="欧拉定理"></a>欧拉定理</h4><ul>
+<li><p>欧拉梯度函数：$\phi(m)$表示1…m中与m互质元素的个数。（既约剩余系）</p>
+</li>
+<li><p>完全剩余系：mod m的互不同余的所有数的集合<br>既约剩余系：mod m的互不同余且和m互质的所有数的集合</p>
+</li>
+<li><p>欧拉定理：$\mathrm{ If } \text { gcd(a,m)&#x3D;1 }, \text a^{\phi(m)}\equiv1 \text { mod m}.$​</p>
+</li>
+<li><p>费马小定理：如果p为质数，那么$a^p\equiv a(mod \ p)$</p>
+</li>
+<li><p>Wilson’s Theorem: $\text { If }p\text{ is a prime, then }(p-1)!\equiv-1 \ mod \ p$</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>例题：求一个幂的最后一位</strong></p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/2.jpg" alt="img"></p>
+</blockquote>
+<h4 id="模逆元"><a href="#模逆元" class="headerlink" title="模逆元"></a>模逆元</h4><p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/3.jpg" alt="img"></p>
+<blockquote>
+<p><strong>例题：欧几里得拓展算法求模逆元</strong></p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/4.jpg" alt="img"></p>
+</blockquote>
+<h4 id="线性同余方程组"><a href="#线性同余方程组" class="headerlink" title="线性同余方程组"></a>线性同余方程组</h4><p>线性同余方程组:   $\text {ax&#x3D;b mod m}$<br><strong>有解判定：令<code>g=gcd(a,m)</code>，当且仅当<code>g|b</code>时，<code>ax=b mod m</code>才有解，且有<code>g mod m</code>个解。</strong></p>
+<blockquote>
+<p><strong>例题：求解线性同余方程</strong></p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/17.jpg" alt="img"></p>
+</blockquote>
+<h4 id="中国剩余定理"><a href="#中国剩余定理" class="headerlink" title="中国剩余定理"></a>中国剩余定理</h4><blockquote>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/5.jpg" alt="img"></p>
+</blockquote>
+<h3 id="Hensel-引理"><a href="#Hensel-引理" class="headerlink" title="Hensel 引理"></a>Hensel 引理</h3><p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/6.jpg" alt="img"></p>
+<blockquote>
+<p><strong>两道例题</strong></p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/7.jpg" alt="img"></p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/8.jpg" alt="img"></p>
+</blockquote>
+<h4 id="模多项式"><a href="#模多项式" class="headerlink" title="模多项式"></a>模多项式</h4><p>$\begin{aligned}&amp;f(x)\equiv0\mathrm{ mod }p\text{ (p is a prime) of degree }n\text{ has at most }n \text{ solutions.}\end{aligned}$​</p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/9.jpg" alt="img"></p>
+<h4 id="阶"><a href="#阶" class="headerlink" title="阶"></a>阶</h4><ul>
+<li><p>定义：gcd(a,m)&#x3D;1,满足$a^h&#x3D;1mod$ $m$的最小正整数h是a mod m 的阶，写作$h&#x3D;ord_m\left(a\right)$</p>
+</li>
+<li><p>定理：</p>
+<ul>
+<li><p>其余满足该式的幂次都是h的倍数</p>
+</li>
+<li><p>$a^k$ mod $m$的阶是$\frac h{qcd(k,h)}$</p>
+</li>
+<li><p>$a \ mod\  m$的阶是<code>h</code>，$b \mod \ m$的阶是<code>k</code>，<code>hk互素</code>，则ab mod m的阶是<code>hk</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="原根"><a href="#原根" class="headerlink" title="原根"></a>原根</h4><ul>
+<li><p>定义：a mod m的阶是$\phi(m)$,则a是原根</p>
+</li>
+<li><p>定理：</p>
+<ul>
+<li>p, q是素数，$q^e|p-1$,则存在元素mod p的阶是$q^e$</li>
+</ul>
+</li>
+<li><p>原根数量：mod m的原根数量是$\phi(\phi(m))$</p>
+</li>
+<li><p>原根存在判定：当且仅当$m&#x3D;1,2,4,p^e,2p^e$​时，m存在原根</p>
+</li>
+</ul>
+<h3 id="平方剩余、二次互反律"><a href="#平方剩余、二次互反律" class="headerlink" title="平方剩余、二次互反律"></a>平方剩余、二次互反律</h3><h4 id="平方剩余"><a href="#平方剩余" class="headerlink" title="平方剩余"></a>平方剩余</h4><ul>
+<li>定义:   $\text{p是素数,}a\neq0\mathrm{ }mod\mathrm{ }p\text{,当}a&#x3D;b^2 \ mod\mathrm{ }p\text{时,a是平方剩余,否则是平方非剩余}$​</li>
+<li>定理：$a\neq0\mathrm{ }mod\mathrm{ }p,a^{\frac{p-1}2}&#x3D;1\mathrm{ }mod\mathrm{ }p\Rightarrow\text{а是平方剩余}$​</li>
+</ul>
+<p>15是17的平方剩余：$15^{\frac{17-1}2}\equiv1\mathrm{ mod }17.$​</p>
+<p>12不是17的平方剩余：$12^{\frac{17-1}2}\equiv-1 mod 17.$​</p>
+<blockquote>
+<p><strong>例题：形式转换</strong></p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/10.jpg" alt="img"></p>
+</blockquote>
+<h4 id="Legendre符号"><a href="#Legendre符号" class="headerlink" title="Legendre符号"></a>Legendre符号</h4><ul>
+<li>定义：</li>
+</ul>
+<p><strong>p为素数</strong><br>$$<br>\left( \frac{a}{p} \right) &#x3D; \begin{cases}<br>1 &amp; \text{如果 } a \text{ 是模 } p \text{ 的平方剩余} \<br>-1 &amp; \text{如果 } a \text{ 不是模 } p \text{ 的平方剩余}<br>\end{cases}<br>$$</p>
+<p>$$<br>\left(\frac{a}{p}\right) &#x3D; a^{\frac{p-1}{2}} \mod p<br>$$</p>
+<p>最后得到结果无非就是 $1$ 或 $-1$，可见 <code>Table of x^k mod m</code>。</p>
+<ul>
+<li>意义：</li>
+</ul>
+<p>由Legendre符号的定义可以看出，如果能够很快地算出它的值，那么就会立刻知道同余式是否有解。具体地说：</p>
+<p>$$<br>x^2 \equiv a \pmod{p}, \quad p \text{ 是奇素数}, \quad a \in \mathbb{Z}<br>$$</p>
+<ol>
+<li><p>当 $\left(\frac{a}{p}\right) &#x3D; 1$ 时，$a$ 是模 $p$ 的平方剩余，根据平方剩余的定义，同余式有解。</p>
+</li>
+<li><p>当 $\left(\frac{a}{p}\right) &#x3D; 0$ 时，有 $p \mid a \Rightarrow a \equiv 0 \pmod{p}$，此时同余式 $x^2 \equiv a \equiv 0 \pmod{p}$ 有唯一解 $x \equiv 0 \pmod{p}$。</p>
+</li>
+<li><p>当 $\left(\frac{a}{p}\right) &#x3D; -1$ 时，$a$ 是模 $p$ 的平方非剩余，由平方非剩余的定义，同余式无解。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>定理及例题 ：</strong></p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/11.jpg" alt="img"></p>
+</blockquote>
+<h4 id="高斯引理"><a href="#高斯引理" class="headerlink" title="高斯引理"></a>高斯引理</h4><p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/12.jpg" alt="img"></p>
+<ul>
+<li><strong>小结论</strong>：$\left(\frac2p\right)&#x3D;(-1)^{\frac{p^2-1}8}$</li>
+</ul>
+<h4 id="二次互反律"><a href="#二次互反律" class="headerlink" title="二次互反律"></a>二次互反律</h4><ul>
+<li>定义：<code>当p、q都为素数时</code></li>
+</ul>
+<p>$<br>\left( \frac{p}{q} \right) &#x3D; \begin{cases}<br>+\left( \frac{q}{p} \right) &amp; \text{如果 } p \equiv 1 \pmod{4} \text{ 或 } q \equiv 1 \pmod{4} \<br>-\left( \frac{q}{p} \right) &amp; \text{如果 } p \equiv q \equiv 3 \pmod{4}<br>\end{cases}<br>$</p>
+<blockquote>
+<p><strong>大量的练习题：</strong></p>
+</blockquote>
+<p>【<code>Toneli-Shanks</code>算法可用于求解二次同余方程组的解】</p>
+<h3 id="分圆多项式、算术函数"><a href="#分圆多项式、算术函数" class="headerlink" title="分圆多项式、算术函数"></a>分圆多项式、算术函数</h3><h4 id="欧拉函数的计算"><a href="#欧拉函数的计算" class="headerlink" title="欧拉函数的计算"></a>欧拉函数的计算</h4><p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/13.jpg" alt="img"></p>
+<h4 id="分圆多项式"><a href="#分圆多项式" class="headerlink" title="分圆多项式"></a>分圆多项式</h4><ul>
+<li>定义：$\text{对正整数n来说,能整除}x^n-1\text{但不能整除}x^k-1(k&lt;n)\text{的多项式是分圆多项式,用}\phi_n\left(x\right)\text{表示。}$​</li>
+</ul>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/14.png" alt="img"></p>
+<ul>
+<li>定理1：$$ x^n-1&#x3D;\prod_{d|n} \phi_d\left(x\right)$$</li>
+<li>定理2：$$ \phi_n\left(x\right)\text{的最高次}n&#x3D;\phi(x)$$</li>
+</ul>
+<h4 id="算数函数"><a href="#算数函数" class="headerlink" title="算数函数"></a>算数函数</h4><ul>
+<li>加性  <code>f(mn)=f(m)+f(n)</code></li>
+<li>乘性 <code> f(mn)=f(m)f(n)</code></li>
+</ul>
+<p>函数举例：</p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/15.jpg" alt="img"></p>
+<h3 id="连分式"><a href="#连分式" class="headerlink" title="连分式"></a>连分式</h3><ul>
+<li><p><code>Golden Ratio：[1,1,1,1,1...]</code></p>
+</li>
+<li><p><code>sqrt(2)：[1,2,2,2,2...]</code></p>
+</li>
+</ul>
+<p><strong>有理数（分数）转化：</strong></p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/16.jpg" alt="img"></p>
+<p><strong>无理数转化：</strong></p>
+<p>Real number $x$, compute integers $a_0,a_1,\cdots$,such that $a_0&#x3D;\lfloor x\rfloor .$<br>$$x&#x3D;a_0+\frac1{a_1+\frac1{a_2+\frac1{\ddots+\frac1{a_n}}}}$$<br>$x_1&#x3D;\frac{1}{x-a_0}$,then $a_1&#x3D;\lfloor x_1\rfloor$,</p>
+<p>$x_2&#x3D;\frac1{x_1-a_1}$, then $a_2&#x3D;\lfloor x_2\rfloor,\cdots$​</p>
+<hr>
+<h2 id="组合数学部分"><a href="#组合数学部分" class="headerlink" title="组合数学部分"></a>组合数学部分</h2><h3 id="基本计数原理"><a href="#基本计数原理" class="headerlink" title="基本计数原理"></a>基本计数原理</h3><h4 id="加法原理"><a href="#加法原理" class="headerlink" title="加法原理"></a>加法原理</h4><h4 id="乘法原理"><a href="#乘法原理" class="headerlink" title="乘法原理"></a>乘法原理</h4><blockquote>
+<p>例题：</p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/18.jpg" alt="img"></p>
+</blockquote>
+<h4 id="数学归纳法"><a href="#数学归纳法" class="headerlink" title="数学归纳法"></a>数学归纳法</h4><p><code>PMI</code></p>
+<h4 id="鸽巢原理"><a href="#鸽巢原理" class="headerlink" title="鸽巢原理"></a>鸽巢原理</h4><blockquote>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/19.jpg" alt="img"></p>
+</blockquote>
+<h4 id="容斥原理"><a href="#容斥原理" class="headerlink" title="容斥原理"></a>容斥原理</h4><blockquote>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/20.jpg" alt="img"></p>
+</blockquote>
+<h4 id="错排问题"><a href="#错排问题" class="headerlink" title="错排问题"></a>错排问题</h4><p>有n个信封，n封信。求每封信都对应错误信封的方案数量</p>
+<ul>
+<li><p>递推公式：</p>
+<ul>
+<li><p><code>D(1)=0,D(2)=1</code></p>
+</li>
+<li><p><code>D(n)=(n-1)(D(n-1)+D(n-2))</code></p>
+</li>
+</ul>
+</li>
+<li><p>生成函数：$d_n &#x3D;n!\sum_{k&#x3D;0}^n\frac{(-1)^k}{k!}$</p>
+</li>
+</ul>
+<h3 id="排列与组合"><a href="#排列与组合" class="headerlink" title="排列与组合"></a>排列与组合</h3><h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/21.jpg" alt="img"></p>
+<h4 id="二项式系数"><a href="#二项式系数" class="headerlink" title="二项式系数"></a>二项式系数</h4><ul>
+<li>二项式系数：$$(x+y)^n&#x3D;\sum_{k&#x3D;0}^n\binom nkx^{n-k}y^k.$$​</li>
+<li>证明：</li>
+</ul>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/22.jpg" alt="img"></p>
+<h3 id="划分"><a href="#划分" class="headerlink" title="划分"></a>划分</h3><h4 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h4><p><code>针对n个相同的球，放到k个同种箱子（是否可空）</code></p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/23.jpg" alt="img"></p>
+<ul>
+<li>正整数n有$2^{n-1}$个不同划分</li>
+</ul>
+<h4 id="集合划分"><a href="#集合划分" class="headerlink" title="集合划分"></a>集合划分</h4><p><code>针对n个不相同的球，放到k个不同种箱子</code></p>
+<ul>
+<li>第二种斯特林数：The number of partitions of an <strong>𝑛-element set</strong> into exactly <strong>𝑘 nonempty  parts</strong> is the Stirling number of the second kind <code>𝑆(𝑛, 𝑘)</code> .</li>
+</ul>
+<p>$$<br>\text{For all positive integers }k&lt;n,\<br>S(n,k)&#x3D;S(n-1,k-1)+k\cdot S(n-1,k).<br>$$</p>
+<blockquote>
+<p><code>S(7,4)</code>与<code>S(8,3)</code>谁更大？</p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/24.png" alt="img"></p>
+</blockquote>
+<ul>
+<li>$\text{Bell number }B_n$</li>
+</ul>
+<p>$$<br>B_n&#x3D;\sum_{k&#x3D;0}^nS\left(n,k\right)<br>$$</p>
+<p>​	<strong>e.g.</strong> $ 𝐵_3$ &#x3D; 5. $𝐵_1$ &#x3D; 1. We define $𝐵_0$</p>
+<h4 id="整数划分"><a href="#整数划分" class="headerlink" title="整数划分"></a>整数划分</h4><p><code>n个相同的球，放到k个相同箱子的不同分法</code></p>
+<ul>
+<li>费勒斯图</li>
+</ul>
+<p>结论1：将n个分为k堆的方案数&#x3D;将n个元素最多的一堆中有k个元素的方案数</p>
+<p>结论2：集合划分为奇数份的方案数等于所有总数为n的自共轭图的种数。</p>
+<h3 id="生成函数"><a href="#生成函数" class="headerlink" title="生成函数"></a>生成函数</h3><ul>
+<li>两项递推类型</li>
+</ul>
+<blockquote>
+<p>例题：求递推公式</p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/25.jpg" alt="img"></p>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/26.jpg" alt="img"></p>
+</blockquote>
+<ul>
+<li>三项类型</li>
+</ul>
+<blockquote>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/27.jpg" alt="img"></p>
+</blockquote>
+<h4 id="斐波那契"><a href="#斐波那契" class="headerlink" title="斐波那契"></a>斐波那契</h4><ul>
+<li>结论及证明：</li>
+</ul>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/28.jpg" alt="img"></p>
+<h3 id="卡特兰数"><a href="#卡特兰数" class="headerlink" title="卡特兰数"></a>卡特兰数</h3><h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><ul>
+<li>括号匹配</li>
+<li>不过对角线方案数量</li>
+</ul>
+<p><img src="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/29.jpg" alt="img"></p>
+<h4 id="通项公式"><a href="#通项公式" class="headerlink" title="通项公式"></a>通项公式</h4><p>$$<br>C_n&#x3D;\frac1{n+1}\binom{2n}n<br>$$</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Algorithm/"># Algorithm</a>
+                    
+                        <a href="/tags/Math/"># Math</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2024/07/02/%E3%80%90Python%E3%80%91%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC/">【Python】代码风格</a>
+            
+            
+            <a class="next" rel="next" href="/2024/06/02/Python%E5%AE%9E%E7%8E%B0%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%B3%95%E6%A8%A1%E6%8B%9F%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1/">【Python】 实现蒙特卡洛法模拟概率统计</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<!-- 脚本部分 -->
+<script>
+  var now = new Date(); 
+  function createtime() { 
+      var grt= new Date("08/29/2023 20:00:00");//在此处修改你的建站时间
+      now.setTime(now.getTime()+250); 
+      days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+      if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+      mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+      snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+      document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+      document.getElementById("times").innerHTML = hnum + " 时 " + mnum + " 分 " + snum + " 秒"; 
+  } 
+  setInterval("createtime()",250);
+  
+</script>
+
+<div class="copyright">
+    <span>Creator | SANSHI</span>
+
+</div>
+
+
+
+
+    <!-- 显示部分 -->
+
+</footer>
+
+    </div>
+    <script>
+        !
+        function() {
+            function n(n, e, t) {
+                return n.getAttribute(e) || t
+            }
+            function e(n) {
+                return document.getElementsByTagName(n)
+            }
+            function t() {
+                var t = e("script"),
+                o = t.length,
+                i = t[o - 1];
+                return {
+                    l: o,
+                    z: n(i, "zIndex", -1),     //置于主页面背后
+                    o: n(i, "opacity", .5),     //线条透明度
+                    c: n(i, "color", "0,0,0"),  //线条颜色
+                    n: n(i, "count", 100)    //线条数量
+                }
+            }
+            function o() {
+                a = m.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+                c = m.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+            }
+            function i() {
+                r.clearRect(0, 0, a, c);
+                var n, e, t, o, m, l;
+                s.forEach(function(i, x) {
+                    for (i.x += i.xa, i.y += i.ya, i.xa *= i.x > a || i.x < 0 ? -1 : 1, i.ya *= i.y > c || i.y < 0 ? -1 : 1, r.fillRect(i.x - .5, i.y - .5, 1, 1), e = x + 1; e < u.length; e++) n = u[e],
+                    null !== n.x && null !== n.y && (o = i.x - n.x, m = i.y - n.y, l = o * o + m * m, l < n.max && (n === y && l >= n.max / 2 && (i.x -= .03 * o, i.y -= .03 * m), t = (n.max - l) / n.max, r.beginPath(), r.lineWidth = t / 2, r.strokeStyle = "rgba(" + d.c + "," + (t + .2) + ")", r.moveTo(i.x, i.y), r.lineTo(n.x, n.y), r.stroke()))
+                }),
+                x(i)
+            }
+            var a, c, u, m = document.createElement("canvas"),
+            d = t(),
+            l = "c_n" + d.l,
+            r = m.getContext("2d"),
+            x = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+            function(n) {
+                window.setTimeout(n, 1e3 / 45)
+            },
+            w = Math.random,
+            y = {
+                x: null,
+                y: null,
+                max: 2e4
+            };
+            m.id = l,
+            m.style.cssText = "position:fixed;top:0;left:0;z-index:" + d.z + ";opacity:" + d.o,
+            e("body")[0].appendChild(m),
+            o(),
+            window.onresize = o,
+            window.onmousemove = function(n) {
+                n = n || window.event,
+                y.x = n.clientX,
+                y.y = n.clientY
+            },
+            window.onmouseout = function() {
+                y.x = null,
+                y.y = null
+            };
+            for (var s = [], f = 0; d.n > f; f++) {
+                var h = w() * a,
+                g = w() * c,
+                v = 2 * w() - 1,
+                p = 2 * w() - 1;
+                s.push({
+                    x: h,
+                    y: g,
+                    xa: v,
+                    ya: p,
+                    max: 6e3
+                })
+            }
+            u = s.concat([y]),
+            setTimeout(function() {
+                i()
+            },
+            100)
+        } ();
+        </script>
+        <!-- 引入jQuery -->
+            <script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+        <!-- 雪花特效2 -->
+            <script type="text/javascript" src="/js/snow2.js"></script>
+        
+</body>
+
+</html>
