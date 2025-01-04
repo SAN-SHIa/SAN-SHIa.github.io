@@ -260,7 +260,7 @@
         <div class="post-content">
             <h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><h3 id="树的概念"><a href="#树的概念" class="headerlink" title="树的概念"></a>树的概念</h3><p>树是一种非线性结构，树是递归定义的。</p>
 <p>树形结构中子树之间不能有交集</p>
-<p><img src="/%E4%BA%8C%E5%8F%89%E6%A0%91/1.png" alt="1.png"></p>
+<p><img src="1.png" alt="1.png"></p>
 <h4 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h4><p>子节点，父节点，兄弟节点</p>
 <p>叶节点或终结点，节点的度，树的深度，森林</p>
 <h4 id="定义方法"><a href="#定义方法" class="headerlink" title="定义方法"></a>定义方法</h4><p>左孩子右兄弟表示法</p>
@@ -289,7 +289,7 @@
 <li>顺序存储</li>
 </ul>
 <p>二叉树顺序存储是用数组来存储，现实使用只有堆才会用数组来存储。在物理上是数组，在逻辑上是二叉树。</p>
-<p><img src="/%E4%BA%8C%E5%8F%89%E6%A0%91/2.png" alt="image-20230629210609863"></p>
+<p><img src="2.png" alt="image-20230629210609863"></p>
 <p><strong>逻辑结构</strong>是树的形状，是想象出来的。</p>
 <p><strong>物理结构</strong>在内存中是用数组存储的。数组表示二叉树仅适用完全二叉树。</p>
 <p>​	物理存储的下标关系：</p>
@@ -301,7 +301,7 @@
 <h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>堆总是一个完全二叉树。</p>
 <p><strong>小根堆</strong>：树中所有父亲都小于等于孩子</p>
 <p><strong>大根堆</strong>：树中所有父亲都大于等于孩子。堆不一定有序。</p>
-<p><img src="/%E4%BA%8C%E5%8F%89%E6%A0%91/3.png" alt="image-20230629211650980"></p>
+<p><img src="3.png" alt="image-20230629211650980"></p>
 <p>操作的是数组，插入数据需要与父辈比较，讨论是否需要交换位置。</p>
 <h4 id="堆的实现-以大根堆为例"><a href="#堆的实现-以大根堆为例" class="headerlink" title="堆的实现(以大根堆为例)"></a>堆的实现(以大根堆为例)</h4><p><code>Heap.h</code>文件</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;malloc.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdbool.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> HPDataType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">Heap</span></span><br><span class="line">&#123;</span><br><span class="line">	HPDataType* a;</span><br><span class="line">	<span class="type">int</span> size;</span><br><span class="line">	<span class="type">int</span> capacity;</span><br><span class="line">&#125;HP;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">HeapInit</span><span class="params">(HP* php)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">AdjustUp</span><span class="params">(HPDataType* a, <span class="type">int</span> child)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">HeapPush</span><span class="params">(HP* php, HPDataType x)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">HeapPop</span><span class="params">(HP* php)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">HeapPrint</span><span class="params">(HP php)</span></span>;</span><br><span class="line"><span class="function">HPDataType <span class="title">HeapTop</span><span class="params">(HP* php)</span></span>;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">HeapEmpty</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">HeapSize</span><span class="params">()</span></span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -339,9 +339,9 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/C/"># C</a>
-                    
                         <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"># 数据结构</a>
+                    
+                        <a href="/tags/C/"># C</a>
                     
                         
                 </span>
