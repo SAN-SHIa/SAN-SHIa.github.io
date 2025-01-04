@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="SANSHI">
+
+
+
+
+
+<title>【Python】 实现蒙特卡洛法模拟概率统计 | SANSHI</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">SANSHI&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tag</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">SANSHI&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tag</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">【Python】 实现蒙特卡洛法模拟概率统计</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">SANSHI</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">June 2, 2024&nbsp;&nbsp;21:16:46</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Python/">Python</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="蒙特卡罗法模拟"><a href="#蒙特卡罗法模拟" class="headerlink" title="蒙特卡罗法模拟"></a>蒙特卡罗法模拟</h2><p>wyy下午发给了我一道思考题蛮有意思的。赚了一杯奶茶的米。</p>
+<blockquote>
+<p>问题：某个城市急救站，平均一小时会接到4个呼救电话(平均间隔15分钟)。一次救护行动平均需要35分钟(救护车开出到送完病人回来)。用蒙特卡罗法模拟其工作过程。急救站要配备多少辆救护车，才能保证有人呼救时，有90%的概率站上有车可出?(等待时间在5分钟以内可以接受，不算等)</p>
+<p><img src="/Python%E5%AE%9E%E7%8E%B0%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%B3%95%E6%A8%A1%E6%8B%9F%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1/question.jpg" alt="q"></p>
+</blockquote>
+<p><code>蒙特卡罗法</code></p>
+<p>蒙特卡罗方法又称统计模拟法、随机抽样技术，是一种随机模拟方法，以概率和统计理论方法为基础的一种计算方法，是使用随机数（或更常见的伪随机数）来解决很多计算问题的方法。将所求解的问题同一定的概率模型相联系，用电子计算机实现统计模拟或抽样，以获得问题的近似解。为象征性地表明这一方法的概率统计特征，故借用赌城蒙特卡罗命名。</p>
+<hr>
+<h4 id="将题目抽象化简"><a href="#将题目抽象化简" class="headerlink" title="将题目抽象化简"></a>将题目抽象化简</h4><ol>
+<li><p>一个色子的1，2点视作有求助电话；3，4，5，6视作无求助电话。每<code>5min</code>判断一次。一小时内的期望为4次。</p>
+</li>
+<li><p>两个色子随机出每次出车的服务时间<code>10min~60min</code>。</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">和数</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+<th align="center">6</th>
+<th align="center">7</th>
+<th align="center">8</th>
+<th align="center">9</th>
+<th align="center">10</th>
+<th align="center">11</th>
+<th align="center">12</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">概率</td>
+<td align="center">1&#x2F;36</td>
+<td align="center">2&#x2F;36</td>
+<td align="center">3&#x2F;36</td>
+<td align="center">4&#x2F;36</td>
+<td align="center">5&#x2F;36</td>
+<td align="center">6&#x2F;36</td>
+<td align="center">5&#x2F;36</td>
+<td align="center">4&#x2F;36</td>
+<td align="center">3&#x2F;36</td>
+<td align="center">2&#x2F;36</td>
+<td align="center">1&#x2F;36</td>
+</tr>
+</tbody></table>
+<h4 id="Python实现概率分布"><a href="#Python实现概率分布" class="headerlink" title="Python实现概率分布"></a>Python实现概率分布</h4><p>1. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="comment"># 服务时间概率相关变量</span></span><br><span class="line">numbers = [<span class="number">10</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">25</span>, <span class="number">30</span>, <span class="number">35</span>, <span class="number">40</span>, <span class="number">45</span>, <span class="number">50</span>, <span class="number">55</span>, <span class="number">60</span>]</span><br><span class="line">probabilities = [<span class="number">1</span>/<span class="number">36</span>, <span class="number">2</span>/<span class="number">36</span>, <span class="number">3</span>/<span class="number">36</span>, <span class="number">4</span>/<span class="number">36</span>, <span class="number">5</span>/<span class="number">36</span>, <span class="number">6</span>/<span class="number">36</span>, <span class="number">5</span>/<span class="number">36</span>, <span class="number">4</span>/<span class="number">36</span>, <span class="number">3</span>/<span class="number">36</span>, <span class="number">2</span>/<span class="number">36</span>, <span class="number">1</span>/<span class="number">36</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 依据probabilities输出每次的服务时间</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">service_time</span>():</span><br><span class="line">    random_number = random.random()</span><br><span class="line"></span><br><span class="line">    cumulative_probabilities = [<span class="built_in">sum</span>(probabilities[:i+<span class="number">1</span>]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(probabilities))]</span><br><span class="line">    index = <span class="built_in">next</span>(i <span class="keyword">for</span> i, p <span class="keyword">in</span> <span class="built_in">enumerate</span>(cumulative_probabilities) <span class="keyword">if</span> p &gt; random_number)</span><br><span class="line">    <span class="keyword">return</span> numbers[index]</span><br></pre></td></tr></table></figure>
+
+<p>2. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1/3的概率有电话打来</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sendcar</span>():</span><br><span class="line">    random_number = random.random()</span><br><span class="line">    <span class="keyword">if</span> random_number &lt; <span class="number">1</span>/<span class="number">3</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="具体算法"><a href="#具体算法" class="headerlink" title="具体算法"></a>具体算法</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># listTime为每分钟有多少救护车的列表</span></span><br><span class="line">listTime=[carsNumber]*timeLength</span><br></pre></td></tr></table></figure>
+
+<p>利用列表存储每个时刻可以使用车的数量。</p>
+<p>当收到求助电话的时刻，等待，直到有车辆可供使用，记录下等待的时长与车辆即将服务的时长。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在时间线上找</span></span><br><span class="line"><span class="keyword">for</span> waitTime <span class="keyword">in</span> <span class="built_in">range</span>(currentTime+<span class="number">5</span>, timeLength):</span><br><span class="line"><span class="keyword">if</span> listTime[waitTime]&gt;<span class="number">0</span> <span class="keyword">and</span> waitTime-currentTime&lt;<span class="number">10</span>:<span class="comment"># 打完电话（currentTime+5）后 等待时间小于5分钟</span></span><br><span class="line">    validResponse+=<span class="number">1</span></span><br><span class="line">    service_time_value = <span class="built_in">str</span>(service_time())</span><br><span class="line">    beginTime = waitTime</span><br><span class="line">    finishTime = beginTime + <span class="built_in">eval</span>(service_time_value)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;有效发车 电话到达时间<span class="subst">&#123;currentTime&#125;</span> | 实际发车时间<span class="subst">&#123;beginTime&#125;</span> | 服务持续时间<span class="subst">&#123;service_time_value&#125;</span> | 服务完成时间<span class="subst">&#123;finishTime&#125;</span>&quot;</span>, end=<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 根据题目情景，打电话开始时刻5分钟后派遣出可用车辆</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(waitTime , waitTime + <span class="built_in">eval</span>(service_time_value)):</span><br><span class="line"><span class="keyword">if</span> j&gt;=timeLength:</span><br><span class="line"><span class="keyword">break</span></span><br><span class="line">    listTime[j] -= <span class="number">1</span>`<span class="comment">#重点</span></span><br><span class="line"></span><br><span class="line">    currentTime+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"># 服务时间概率相关变量</span><br><span class="line">numbers = [<span class="number">10</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">25</span>, <span class="number">30</span>, <span class="number">35</span>, <span class="number">40</span>, <span class="number">45</span>, <span class="number">50</span>, <span class="number">55</span>, <span class="number">60</span>]</span><br><span class="line">probabilities = [<span class="number">1</span>/<span class="number">36</span>, <span class="number">2</span>/<span class="number">36</span>, <span class="number">3</span>/<span class="number">36</span>, <span class="number">4</span>/<span class="number">36</span>, <span class="number">5</span>/<span class="number">36</span>, <span class="number">6</span>/<span class="number">36</span>, <span class="number">5</span>/<span class="number">36</span>, <span class="number">4</span>/<span class="number">36</span>, <span class="number">3</span>/<span class="number">36</span>, <span class="number">2</span>/<span class="number">36</span>, <span class="number">1</span>/<span class="number">36</span>]</span><br><span class="line"></span><br><span class="line"># 依据probabilities输出每次的服务时间</span><br><span class="line">def <span class="built_in">service_time</span>():</span><br><span class="line">    random_number = random.<span class="built_in">random</span>()</span><br><span class="line"></span><br><span class="line">    cumulative_probabilities = [<span class="built_in">sum</span>(probabilities[:i<span class="number">+1</span>]) <span class="keyword">for</span> i in <span class="built_in">range</span>(<span class="built_in">len</span>(probabilities))]</span><br><span class="line">    index = <span class="built_in">next</span>(i <span class="keyword">for</span> i, p in <span class="built_in">enumerate</span>(cumulative_probabilities) <span class="keyword">if</span> p &gt; random_number)</span><br><span class="line">    <span class="keyword">return</span> numbers[index]</span><br><span class="line"></span><br><span class="line"># <span class="number">1</span>/<span class="number">3</span>的概率有电话打来</span><br><span class="line">def <span class="built_in">sendcar</span>():</span><br><span class="line">    random_number = random.<span class="built_in">random</span>()</span><br><span class="line">    <span class="keyword">if</span> random_number &lt; <span class="number">1</span>/<span class="number">3</span>:</span><br><span class="line">        <span class="keyword">return</span> True</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> False</span><br><span class="line"># 救护车数量和时间长度（分钟）</span><br><span class="line">carsNumber=<span class="number">4</span></span><br><span class="line">timeLength=<span class="number">24</span></span><br><span class="line"></span><br><span class="line"># listTime为每分钟有多少救护车的列表</span><br><span class="line">listTime=[carsNumber]*timeLength</span><br><span class="line"></span><br><span class="line">currentTime = <span class="number">0</span> #当前时间</span><br><span class="line">validResponse=<span class="number">0</span> #有效发车次数</span><br><span class="line">invalidResponse=<span class="number">0</span> #无效发车次数</span><br><span class="line"></span><br><span class="line"># 主函数部分</span><br><span class="line"><span class="keyword">while</span> currentTime &lt; timeLength:</span><br><span class="line">    # 在<span class="number">5</span>t时刻</span><br><span class="line">    <span class="keyword">if</span>(currentTime%<span class="number">5</span>==<span class="number">0</span>):</span><br><span class="line">        # 判断是否有电话打来</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">sendcar</span>():</span><br><span class="line">            # 在时间线上找</span><br><span class="line">            <span class="keyword">for</span> waitTime in <span class="built_in">range</span>(currentTime<span class="number">+5</span>, timeLength):</span><br><span class="line">                <span class="keyword">if</span> listTime[waitTime]&gt;<span class="number">0</span> <span class="keyword">and</span> waitTime-currentTime&lt;<span class="number">10</span>:# 打完电话（currentTime<span class="number">+5</span>）后 等待时间小于<span class="number">5</span>分钟</span><br><span class="line">                    validResponse+=<span class="number">1</span></span><br><span class="line">                    service_time_value = <span class="built_in">str</span>(<span class="built_in">service_time</span>())</span><br><span class="line">                    beginTime = waitTime</span><br><span class="line">                    finishTime = beginTime + <span class="built_in">eval</span>(service_time_value)</span><br><span class="line">                    <span class="built_in">print</span>(f<span class="string">&quot;有效发车 电话到达时间&#123;currentTime&#125; | 实际发车时间&#123;beginTime&#125; | 服务持续时间&#123;service_time_value&#125; | 服务完成时间&#123;finishTime&#125;&quot;</span>, end=<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">                    # 根据题目情景，打电话开始时刻<span class="number">5</span>分钟后派遣出可用车辆</span><br><span class="line">                    <span class="keyword">for</span> j in <span class="built_in">range</span>(waitTime , waitTime + <span class="built_in">eval</span>(service_time_value)):</span><br><span class="line">                        <span class="keyword">if</span> j&gt;=timeLength:</span><br><span class="line">                            <span class="keyword">break</span></span><br><span class="line">                        listTime[j] -= <span class="number">1</span></span><br><span class="line">                        </span><br><span class="line">                    currentTime+=<span class="number">1</span></span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">                elif listTime[waitTime]&gt;<span class="number">0</span> <span class="keyword">and</span> waitTime-currentTime&gt;=<span class="number">10</span>:# 打完电话（currentTime<span class="number">+5</span>）后 等待时间大于<span class="number">5</span>分钟</span><br><span class="line">                    invalidResponse+=<span class="number">1</span></span><br><span class="line">                    service_time_value = <span class="built_in">str</span>(<span class="built_in">service_time</span>())</span><br><span class="line">                    beginTime = waitTime</span><br><span class="line">                    finishTime = beginTime + <span class="built_in">eval</span>(service_time_value)</span><br><span class="line">                    <span class="built_in">print</span>(f<span class="string">&quot;无效发车 电话到达时间&#123;currentTime&#125; | 实际发车时间&#123;beginTime&#125; | 服务持续时间&#123;service_time_value&#125; | 服务完成时间&#123;finishTime&#125;&quot;</span>, end=<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">                    # 根据题目情景，打电话开始时刻<span class="number">5</span>分钟后派遣出可用车辆</span><br><span class="line">                    <span class="keyword">for</span> j in <span class="built_in">range</span>(waitTime , waitTime + <span class="built_in">eval</span>(service_time_value)):</span><br><span class="line">                        <span class="keyword">if</span> j&gt;=timeLength:</span><br><span class="line">                            <span class="keyword">break</span></span><br><span class="line">                        listTime[j] -= <span class="number">1</span></span><br><span class="line">                        </span><br><span class="line">                    currentTime+=<span class="number">1</span></span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            # 在限定时间内找不到可用车辆</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="built_in">print</span>(f<span class="string">&quot;找不到可用无效发车 电话到达时间&#123;currentTime&#125; &quot;</span>, end=<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">                invalidResponse+=<span class="number">1</span></span><br><span class="line">                currentTime+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">        # 在<span class="number">5</span>t该时刻无电话打来</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            currentTime+=<span class="number">1</span></span><br><span class="line">            </span><br><span class="line">    # 不在<span class="number">5</span>t时刻</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        currentTime += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;有效发车:&quot;</span>,validResponse)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;无效发车:&quot;</span>,invalidResponse)</span><br><span class="line"></span><br><span class="line"># 有效发车/无效发车+有效发车</span><br><span class="line">rate = validResponse/(validResponse+invalidResponse)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(f<span class="string">&quot;当救护车辆为&#123;carsNumber&#125;时运行&#123;timeLength&#125;分钟，有效发车率为&#123;rate:.3f&#125;&quot;</span>, end=<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">有效发车: <span class="number">30288</span></span><br><span class="line">无效发车: <span class="number">4913</span></span><br><span class="line">当救护车辆为<span class="number">4</span>时运行<span class="number">525600</span>分钟，有效发车率为<span class="number">0.860</span></span><br><span class="line"></span><br><span class="line">有效发车: <span class="number">30122</span></span><br><span class="line">无效发车: <span class="number">4900</span></span><br><span class="line">当救护车辆为<span class="number">4</span>时运行<span class="number">525600</span>分钟，有效发车率为<span class="number">0.860</span></span><br><span class="line"></span><br><span class="line">有效发车: <span class="number">30278</span></span><br><span class="line">无效发车: <span class="number">4884</span></span><br><span class="line">当救护车辆为<span class="number">4</span>时运行<span class="number">525600</span>分钟，有效发车率为<span class="number">0.861</span></span><br><span class="line"></span><br><span class="line">有效发车: <span class="number">30335</span></span><br><span class="line">无效发车: <span class="number">4591</span></span><br><span class="line">当救护车辆为<span class="number">4</span>时运行<span class="number">525600</span>分钟，有效发车率为<span class="number">0.869</span></span><br><span class="line"></span><br><span class="line">有效发车: <span class="number">30173</span></span><br><span class="line">无效发车: <span class="number">4620</span></span><br><span class="line">当救护车辆为<span class="number">4</span>时运行<span class="number">525600</span>分钟，有效发车率为<span class="number">0.867</span></span><br><span class="line"></span><br><span class="line">有效发车: <span class="number">34040</span></span><br><span class="line">无效发车: <span class="number">976</span></span><br><span class="line">当救护车辆为<span class="number">5</span>时运行<span class="number">525600</span>分钟，有效发车率为<span class="number">0.972</span></span><br><span class="line"></span><br><span class="line">有效发车: <span class="number">34044</span></span><br><span class="line">无效发车: <span class="number">1002</span></span><br><span class="line">当救护车辆为<span class="number">5</span>时运行<span class="number">525600</span>分钟，有效发车率为<span class="number">0.971</span></span><br><span class="line"></span><br><span class="line">有效发车: <span class="number">33988</span></span><br><span class="line">无效发车: <span class="number">939</span></span><br><span class="line">当救护车辆为<span class="number">5</span>时运行<span class="number">525600</span>分钟，有效发车率为<span class="number">0.973</span></span><br><span class="line"></span><br><span class="line">有效发车: <span class="number">34129</span></span><br><span class="line">无效发车: <span class="number">1035</span></span><br><span class="line">当救护车辆为<span class="number">5</span>时运行<span class="number">525600</span>分钟，有效发车率为<span class="number">0.971</span></span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Python/"># Python</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2024/06/03/%E6%95%B0%E8%AE%BA%E4%B8%8E%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/">【Math】数论与组合数学</a>
+            
+            
+            <a class="next" rel="next" href="/2024/05/21/%E5%85%AD%E7%BA%A7650/">【六级】 拿下650</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<!-- 脚本部分 -->
+<script>
+  var now = new Date(); 
+  function createtime() { 
+      var grt= new Date("08/29/2023 20:00:00");//在此处修改你的建站时间
+      now.setTime(now.getTime()+250); 
+      days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+      if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+      mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+      snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+      document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+      document.getElementById("times").innerHTML = hnum + " 时 " + mnum + " 分 " + snum + " 秒"; 
+  } 
+  setInterval("createtime()",250);
+  
+</script>
+
+<div class="copyright">
+    <span>Creator | SANSHI</span>
+
+</div>
+
+
+
+
+    <!-- 显示部分 -->
+
+</footer>
+
+    </div>
+    <script>
+        !
+        function() {
+            function n(n, e, t) {
+                return n.getAttribute(e) || t
+            }
+            function e(n) {
+                return document.getElementsByTagName(n)
+            }
+            function t() {
+                var t = e("script"),
+                o = t.length,
+                i = t[o - 1];
+                return {
+                    l: o,
+                    z: n(i, "zIndex", -1),     //置于主页面背后
+                    o: n(i, "opacity", .5),     //线条透明度
+                    c: n(i, "color", "0,0,0"),  //线条颜色
+                    n: n(i, "count", 100)    //线条数量
+                }
+            }
+            function o() {
+                a = m.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+                c = m.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+            }
+            function i() {
+                r.clearRect(0, 0, a, c);
+                var n, e, t, o, m, l;
+                s.forEach(function(i, x) {
+                    for (i.x += i.xa, i.y += i.ya, i.xa *= i.x > a || i.x < 0 ? -1 : 1, i.ya *= i.y > c || i.y < 0 ? -1 : 1, r.fillRect(i.x - .5, i.y - .5, 1, 1), e = x + 1; e < u.length; e++) n = u[e],
+                    null !== n.x && null !== n.y && (o = i.x - n.x, m = i.y - n.y, l = o * o + m * m, l < n.max && (n === y && l >= n.max / 2 && (i.x -= .03 * o, i.y -= .03 * m), t = (n.max - l) / n.max, r.beginPath(), r.lineWidth = t / 2, r.strokeStyle = "rgba(" + d.c + "," + (t + .2) + ")", r.moveTo(i.x, i.y), r.lineTo(n.x, n.y), r.stroke()))
+                }),
+                x(i)
+            }
+            var a, c, u, m = document.createElement("canvas"),
+            d = t(),
+            l = "c_n" + d.l,
+            r = m.getContext("2d"),
+            x = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+            function(n) {
+                window.setTimeout(n, 1e3 / 45)
+            },
+            w = Math.random,
+            y = {
+                x: null,
+                y: null,
+                max: 2e4
+            };
+            m.id = l,
+            m.style.cssText = "position:fixed;top:0;left:0;z-index:" + d.z + ";opacity:" + d.o,
+            e("body")[0].appendChild(m),
+            o(),
+            window.onresize = o,
+            window.onmousemove = function(n) {
+                n = n || window.event,
+                y.x = n.clientX,
+                y.y = n.clientY
+            },
+            window.onmouseout = function() {
+                y.x = null,
+                y.y = null
+            };
+            for (var s = [], f = 0; d.n > f; f++) {
+                var h = w() * a,
+                g = w() * c,
+                v = 2 * w() - 1,
+                p = 2 * w() - 1;
+                s.push({
+                    x: h,
+                    y: g,
+                    xa: v,
+                    ya: p,
+                    max: 6e3
+                })
+            }
+            u = s.concat([y]),
+            setTimeout(function() {
+                i()
+            },
+            100)
+        } ();
+        </script>
+        <!-- 引入jQuery -->
+            <script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+        <!-- 雪花特效2 -->
+            <script type="text/javascript" src="/js/snow2.js"></script>
+        
+</body>
+
+</html>
