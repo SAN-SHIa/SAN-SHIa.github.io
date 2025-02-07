@@ -258,14 +258,18 @@
         </header>
 
         <div class="post-content">
-            <h2 id="基于ESP32实现拟态辉光灯文创产品"><a href="#基于ESP32实现拟态辉光灯文创产品" class="headerlink" title="基于ESP32实现拟态辉光灯文创产品"></a>基于ESP32实现拟态辉光灯文创产品</h2><p><img src="1.png" alt="img"></p>
+            <h2 id="基于ESP32实现拟态辉光灯文创产品"><a href="#基于ESP32实现拟态辉光灯文创产品" class="headerlink" title="基于ESP32实现拟态辉光灯文创产品"></a>基于ESP32实现拟态辉光灯文创产品</h2><img src="/2023/10/05/%E8%90%8C%E8%8A%BD%E6%9D%AF/10/05/%E8%90%8C%E8%8A%BD%E6%9D%AF/1.png" class title="img">
+
 <h3 id="立项背景"><a href="#立项背景" class="headerlink" title="立项背景"></a>立项背景</h3><p>辉光管是发明于1950年代中期，人们期望发明一种非点阵而是<strong>线状化地显示数字的方式</strong>。</p>
 <blockquote>
 <p>辉光管随之诞生，辉光管属于电子管的一种, 发光原理和霓虹灯差不多。通常在一个真空管里，放置一个金属丝网制成的阳极和10个阴极，形状为数字0到9，某些还有一个或两个小数点。在管内充入惰性气体氖气和汞或氩，再通上高压后，每一个阴极可以发出红橙色光。由于混合气体的不同，光也有绿色、蓝色或者紫色。</p>
 </blockquote>
 <p>辉光管是前苏联生产的一种电子管，曾经在大型电子计算机及后期的古董级计算器上起到显示输出的作用，随着技术的飞速发展早已退出历史舞台。</p>
 <p>而我们本次作品则是另辟蹊径，将北京化工大学的校园文化，通过<strong>亚克力板与LED</strong>结合模拟辉光管时钟的效果**，如此一来就可以解决辉光管昂贵，高压和寿命的问题，**展现北化专属的灯光美学，用现代科技复刻上古神器的美。</p>
-<p><img src="2.png" alt="img"></p>
+<img src="/2023/10/05/%E8%90%8C%E8%8A%BD%E6%9D%AF/10/05/%E8%90%8C%E8%8A%BD%E6%9D%AF/2.png" class title="img">
+
+
+
 <h3 id="项目过程"><a href="#项目过程" class="headerlink" title="项目过程"></a>项目过程</h3><p>该项目主要氛围两大板块，分别是利用<strong>激光雕刻技术去设计制作实物模型</strong>和<strong>通过ESP32单片机去控制底部的16个MAX7219</strong>。</p>
 <h4 id="激光雕刻"><a href="#激光雕刻" class="headerlink" title="激光雕刻"></a>激光雕刻</h4><blockquote>
 <h5 id="设计图纸，对应实物"><a href="#设计图纸，对应实物" class="headerlink" title="设计图纸，对应实物"></a>设计图纸，对应实物</h5><p>在项目开始的阶段，就需要在脑海中由明确的设想，究尽是多大的尺寸与可行性的探索。</p>
@@ -276,8 +280,7 @@
 <h4 id="代码与单片机控制"><a href="#代码与单片机控制" class="headerlink" title="代码与单片机控制"></a>代码与单片机控制</h4><blockquote>
 <h5 id="MicroPython"><a href="#MicroPython" class="headerlink" title="MicroPython"></a>MicroPython</h5><p>MAX7219可以通过级联连接多个LED显示模块，从而控制多个数字或字符的显示。使用ESP32的编程环境（Thonny）编写代码。</p>
 <p><strong>单片机接线</strong></p>
-<p><img src="3.png" alt="img"></p>
-</blockquote>
+<img src="/2023/10/05/%E8%90%8C%E8%8A%BD%E6%9D%AF/10/05/%E8%90%8C%E8%8A%BD%E6%9D%AF/3.png" class title="img"></blockquote>
 <h3 id="项目困难"><a href="#项目困难" class="headerlink" title="项目困难"></a>项目困难</h3><blockquote>
 <p><strong>存在如下问题：</strong></p>
 <ul>
@@ -302,7 +305,8 @@
 </li>
 </ol>
 </blockquote>
-<p><img src="4.jpg" alt="img"></p>
+<img src="/2023/10/05/%E8%90%8C%E8%8A%BD%E6%9D%AF/10/05/%E8%90%8C%E8%8A%BD%E6%9D%AF/4.jpg" class title="img">
+
 <h3 id="项目源码"><a href="#项目源码" class="headerlink" title="项目源码"></a>项目源码</h3><blockquote>
 <p><strong>获取系统时间点亮代码</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="keyword">from</span> machine <span class="keyword">import</span> Pin,SPI</span><br><span class="line">&gt;<span class="keyword">import</span> max7219,time</span><br><span class="line">&gt;<span class="keyword">import</span> utime</span><br><span class="line"></span><br><span class="line">&gt;<span class="comment">#引脚定义</span></span><br><span class="line">&gt;spi=SPI(<span class="number">1</span>,<span class="number">1000000</span>,sck=Pin(<span class="number">14</span>),mosi=Pin(<span class="number">13</span>),miso=Pin(<span class="number">19</span>))</span><br><span class="line">&gt;MAX=max7219.Matrix8x8(spi,Pin(<span class="number">15</span>),<span class="number">16</span>) <span class="comment">#CS-pin15；1代表一块8*8，如果有4块就是4；</span></span><br><span class="line"></span><br><span class="line">&gt;<span class="comment">#主函数</span></span><br><span class="line">&gt;<span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">&gt;MAX.brightness(<span class="number">15</span>) <span class="comment">#亮度0-15</span></span><br><span class="line">&gt;MAX.fill(<span class="number">0</span>)  <span class="comment">#1全部点亮;0全部灭</span></span><br><span class="line">&gt;MAX.show()  <span class="comment">#更新显示</span></span><br><span class="line"></span><br><span class="line">&gt;<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"></span><br><span class="line">   <span class="comment"># 获取时间</span></span><br><span class="line">   <span class="comment"># 获取当前时间戳（以秒为单位）</span></span><br><span class="line">   current_time = utime.time()</span><br><span class="line">   <span class="comment"># 将时间戳转换为时间元组</span></span><br><span class="line">   time_tuple = utime.localtime(current_time)</span><br><span class="line">   <span class="comment"># 提取时间元组中的各个字段</span></span><br><span class="line">   <span class="built_in">min</span>, sec = time_tuple[<span class="number">4</span>:<span class="number">6</span>]</span><br><span class="line">   <span class="built_in">min</span>=<span class="built_in">int</span>(<span class="built_in">min</span>)</span><br><span class="line">   sec=<span class="built_in">int</span>(sec)</span><br><span class="line">   <span class="built_in">print</span>(<span class="string">&quot;当前时间:&#123;&#125;:&#123;&#125;&quot;</span>.<span class="built_in">format</span>(<span class="built_in">min</span>, sec))</span><br><span class="line"></span><br><span class="line">   <span class="comment"># 3-35-67- 99</span></span><br><span class="line">   <span class="comment">#19-51-83-115-esp32</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">#针对秒针（小于10的情况：十分位补0）</span></span><br><span class="line">   <span class="comment">#针对秒针（大于10的情况）</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">#针对时针（小于10的情况：十分位补0）</span></span><br><span class="line">   <span class="comment">#针对时针（大于10的情况）</span></span><br><span class="line">   MAX.show()</span><br><span class="line">   time.sleep_ms(<span class="number">1000</span>)</span><br><span class="line">   MAX.fill(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">&gt;<span class="keyword">if</span> __name__==<span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">&gt;main()</span><br></pre></td></tr></table></figure></blockquote>
@@ -337,7 +341,7 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2023/10/10/%E3%80%90C++%E3%80%91%E5%9F%BA%E7%A1%80%E6%B8%85%E5%8D%95/">【C++】基础清单</a>
+                <a class="prev" rel="prev" href="/2023/10/14/%E3%80%90%E8%80%8D%E3%80%91%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8D%E7%A1%AE%E5%AE%9A%E5%BA%A6%E4%B8%8E%E7%99%BE%E5%88%86%E5%B7%AE%EF%BC%89%E5%8D%95%E9%93%BE%E8%A1%A8/">【单链表】数据处理（不确定度与百分差）</a>
             
             
             <a class="next" rel="next" href="/2023/09/26/%E8%AE%A1%E4%BA%8CPython-%E4%B8%B4%E6%97%B6%E6%8A%B1%E4%BD%9B%E8%84%9A%E7%89%88/">【Python】计算机二级临时抱佛脚版本</a>

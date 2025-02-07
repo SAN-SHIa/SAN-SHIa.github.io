@@ -276,7 +276,8 @@
 <p>有时会我们发现过去申请的空间太小了，有时候我们又会觉得申请的空间过大了，那为了合理的时候内存，我们一定会对内存的大小做灵活的调整。那<code>realloc</code><strong>函数就可以做到对动态开辟内存大小的调整</strong>。</p>
 </blockquote>
 <h3 id="C-内存管理方式"><a href="#C-内存管理方式" class="headerlink" title="C++内存管理方式"></a>C++内存管理方式</h3><blockquote>
-<p><img src="compare.png" alt="img"></p>
+<img src="/2024/01/24/%E3%80%90Detail%E3%80%91C-C-%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/01/24/%E3%80%90Detail%E3%80%91C-C-%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/compare.png" class title="img">
+
 <p><strong>new的意义</strong>：开空间+调用构造函数初始化。</p>
 </blockquote>
 <p><strong>注意</strong>：在申请自定义类型的空间时，<code>new</code>会调用构造函数，<code>delete</code>会调用析构函数，而<code>malloc</code>与 <code>free</code>不会。</p>

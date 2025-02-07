@@ -269,7 +269,7 @@
 </blockquote>
 <h4 id="运算表达式"><a href="#运算表达式" class="headerlink" title="运算表达式"></a>运算表达式</h4><blockquote>
 <p><strong>中缀表达式：建立两个栈</strong></p>
-<p><img src="yunsuan.png" alt="img"></p>
+<p><img src="/2024/01/11/DataStructureOverview/yunsuan.png" alt="img"></p>
 <p><strong>后缀表达式：建立一个栈</strong></p>
 <p>遇到数字放入栈中，如果遇到操作符则出栈两个数。</p>
 <p><strong>中缀转后缀：假设括号，将操作符移动到括号右侧。</strong></p>
@@ -356,7 +356,7 @@
 <blockquote>
 <p><strong>网格法前序中序还原二叉树</strong></p>
 <p>x轴写中序，y轴写前序遍历。</p>
-<p><strong><img src="prein.jpg" alt="img"></strong></p>
+<p><strong><img src="/2024/01/11/DataStructureOverview/prein.jpg" alt="img"></strong></p>
 <p><strong>N叉树转化为二叉树</strong></p>
 <p>兄弟结点之间连线，去除父亲结点与长子之外的连线。</p>
 <p><strong>森林转化为二叉树</strong></p>
@@ -366,7 +366,7 @@
 <p><strong>二叉树转化为森林</strong></p>
 <p>断开所有父节点与右孩子的连线，再由二叉树转化为树</p>
 </blockquote>
-<h4 id="哈夫曼树的理解"><a href="#哈夫曼树的理解" class="headerlink" title="哈夫曼树的理解"></a>哈夫曼树的理解</h4><p><img src="Huff.jpg" alt="img"></p>
+<h4 id="哈夫曼树的理解"><a href="#哈夫曼树的理解" class="headerlink" title="哈夫曼树的理解"></a>哈夫曼树的理解</h4><p><img src="/2024/01/11/DataStructureOverview/Huff.jpg" alt="img"></p>
 <h3 id="图"><a href="#图" class="headerlink" title="图"></a>图</h3><h4 id="邻接矩阵遍历"><a href="#邻接矩阵遍历" class="headerlink" title="邻接矩阵遍历"></a>邻接矩阵遍历</h4><blockquote>
 <p><strong>MartrixDFS</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以顶点v0为起点，进行一趟DFS</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">DFS</span><span class="params">(<span class="type">const</span> Graph&amp; G, <span class="type">int</span> v0, <span class="type">int</span> visited[])</span></span>&#123;</span><br><span class="line">  <span class="comment">// 第一步： 先访问v0，标记已访问</span></span><br><span class="line"> visited[v0]=<span class="number">1</span>;</span><br><span class="line"> cout&lt;&lt;v0&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line"> <span class="comment">// 第二步： 再对v0的所有未被访问的邻接点进行DFS</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;G.vexNumber;j++)</span><br><span class="line">  &#123;</span><br><span class="line">       <span class="keyword">if</span>(G.adjMatrix[v0][j]&amp;&amp;!visited[j])</span><br><span class="line">      &#123;</span><br><span class="line">          <span class="built_in">DFS</span>(G,j,visited);</span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 对整个图进行DFS</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">DFS</span><span class="params">(<span class="type">const</span> Graph&amp; G)</span></span>&#123;</span><br><span class="line">   <span class="comment">// 第一步：初始化visited数组</span></span><br><span class="line">  <span class="type">int</span> visited[<span class="number">1000</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i =<span class="number">0</span>;i&lt;G.vexNumber;i++)&#123;</span><br><span class="line">      visited[i]=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">     <span class="comment">// 第二步：以每个未被遍历的顶点为起点，进行DFS</span></span><br><span class="line">     <span class="keyword">for</span>(<span class="type">int</span> i =<span class="number">0</span>;i&lt;G.vexNumber;i++)&#123;</span><br><span class="line">         <span class="keyword">if</span>(visited[i]==<span class="number">1</span>)</span><br><span class="line">         &#123;</span><br><span class="line">             <span class="keyword">continue</span>;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">else</span>&#123;</span><br><span class="line">             <span class="built_in">DFS</span>(G,i,visited);</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -431,7 +431,7 @@
 <h4 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h4><blockquote>
 <p> <strong>二叉排序树按照中序遍历是递增的。</strong><br> <strong>结点插入</strong></p>
 <p> 以不平衡二叉树的根节点开始，沿着新加入节点的方向，找与之相邻的三个结点</p>
-<p><strong><img src="BF.png" alt="img"></strong></p>
+<p><strong><img src="/2024/01/11/DataStructureOverview/BF.png" alt="img"></strong></p>
 <p> <strong>结点删除</strong></p>
 <p> ①删除叶子结点：直接删去。</p>
 <p> ②删除结点仅含有左孩子或右孩子：用唯一的一个孩子替换删除的结点。</p>
@@ -448,7 +448,7 @@
 </li>
 </ul>
 <p><strong>分裂插入：</strong></p>
-<p><img src="B1.png" alt="img"></p>
+<p><img src="/2024/01/11/DataStructureOverview/B1.png" alt="img"></p>
 <p><strong>合并删除:</strong></p>
 <p>理解：父节点对其子结点负责</p>
 <p>删除操作分为三种情况</p>
@@ -457,7 +457,7 @@
 <li>借兄弟节点删除，删除数据后，父节点调整。在兄弟结点满足关键字最小要求的情况下，兄弟结点需要补充上去一个关键字充当父亲结点；</li>
 <li>借不了兄弟结点，删除数据后，父节点调整。需要继续合并子节点。</li>
 </ul>
-<p><img src="B2.jpg" alt="img"></p>
+<p><img src="/2024/01/11/DataStructureOverview/B2.jpg" alt="img"></p>
 </blockquote>
 <h4 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h4><blockquote>
 <p>给定一个长度为<strong>10</strong>，标号为**[0..9]<strong>的存储表<br>给定一组关键字，你需要把这组数据以规定的方法放进存储表中<br>首先把</strong>关键字的后四位数字求和**，该和对10求模，然后按照求模结果，放进存储表中对应标号的位置。<br>（例如，求模结果是2，则这个关键字应该放在存储表中标号为2的位置）</p>
