@@ -13,7 +13,7 @@
 
 
 
-<title>Archives: 2025/1 | SANSHI</title>
+<title>【LLM】本地部署大模型与训练 | SANSHI</title>
 
 
 
@@ -161,22 +161,192 @@
     }
 </script>
             <div class="main">
-                <div class="post-wrap archive">
+                <div class="container">
     
     
-        
-
-        
-            <h3>2025</h3>
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/2025/01/04/%E3%80%90Mac%E3%80%91/">【Mac】</a>
-            <span class="archive-item-date">January 4, 2025</span>
-        </article>
-    
-    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
 </div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">【LLM】本地部署大模型与训练</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">SANSHI</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">February 7, 2025&nbsp;&nbsp;11:26:56</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="在-Mac-上本地部署-DeepSeek"><a href="#在-Mac-上本地部署-DeepSeek" class="headerlink" title="在 Mac 上本地部署 DeepSeek"></a>在 Mac 上本地部署 DeepSeek</h1><p>[TOC]</p>
+<blockquote>
+<p>近期大模型技术因 DeepSeek 的问世而备受关注。本文以 DeepSeek-r1 为例，介绍一种最简单的方式来搭建与部署本地知识库。同时介绍当下流行的几款工具：<strong>【Ollama+ChatBox+AnythingLLM】</strong></p>
+</blockquote>
+<h2 id="下载与部署"><a href="#下载与部署" class="headerlink" title="下载与部署"></a>下载与部署</h2><ol>
+<li><p>下载 <strong>Ollama</strong></p>
+</li>
+<li><p>在 models 标签中选择指定的大模型版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama run deepseek-r1</span><br></pre></td></tr></table></figure>
+
+<p>该命令会自动将模型安装到本地。</p>
+<p>![截屏2025-02-06 17.41.59](【LLM】本地部署大模型与训练&#x2F;截屏2025-02-06 17.41.59.png)</p>
+</li>
+<li><p>下载聊天界面可视化工具 <strong>Chatbox</strong></p>
+<p><a target="_blank" rel="noopener" href="https://chatboxai.app/zh/install?download=darwin-aarch64">Chatbox 下载链接</a></p>
+</li>
+</ol>
+<h2 id="远程连接"><a href="#远程连接" class="headerlink" title="远程连接"></a>远程连接</h2><ol>
+<li><p>配置远程 Ollama 服务（可以在局域网内提供 API 供其他移动端访问）</p>
+<p>打开命令行终端，输入以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">launchctl setenv OLLAMA_HOST <span class="string">&quot;0.0.0.0&quot;</span></span><br><span class="line">launchctl setenv OLLAMA_ORIGINS <span class="string">&quot;*&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第一行：将 <code>OLLAMA_HOST</code> 环境变量设置为 <code>0.0.0.0</code>，这通常意味着应用程序将监听所有可用的网络接口。</li>
+<li>第二行：将 <code>OLLAMA_ORIGINS</code> 环境变量设置为 <code>*</code>，这通常意味着允许来自任何来源的请求。</li>
+</ul>
+</li>
+<li><p>在 <strong>Chatbox</strong> 中设置 API 域名为当前网络状态下的 IP 地址加端口 11434。</p>
+<p><img src="image-20250207180356533.png" alt="image-20250207180356533"><img src="image-20250207180334310.png" alt="image-20250207180334310" style="zoom: 33%;"></p>
+</li>
+</ol>
+<h2 id="本地知识库"><a href="#本地知识库" class="headerlink" title="本地知识库"></a>本地知识库</h2><blockquote>
+<p>为了提高数据的安全性与隐私性，下述内容介绍一种在部署完本地大模型后搭建属于自己的知识库的简单方法AnythingLLM。AnythingLLM是一个功能丰富，集成度很高的RAG框架</p>
+</blockquote>
+<ol>
+<li><p>下载 <a target="_blank" rel="noopener" href="https://anythingllm.com/desktop">AnythingLLM</a></p>
+</li>
+<li><p>下载完成后，创建一个工作区并进行聊天设置。</p>
+<p><img src="image-20250207173613699.png" alt="image-20250207173613699"></p>
+</li>
+<li><p>点击上传按钮，将需要嵌入的文件上传。</p>
+<p><img src="image-20250207173856749.png" alt="image-20250207173856749"><br><img src="image-20250207173938059.png" alt="image-20250207173938059"><br><img src="image-20250207174001057.png" alt="image-20250207174001057"></p>
+</li>
+<li><p>这样就可以实现离线上传文件与解析内容的功能。</p>
+<p><img src="image-20250207174156045.png" alt="image-20250207174156045"></p>
+</li>
+</ol>
+<h2 id="明确几个概念"><a href="#明确几个概念" class="headerlink" title="明确几个概念"></a>明确几个概念</h2><ul>
+<li>检索增强生成原理（Retrieval-Augmented Generation，RAG）</li>
+</ul>
+<p>RAG就是通过检索获取相关的知识并将其融入Prompt，让大模型能够参考相应的知识从而给出合理回答。</p>
+<p><img src="https://pic4.zhimg.com/v2-b1d26a16cfc550c9babaf1ccbd156775_r.jpg" alt="img"></p>
+<ul>
+<li>嵌入模型（Embedding Model）</li>
+</ul>
+<p>嵌入模型是一种将文本转换为向量表示的模型。这些向量能够捕捉文本的语义信息，使得相似的文本在向量空间中距离更近。</p>
+<ul>
+<li>向量数据库（Vector Database）</li>
+</ul>
+<p>向量数据库是一种专门用于存储和检索向量数据的数据库。</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2024/10/02/%E3%80%90OpenCV%E3%80%91%E7%81%B0%E5%BA%A6%E5%88%86%E5%B8%83%E7%9B%B4%E6%96%B9%E5%9B%BE%E8%A7%84%E5%AE%9A%E5%8C%96/">【OpenCV】灰度分布直方图规定化</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
             </div>
             <footer id="footer" class="footer">
     <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
