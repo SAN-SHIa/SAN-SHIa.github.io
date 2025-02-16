@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="SANSHI">
+
+
+
+
+
+<title>【网络】计网基础 | SANSHI</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">SANSHI&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tag</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">SANSHI&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tag</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">【网络】计网基础</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">SANSHI</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">February 16, 2025&nbsp;&nbsp;22:16:42</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/%E7%BD%91%E7%BB%9C/">网络</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><h2 id="网络基础"><a href="#网络基础" class="headerlink" title="网络基础"></a>网络基础</h2><h3 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h3><blockquote>
+<p>[!TIP]</p>
+<ul>
+<li><strong>区分局域网与广域网</strong></li>
+</ul>
+<p><strong>局域网(LAN)</strong>：有限地理范围（如办公室、校园），常见技术有以太网，路由器，交换机，Wi-Fi。</p>
+<p><strong>广域网(WAN)</strong>：跨越地理区域（城市&#x2F;国家），常见技术有 VPN 等。</p>
+<ul>
+<li><strong>区分 IP 地址与 MAC 地址</strong></li>
+</ul>
+<p><strong>MAC地址</strong>用于数据链路层的通信，主要用于局域网内部的设备识别和数据帧传输。</p>
+<p><strong>IP地址</strong>用于网络层的通信，可以在局域网内部或跨越多个网络（如互联网）进行通信。</p>
+</blockquote>
+<h4 id="IP-端口号"><a href="#IP-端口号" class="headerlink" title="IP&#x2F;端口号"></a>IP&#x2F;端口号</h4><blockquote>
+<p>[!NOTE]</p>
+<ul>
+<li><p>端口号是一个2字节16位的整数; </p>
+</li>
+<li><p>端口号用来标识一个进程, 告诉操作系统, 当前的这个数据要交给哪一个进程来处理; </p>
+</li>
+<li><p>IP地址 + 端口号能够标识网络上的<strong>某一台主机的某一个进程</strong>; </p>
+</li>
+<li><p>一个端口号只能被<strong>一个</strong>进程占用</p>
+</li>
+</ul>
+</blockquote>
+<p>基于<code>IP + port</code>的通信方式我们称作**<code> socket</code>**。思考为什么不用 <code>pid</code> 而使用<code>port</code>？</p>
+<ol>
+<li>不是所有进程都需要通信</li>
+<li>系统和网络功能解耦</li>
+</ol>
+<p><strong>进程和端口号的对应关系</strong>：一个进程可以对应多个端口号</p>
+<h4 id="TCP和UDP"><a href="#TCP和UDP" class="headerlink" title="TCP和UDP"></a>TCP和UDP</h4><p><strong>TCP（传输控制协议）<strong>面向字节流（Stream-oriented）。<strong>保证数据的可靠传输</strong>。发送方和接收方通过TCP协议建立连接后，数据会被封装成多个有序的报文段（Segment），并在传输过程中进行错误检测、确认、重传和流量控制。TCP确保数据的完整性、顺序性和可靠性。适用于</strong>对数据可靠性要求较高</strong>的场景，如文件传输（FTP）、网页浏览（HTTP&#x2F;HTTPS）、电子邮件（SMTP&#x2F;POP3）等。</p>
+<p><strong>UDP（用户数据报协议）</strong>：面向数据报（Datagram-oriented）。UDP将数据封装成独立的数据报（Datagram），每个数据报独立传输，不保证顺序、可靠性或完整性。UDP不建立连接，也不进行错误检测和重传机制，因此<strong>传输速度快，但可靠性较低</strong>。适用于对实时性要求较高且可以容忍一定数据丢失的场景，如视频流媒体（RTP）、语音通话（VoIP）。</p>
+<h4 id="网络字节序"><a href="#网络字节序" class="headerlink" title="网络字节序"></a>网络字节序</h4><p>TCP&#x2F;IP协议决定网络数据流采用<strong>大端字节序</strong>，即低地址高字节。</p>
+<blockquote>
+<p>[!IMPORTANT]<br>复习一下<strong>大小端</strong></p>
+<p>假设有一个16位的整数 <code>0x1234</code>，在大端字节序中，<code>0x12</code>（高字节）会被存储在低地址位置，<code>0x34</code>（低字节）会被存储在高地址位置。</p>
+</blockquote>
+<h3 id="OSI与TCP-IP模型"><a href="#OSI与TCP-IP模型" class="headerlink" title="OSI与TCP&#x2F;IP模型"></a>OSI与TCP&#x2F;IP模型</h3><p><strong>网络层与传输层是Linux操作系统中模块的一部分。</strong></p>
+<p><strong>网络通信的本质</strong>：就是贯穿协议栈的过程。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">    A[OSI七层模型] --&gt;|实际工程实现| B[TCP/IP四层模型]</span><br><span class="line">    B --&gt; C[Linux协议栈实现]</span><br><span class="line">    </span><br><span class="line">    subgraph OSI模型</span><br><span class="line">    L7[应用层] --&gt; L6[表示层]</span><br><span class="line">    L6 --&gt; L5[会话层]</span><br><span class="line">    L5 --&gt; L4[传输层]</span><br><span class="line">    L4 --&gt; L3[网络层]</span><br><span class="line">    L3 --&gt; L2[数据链路层]</span><br><span class="line">    L2 --&gt; L1[物理层]</span><br><span class="line">    end</span><br><span class="line">    </span><br><span class="line">    subgraph TCP/IP模型</span><br><span class="line">    T4[应用层] --&gt; T3[传输层]</span><br><span class="line">    T3 --&gt; T2[网络层]</span><br><span class="line">    T2 --&gt; T1[链路层]</span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[!IMPORTANT]</p>
+<h4 id="TCP-IP-四层模型"><a href="#TCP-IP-四层模型" class="headerlink" title="TCP&#x2F;IP 四层模型"></a>TCP&#x2F;IP 四层模型</h4><ul>
+<li>应用层：这是最接近用户的一层，负责处理特定的应用程序需求，比如网页浏览（HTTP）、邮件（SMTP）等。</li>
+<li>传输层：这一层负责端到端的数据传输，TCP和UDP就在这里工作。它们决定数据如何从一台设备传输到另一台设备。</li>
+<li>网络层：这一层负责将数据从源设备传输到目标设备，主要协议是IP（Internet Protocol）。</li>
+<li>链路层：这一层负责在物理设备之间传输数据，比如以太网（Ethernet）。</li>
+</ul>
+</blockquote>
+<p><strong>以太网</strong>：以太网是一种广泛应用于局域网（LAN）的网络技术，用于实现同一网络环境内设备之间的数据传输和通信。在以太网中，<strong>同一局域网内的任意两台主机可以通过物理链路（如双绞线、光纤）直接通信</strong>，无需经过外部网络的中转。</p>
+<p>数据从上层协议（如IP协议）传递到以太网时，会在每一层添加相应的报头（Header）。</p>
+<p><strong>报文的结构</strong>：报文&#x3D;报头+有效载荷 </p>
+<p><strong>数据的封装与解包</strong>：网络通信过程中，数据在发送方从应用层向下传递到链路层，每经过一层都会被封装上该层的协议头（Header）。例如：</p>
+<ul>
+<li>应用层数据被封装为TCP或UDP数据报。</li>
+<li>TCP&#x2F;UDP数据报被封装为IP数据包。</li>
+<li>IP数据包被封装为以太网帧。</li>
+</ul>
+<p>在计算机网络的每一层协议中，通常需要具备将报头（Header）与有效载荷（Payload）分离的能力。每一层协议通常需要在其报头中提供一种机制，用于决定将有效载荷传递给上层的哪一个协议。（在TCP&#x2F;IP协议栈中，IP报头中的“协议”字段（Protocol Field）用于标识上层协议（如TCP、UDP等））</p>
+<p><strong>交换机</strong>：以太网发生数据碰撞问题（碰撞避免算法），现代网络设计中广泛采用<strong>交换机</strong>来有效降低碰撞概率。交换机通过划分碰撞域（Collision Domain），将每个端口划分为独立的冲突域，从而显著减少数据碰撞的可能性</p>
+<p><strong>IP协议通过屏蔽底层网络的差异化，实现了不同网络之间的无缝互连。</strong> 这一功能的实现主要依赖于工作在IP层的路由器。路由器作为网络层的核心设备，通过解析IP地址，实现数据包在不同网络之间的转发和路由选择，从而支持跨网络的通信。</p>
+<p><img src="/2025/02/16/%E3%80%90%E7%BD%91%E7%BB%9C%E3%80%91%E8%AE%A1%E7%BD%91%E5%9F%BA%E7%A1%80/image-20250213191616514.png" alt="img"></p>
+<h3 id="网络编程套接字"><a href="#网络编程套接字" class="headerlink" title="网络编程套接字"></a>网络编程套接字</h3><p><strong>网络通信的本质</strong>：进程的通信</p>
+<p><strong>网络套接字</strong>（Socket）是计算机网络中不同主机之间通信的端点，是实现进程间通信的关键技术。</p>
+<h4 id="常见-API-分析"><a href="#常见-API-分析" class="headerlink" title="常见 API 分析"></a>常见 API 分析</h4><ol>
+<li><code>socket()</code></li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">socket</span><span class="params">(<span class="type">int</span> domain, <span class="type">int</span> type, <span class="type">int</span> protocol)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>作用</strong>：创建通信端点</p>
+</li>
+<li><p><strong>参数</strong>：</p>
+<ul>
+<li><code>domain</code>：地址族（AF_INET表示IPv4）</li>
+<li><code>type</code>：通信语义（SOCK_DGRAM表示UDP）</li>
+<li><code>protocol</code>：协议类型（0表示自动选择）</li>
+</ul>
+</li>
+<li><p><strong>格式</strong>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> sockfd = <span class="built_in">socket</span>(AF_INET, SOCK_DGRAM, <span class="number">0</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="2">
+<li><code>bind()</code></li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">bind</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="keyword">struct</span> sockaddr *addr, <span class="type">socklen_t</span> addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>作用</strong>：将套接字与地址&#x2F;端口绑定</p>
+</li>
+<li><p><strong>关键数据结构</strong>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> &#123;</span><br><span class="line">    <span class="type">sa_family_t</span>    sin_family; <span class="comment">// 地址族（AF_INET）</span></span><br><span class="line">    <span class="type">in_port_t</span>      sin_port;   <span class="comment">// 端口号（网络字节序）</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">in_addr</span> sin_addr;   <span class="comment">// IP地址</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>格式</strong>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server.sin_port = <span class="built_in">htons</span>(serverport); <span class="comment">// 端口转为网络字节序</span></span><br><span class="line">server.sin_addr.s_addr = <span class="built_in">inet_addr</span>(serverip.<span class="built_in">c_str</span>()); <span class="comment">// IP字符串转网络格式</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="3">
+<li><code>sendto()</code>&#x2F;<code>recvfrom()</code></li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">ssize_t</span> <span class="title">sendto</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="type">void</span> *buf, <span class="type">size_t</span> len, <span class="type">int</span> flags,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">const</span> <span class="keyword">struct</span> sockaddr *dest_addr, <span class="type">socklen_t</span> addrlen)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">ssize_t</span> <span class="title">recvfrom</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">void</span> *buf, <span class="type">size_t</span> len, <span class="type">int</span> flags,</span></span></span><br><span class="line"><span class="params"><span class="function">                <span class="keyword">struct</span> sockaddr *src_addr, <span class="type">socklen_t</span> *addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>特点</strong>：面向无连接的收发接口</li>
+<li><strong>参数</strong>：<ul>
+<li><code>buf</code>：数据缓冲区</li>
+<li><code>src_addr</code>&#x2F;<code>dest_addr</code>：自动获取&#x2F;指定通信方地址</li>
+<li><code>addrlen</code>：地址结构体长度指针</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li>字节序转换函数</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>htons()</code></td>
+<td>主机字节序→网络字节序（端口）</td>
+<td><code>htons(8080)</code></td>
+</tr>
+<tr>
+<td><code>ntohs()</code></td>
+<td>网络字节序→主机字节序（端口）</td>
+<td><code>ntohs(server.sin_port)</code></td>
+</tr>
+<tr>
+<td><code>inet_addr()</code></td>
+<td>字符串IP→网络字节序</td>
+<td><code>inet_addr(&quot;192.168.1.1&quot;)</code></td>
+</tr>
+<tr>
+<td><code>inet_ntoa()</code></td>
+<td>网络字节序→字符串IP</td>
+<td><code>inet_ntoa(client.sin_addr)</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>[!TIP]</p>
+<ol>
+<li><p><strong>IP地址选择</strong>：</p>
+<ul>
+<li>服务器绑定<code>0.0.0.0</code>表示监听所有网络接口</li>
+<li>客户端连接时使用服务器内网IP（如<code>192.168.x.x</code>）</li>
+</ul>
+</li>
+<li><p><strong>端口管理</strong>：</p>
+<ul>
+<li>服务器需要指定固定端口（&gt;1024）</li>
+<li>客户端端口由系统自动分配</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<h2 id="实验：搭建UDP服务器并在客户端打印处理结果"><a href="#实验：搭建UDP服务器并在客户端打印处理结果" class="headerlink" title="实验：搭建UDP服务器并在客户端打印处理结果"></a>实验：搭建UDP服务器并在客户端打印处理结果</h2><h3 id="调试事项"><a href="#调试事项" class="headerlink" title="调试事项"></a>调试事项</h3><p>需要注意的是：在同一台电脑上进行测试时，连接主机时候记得使用内网 IP 而非公网 IP</p>
+<blockquote>
+<p>[!TIP]</p>
+<p><code>netstat -nlup</code> 是一个用于显示网络连接、路由表、接口统计信息、伪装连接和多播成员的命令。具体来说：</p>
+<ul>
+<li><code>-n</code>：显示数字地址和端 口号，而不是尝试解析主机名和服务名。</li>
+<li><code>-l</code>：显示监听中的套接字。</li>
+<li><code>-u</code>：显示 UDP 协议的连接。</li>
+<li><code>-p</code>：显示使用套接字的进程 ID 和进程名称。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看UDP端口监听情况</span></span><br><span class="line">netstat -nlup</span><br><span class="line"><span class="comment"># 查看TCP连接状态</span></span><br><span class="line">netstat -ant</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2025/02/16/%E3%80%90%E7%BD%91%E7%BB%9C%E3%80%91%E8%AE%A1%E7%BD%91%E5%9F%BA%E7%A1%80/image-20250216151520027.png" alt="image-20250216151520027"></p>
+</blockquote>
+<p><strong>服务器端</strong>（<code>udpServer</code>）：绑定指定端口持续监听；接收客户端数据并打印；添加”server echo#”前缀后返回给客户端。</p>
+<p><strong>客户端</strong>（<code>udpClient</code>）：连接指定IP和端口的服务器；交互式发送用户输入的消息；接收并打印服务器响应</p>
+<h3 id="运行结果："><a href="#运行结果：" class="headerlink" title="运行结果："></a>运行结果：</h3><p><img src="/2025/02/16/%E3%80%90%E7%BD%91%E7%BB%9C%E3%80%91%E8%AE%A1%E7%BD%91%E5%9F%BA%E7%A1%80/image-20250216180446271.png" alt="image-20250216180446271"></p>
+<ol>
+<li><p>启动服务器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./udpserver 8080</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动客户端：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./udpclient 127.0.0.1 8080      <span class="comment"># 本地测试</span></span><br><span class="line">./udpclient 192.168.1.100 8080  <span class="comment"># 局域网测试</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>交互过程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">client say: Hello</span><br><span class="line">server echo# Hello</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><p><code>Main.cc</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&quot;udpServer.hpp&quot;</span></span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Usage</span><span class="params">(std::string proc)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Usage: &quot;</span> &lt;&lt; proc &lt;&lt; <span class="string">&quot; port[1024+]&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 启动服务器：。/udpserver  port */</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(argc != <span class="number">2</span>)&#123;</span><br><span class="line">        <span class="built_in">Usage</span>(argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">uint16_t</span> port = <span class="built_in">atoi</span>(argv[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="function">std::unique_ptr&lt;udpServer&gt; <span class="title">svr</span><span class="params">(<span class="keyword">new</span> udpServer(port))</span></span>;</span><br><span class="line"></span><br><span class="line">    svr -&gt; <span class="built_in">Init</span>();</span><br><span class="line">    svr -&gt; <span class="built_in">Run</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><code>udpClient.cc</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;arpa/inet.h&gt;</span> <span class="comment">//大小端</span></span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;strings.h&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span> <span class="comment">// for strerror</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Usage</span><span class="params">(std::string proc)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Usage: &quot;</span> &lt;&lt; proc &lt;&lt; <span class="string">&quot; ServerIP + ServerPort&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*客户端*/</span></span><br><span class="line"><span class="comment">// 运行格式：./udpClient serverip serverport</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">3</span>)&#123;</span><br><span class="line">        <span class="built_in">Usage</span>(argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    std::string serverip = argv[<span class="number">1</span>];</span><br><span class="line">    <span class="type">uint16_t</span> serverport = <span class="built_in">atoi</span>(argv[<span class="number">2</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 服务器信息</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> server;</span><br><span class="line">    <span class="built_in">bzero</span>(&amp;server, <span class="built_in">sizeof</span>(server));</span><br><span class="line">    server.sin_family = AF_INET;</span><br><span class="line">    server.sin_port = <span class="built_in">htons</span>(serverport); <span class="comment">// 端口号要转为网络序列</span></span><br><span class="line">    server.sin_addr.s_addr = <span class="built_in">inet_addr</span>(serverip.<span class="built_in">c_str</span>()); <span class="comment">// 确保发送到指定的服务器IP地址</span></span><br><span class="line">    <span class="type">socklen_t</span> len = <span class="built_in">sizeof</span>(server);</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 创建套接字</span></span><br><span class="line">    <span class="type">int</span> sockfd = <span class="built_in">socket</span>(AF_INET, SOCK_DGRAM, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span>(sockfd &lt; <span class="number">0</span>)&#123;</span><br><span class="line">        cerr &lt;&lt; <span class="string">&quot;socket error: &quot;</span> &lt;&lt; <span class="built_in">strerror</span>(errno) &lt;&lt; endl;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;socket success&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// client 需要bind吗？ 不需要，因为客户端的端口号是由操作系统自动分配的 不需要用户显示绑定，从而避免端口冲突。</span></span><br><span class="line">    <span class="comment">// 系统在首次发送信息时bind</span></span><br><span class="line">    string message;</span><br><span class="line">    <span class="type">char</span> buffer[<span class="number">1024</span>];</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;client say: &quot;</span>;</span><br><span class="line">        <span class="built_in">getline</span>(cin, message);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1. 发送数据 2.发给谁？</span></span><br><span class="line">        <span class="type">ssize_t</span> sent_bytes = <span class="built_in">sendto</span>(sockfd, message.<span class="built_in">c_str</span>(), message.<span class="built_in">size</span>(), <span class="number">0</span>, (<span class="keyword">struct</span> sockaddr*)&amp;server, len);</span><br><span class="line">        <span class="keyword">if</span> (sent_bytes &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            cerr &lt;&lt; <span class="string">&quot;sendto error: &quot;</span> &lt;&lt; <span class="built_in">strerror</span>(errno) &lt;&lt; endl;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;sendto success, sent &quot;</span> &lt;&lt; sent_bytes &lt;&lt; <span class="string">&quot; bytes to &quot;</span> </span><br><span class="line">                 &lt;&lt; <span class="built_in">inet_ntoa</span>(server.sin_addr) &lt;&lt; <span class="string">&quot;:&quot;</span> &lt;&lt; <span class="built_in">ntohs</span>(server.sin_port) &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 收到消息</span></span><br><span class="line">        <span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> tmp;</span><br><span class="line">        <span class="type">socklen_t</span> len = <span class="built_in">sizeof</span>(tmp);</span><br><span class="line"></span><br><span class="line">        <span class="type">size_t</span> s = <span class="built_in">recvfrom</span>(sockfd, buffer, <span class="built_in">sizeof</span>(buffer) - <span class="number">1</span>, <span class="number">0</span>, (<span class="keyword">struct</span> sockaddr*)&amp;tmp, &amp;len);</span><br><span class="line">        <span class="keyword">if</span>(s &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            buffer[s] = <span class="number">0</span>;</span><br><span class="line">            cout &lt;&lt; buffer &lt;&lt; endl; <span class="comment">// 确保输出服务器响应</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            cerr &lt;&lt; <span class="string">&quot;recvfrom error: &quot;</span> &lt;&lt; <span class="built_in">strerror</span>(errno) &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">close</span> (sockfd);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>udpServer.hpp</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="keyword">pragma</span> once</span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;arpa/inet.h&gt;</span> <span class="comment">//大小端    </span></span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">uint16_t</span> defaultPort = <span class="number">8080</span>;  </span><br><span class="line">std::string defaultIP = <span class="string">&quot;0.0.0.0&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">udpServer</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">udpServer</span>(<span class="type">const</span> <span class="type">uint16_t</span> &amp;port = defaultPort, <span class="type">const</span> std::string &amp;ip = defaultIP)</span><br><span class="line">        : _sockfd(<span class="number">-1</span>), _port(port), _ip(ip), _isrunning(<span class="literal">false</span>) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">Init</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="comment">/* 1. 套接字创建初始化? */</span></span><br><span class="line">        _sockfd = <span class="built_in">socket</span>(AF_INET, SOCK_DGRAM, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span>(_sockfd &lt; <span class="number">0</span>)&#123;</span><br><span class="line">            std::cerr &lt;&lt; <span class="string">&quot;socket error&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">            <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;socket success&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/* 2. 绑定端口信息 */</span></span><br><span class="line">        <span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> local; <span class="comment">// 填充信息到这个结构体中（定义在栈上——用户区）</span></span><br><span class="line">        <span class="built_in">bzero</span>(&amp;local, <span class="built_in">sizeof</span>(local));</span><br><span class="line">        local.sin_family = AF_INET; <span class="comment">// 地址族 ipv4</span></span><br><span class="line">        <span class="comment">// local.sin_port = _port; //端口号： 需要将端口号也发送给对方，所以要保证端口号是网络字节序列（确保是大端）</span></span><br><span class="line">        local.sin_port = <span class="built_in">htons</span>(_port); <span class="comment">// 将主机字节序转换为网络字节序 </span></span><br><span class="line">        local.sin_addr.s_addr = <span class="built_in">inet_addr</span>(_ip.<span class="built_in">c_str</span>()); <span class="comment">// 确保绑定到指定的IP地址</span></span><br><span class="line">        <span class="comment">// 这里的 IP 地址必须是网络字节序，所以需要将字符串转换为网络字节序uint32_t  </span></span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> n = <span class="built_in">bind</span>(_sockfd, (<span class="type">const</span> <span class="keyword">struct</span> sockaddr*)&amp;local, <span class="built_in">sizeof</span>(local));</span><br><span class="line">        <span class="keyword">if</span>(n &lt; <span class="number">0</span>)&#123;</span><br><span class="line">            std::cerr &lt;&lt; <span class="string">&quot;bind error: &quot;</span> &lt;&lt; <span class="built_in">strerror</span>(errno) &lt;&lt; std::endl;</span><br><span class="line">            <span class="built_in">exit</span>(<span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;bind success&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">Run</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="comment">// 服务器</span></span><br><span class="line">        _isrunning = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">while</span>(_isrunning)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> client;</span><br><span class="line">            <span class="type">socklen_t</span> len = <span class="built_in">sizeof</span>(client);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 从客户端接收数据</span></span><br><span class="line">            <span class="type">char</span> inbuffer[<span class="number">1024</span>];</span><br><span class="line">            <span class="type">ssize_t</span> n = <span class="built_in">recvfrom</span>(_sockfd, inbuffer, <span class="built_in">sizeof</span>(inbuffer) - <span class="number">1</span>, <span class="number">0</span>, (<span class="keyword">struct</span> sockaddr*)&amp;client, &amp;len);</span><br><span class="line">            <span class="keyword">if</span> (n &lt; <span class="number">0</span>)&#123;</span><br><span class="line">                std::cerr &lt;&lt; <span class="string">&quot;recvfrom error: &quot;</span> &lt;&lt; <span class="built_in">strerror</span>(errno) &lt;&lt; std::endl;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                std::cout &lt;&lt; <span class="string">&quot;recvfrom success, received &quot;</span> &lt;&lt; n &lt;&lt; <span class="string">&quot; bytes from &quot;</span> </span><br><span class="line">                          &lt;&lt; <span class="built_in">inet_ntoa</span>(client.sin_addr) &lt;&lt; <span class="string">&quot;:&quot;</span> &lt;&lt; <span class="built_in">ntohs</span>(client.sin_port) &lt;&lt; std::endl;</span><br><span class="line">            &#125;</span><br><span class="line">            inbuffer[n] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 充当一次数据的处理</span></span><br><span class="line">            std::string info = inbuffer;</span><br><span class="line">            std::string echo_string = <span class="string">&quot;server echo# &quot;</span> + info; <span class="comment">// 确保处理后的数据正确</span></span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;server received: &quot;</span> &lt;&lt; info &lt;&lt; std::endl;</span><br><span class="line">            <span class="comment">// std::cout &lt;&lt; &quot;server sending: &quot; &lt;&lt; echo_string &lt;&lt; std::endl;</span></span><br><span class="line">            <span class="comment">// 处理后的数据再发回到客户端</span></span><br><span class="line">            <span class="type">ssize_t</span> sent_bytes = <span class="built_in">sendto</span>(_sockfd, echo_string.<span class="built_in">c_str</span>(), echo_string.<span class="built_in">size</span>(), <span class="number">0</span>, (<span class="keyword">struct</span> sockaddr*)&amp;client, len);</span><br><span class="line">            <span class="keyword">if</span> (sent_bytes &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                std::cerr &lt;&lt; <span class="string">&quot;sendto error: &quot;</span> &lt;&lt; <span class="built_in">strerror</span>(errno) &lt;&lt; std::endl;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                std::cout &lt;&lt; <span class="string">&quot;sendto success, sent &quot;</span> &lt;&lt; sent_bytes &lt;&lt; <span class="string">&quot; bytes to &quot;</span> </span><br><span class="line">                          &lt;&lt; <span class="built_in">inet_ntoa</span>(client.sin_addr) &lt;&lt; <span class="string">&quot;:&quot;</span> &lt;&lt; <span class="built_in">ntohs</span>(client.sin_port) &lt;&lt; std::endl;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~<span class="built_in">udpServer</span>()&#123;</span><br><span class="line">        <span class="keyword">if</span>(_sockfd != <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="built_in">close</span>(_sockfd);</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> _sockfd; <span class="comment">//网络文件描述符</span></span><br><span class="line">    std::string _ip; <span class="comment">// 任意地址bind IP地址</span></span><br><span class="line">    <span class="type">uint16_t</span> _port; <span class="comment">//端口号</span></span><br><span class="line">    <span class="type">bool</span> _isrunning;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><code>makefile</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.PHONY:all</span><br><span class="line">all: udpserver udpclient</span><br><span class="line">udpclient: udpClient.cc</span><br><span class="line">	g++ -o $@ $^ -std=c+<span class="number">+11</span></span><br><span class="line">udpserver: Main.cc</span><br><span class="line">	g++ -o $@ $^ -std=c+<span class="number">+11</span></span><br><span class="line">	</span><br><span class="line">.PHONY:clean</span><br><span class="line">clean:</span><br><span class="line">	rm -f udpserver udpclient</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/C/"># C</a>
+                    
+                        <a href="/tags/%E7%BD%91%E7%BB%9C/"># 网络</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2025/02/07/%E3%80%90LLM%E3%80%91%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E5%A4%A7%E6%A8%A1%E5%9E%8B%E4%B8%8E%E8%AE%AD%E7%BB%83/">【LLM】本地部署大模型与训练</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<!-- 脚本部分 -->
+<script>
+  var now = new Date(); 
+  function createtime() { 
+      var grt= new Date("08/29/2023 20:00:00");//在此处修改你的建站时间
+      now.setTime(now.getTime()+250); 
+      days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+      if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+      mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+      snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+      document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+      document.getElementById("times").innerHTML = hnum + " 时 " + mnum + " 分 " + snum + " 秒"; 
+  } 
+  setInterval("createtime()",250);
+  
+</script>
+
+<div class="copyright">
+    <span>Creator | SANSHI</span>
+
+</div>
+
+
+
+
+    <!-- 显示部分 -->
+
+</footer>
+
+    </div>
+    <script>
+        !
+        function() {
+            function n(n, e, t) {
+                return n.getAttribute(e) || t
+            }
+            function e(n) {
+                return document.getElementsByTagName(n)
+            }
+            function t() {
+                var t = e("script"),
+                o = t.length,
+                i = t[o - 1];
+                return {
+                    l: o,
+                    z: n(i, "zIndex", -1),     //置于主页面背后
+                    o: n(i, "opacity", .5),     //线条透明度
+                    c: n(i, "color", "0,0,0"),  //线条颜色
+                    n: n(i, "count", 100)    //线条数量
+                }
+            }
+            function o() {
+                a = m.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+                c = m.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+            }
+            function i() {
+                r.clearRect(0, 0, a, c);
+                var n, e, t, o, m, l;
+                s.forEach(function(i, x) {
+                    for (i.x += i.xa, i.y += i.ya, i.xa *= i.x > a || i.x < 0 ? -1 : 1, i.ya *= i.y > c || i.y < 0 ? -1 : 1, r.fillRect(i.x - .5, i.y - .5, 1, 1), e = x + 1; e < u.length; e++) n = u[e],
+                    null !== n.x && null !== n.y && (o = i.x - n.x, m = i.y - n.y, l = o * o + m * m, l < n.max && (n === y && l >= n.max / 2 && (i.x -= .03 * o, i.y -= .03 * m), t = (n.max - l) / n.max, r.beginPath(), r.lineWidth = t / 2, r.strokeStyle = "rgba(" + d.c + "," + (t + .2) + ")", r.moveTo(i.x, i.y), r.lineTo(n.x, n.y), r.stroke()))
+                }),
+                x(i)
+            }
+            var a, c, u, m = document.createElement("canvas"),
+            d = t(),
+            l = "c_n" + d.l,
+            r = m.getContext("2d"),
+            x = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+            function(n) {
+                window.setTimeout(n, 1e3 / 45)
+            },
+            w = Math.random,
+            y = {
+                x: null,
+                y: null,
+                max: 2e4
+            };
+            m.id = l,
+            m.style.cssText = "position:fixed;top:0;left:0;z-index:" + d.z + ";opacity:" + d.o,
+            e("body")[0].appendChild(m),
+            o(),
+            window.onresize = o,
+            window.onmousemove = function(n) {
+                n = n || window.event,
+                y.x = n.clientX,
+                y.y = n.clientY
+            },
+            window.onmouseout = function() {
+                y.x = null,
+                y.y = null
+            };
+            for (var s = [], f = 0; d.n > f; f++) {
+                var h = w() * a,
+                g = w() * c,
+                v = 2 * w() - 1,
+                p = 2 * w() - 1;
+                s.push({
+                    x: h,
+                    y: g,
+                    xa: v,
+                    ya: p,
+                    max: 6e3
+                })
+            }
+            u = s.concat([y]),
+            setTimeout(function() {
+                i()
+            },
+            100)
+        } ();
+        </script>
+        <!-- 引入jQuery -->
+            <script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+        <!-- 雪花特效2 -->
+            <script type="text/javascript" src="/js/snow2.js"></script>
+        
+</body>
+
+</html>
